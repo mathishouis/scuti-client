@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@parcel/transformer-vue": "^2.7.0",
+    "parcel-reporter-static-files-copy": "^1.4.0",
     "querystring-es3": "^0.2.1"
   }
 }
