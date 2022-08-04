@@ -1,0 +1,31 @@
+{
+  "name": "scuti-client",
+  "version": "1.0.0",
+  "description": "Scuti client",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel public/index.html --no-cache",
+    "build": "parcel build public/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kozennnn/scuti-client.git"
+  },
+  "author": "Kozen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kozennnn/scuti-client/issues"
+  },
+  "homepage": "https://github.com/kozennnn/scuti-client#readme",
+  "dependencies": {
+    "buffer.ws": "^1.0.5",
+    "parcel": "^2.7.0",
+    "scuti-renderer": "^1.0.1",
+    "typescript": "^4.7.4",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@parcel/transformer-vue": "^2.7.0",
+    "querystring-es3": "^0.2.1"
+  }
+}
