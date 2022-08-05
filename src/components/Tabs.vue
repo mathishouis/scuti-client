@@ -1,7 +1,7 @@
 <template>
     <div class="Habbo-Tabs__Container">
         <div class="Habbo-Tabs">
-            <div class="Habbo-Tabs__Tab-Container" :class="[selectedTabIndex === index ? 'Habbo-Tabs__Selected' : '', large ? 'Habbo-Tabs__Large' : '']" v-for="(tab, index) in tabs" :key="tab.id" @click="setSelected(index)">
+            <div class="Habbo-Tabs__Tab-Container" :class="[selectedTabIndex === index ? 'Habbo-Tabs__Tab-Container--active' : '', large ? 'Habbo-Tabs__Large' : '']" v-for="(tab, index) in tabs" :key="tab.id" @click="setSelected(index)">
                 <div v-if="tab.tooltip">
                     <tooltip :tooltip="tab.tooltip">
                         <span>{{ tab.title }}</span>
@@ -20,7 +20,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
     import {defineComponent} from "vue";
 
     export default defineComponent({
@@ -75,6 +75,7 @@
     .Habbo-Tabs__Container .Habbo-Tabs {
         display: flex;
         flex-direction: row;
+        position: relative;
     }
     .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Large {
         width: 100%;
@@ -99,14 +100,14 @@
         line-height: 9px;
         text-align: center;
     }
-    .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Selected {
+    .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Tab-Container--active {
         border-image: url(./../../static/images/tab_active.png);
         border-image-slice: 7 7 7 7 fill;
         border-image-width: 7px 7px 7px 7px;
         border-image-outset: 0 0 0 0;
         border-image-repeat: repeat repeat;
     }
-    .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Selected:hover {
+    .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Tab-Container--active:hover {
         border-image: url(./../../static/images/tab_active.png);
         border-image-slice: 7 7 7 7 fill;
         border-image-width: 7px 7px 7px 7px;

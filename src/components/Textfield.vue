@@ -1,5 +1,5 @@
 <template>
-    <div class="Habbo-Textfield" :style="{ width: width - 12 + 'px' }">
+    <div class="Habbo-Textfield" :style="{ width: width }">
         <div class="Habbo-Textfield__Input-Focus-Button" @click="focus">
         </div>
         <input class="Habbo-Textfield__Input" :placeholder="placeholder" type="text" @input="input($event.target.value)" ref="input">
@@ -68,7 +68,7 @@
 
 </style>
 
-<script>
+<script lang="ts">
     import { defineComponent } from 'vue'
 
     export default defineComponent({

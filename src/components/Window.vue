@@ -1,6 +1,8 @@
 <template>
     <div class="Habbo-Window" :style="{ width: width + 'px', height: height + 'px', resize: resizableX && resizableY ? 'both' : resizableX ? 'horizontal' : resizableY ? 'vertical' : '' }" v-drag="{handle: '#dragger'}">
-        <div class="Habbo-Window__Header" id="dragger">
+        <div class="Habbo-Window__Header">
+            <div class="Habbo-Window__Handle" id="dragger">
+            </div>
             <div class="Habbo-Window__Title">
                 {{ title }}
             </div>
@@ -17,7 +19,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
     import { defineComponent } from 'vue';
 
     export default defineComponent({
@@ -58,6 +60,13 @@
         transform: translateX(-50%);
         margin-top: 8px;
         letter-spacing: 0.1pt;
+    }
+    .Habbo-Window__Header .Habbo-Window__Handle {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: calc(100% - 52px);
     }
     .Habbo-Window__Header .Habbo-Window__Button-Group {
         height: 20px;

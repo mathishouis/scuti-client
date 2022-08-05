@@ -6,7 +6,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
     import { defineComponent } from 'vue';
 
     export default defineComponent({
@@ -31,6 +31,7 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        position: relative;
     }
     .Habbo-Toolbar-Icon img {
         -webkit-filter: drop-shadow(1px 1px 0px #141312);

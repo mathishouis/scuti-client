@@ -71,7 +71,14 @@
             </tooltip>
         </div>
         <div class="Habbo-Navigator__Search-Panel">
-            <textfield class="Habbo-Navigator__Search-Textfield" :width="235" placeholder="Filtrer apparts par..."/>
+            <selection-list class="Habbo-Navigator__Search-Filter" :items="[
+                { name: 'Tout', value: 'all', selected: true },
+                { name: 'Nom d\'appart', value: 'room-name' },
+                { name: 'Propriétaire', value: 'owner' },
+                { name: 'Tag', value: 'tag' },
+                { name: 'Groupe', value: 'group' }
+            ]" width="104px"/>
+            <textfield class="Habbo-Navigator__Search-Textfield" width="233px" placeholder="Filtrer apparts par..."/>
         </div>
         <div class="Habbo-Navigator__Action-Panel">
             <tooltip tooltip="Créer un nouvel appart !">
@@ -85,10 +92,17 @@
                 </div>
             </tooltip>
         </div>
+        <div class="Habbo-Navigator__Content-Panel">
+            <scrollbox width="100%" height="330px">
+                <div class="Habbo-Navigator__Content">
+                    flop
+                </div>
+            </scrollbox>
+        </div>
     </window>
 </template>
 
-<script>
+<script lang="ts">
     import { defineComponent } from 'vue';
 
     export default defineComponent({
@@ -233,9 +247,18 @@
         position: absolute;
         right: 41px;
         margin-top: 9px;
+        display: flex;
+        gap: 13px;
     }
-    .Habbo-Navigator__Search-Panel .Habbo-Navigator__Search-Textfield {
+    .Habbo-Navigator__Content-Panel {
+        width: 405px;
+        height: 330px;
+        right: 1px;
+        margin-top: 41px;
         position: absolute;
-        right: 0px;
+    }
+    .Habbo-Navigator__Content-Panel .Habbo-Navigator__Content {
+        width: 100%;
+        background-color: #FFFFFF;
     }
 </style>

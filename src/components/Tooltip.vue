@@ -1,5 +1,5 @@
 <template>
-    <div class="Habbo-Tooltip" :style="{ top: y + 15 + 'px', left: x + 15 + 'px' }" v-if="visible">
+    <div class="Habbo-Tooltip" :style="{ top: y +5 + 'px', left: x + 5 + 'px' }" v-if="visible">
         {{ tooltip }}
     </div>
     <div @mouseover="show" @mouseout="hide" @mousemove="update($event)">
@@ -7,7 +7,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
     import { defineComponent } from 'vue';
 
     export default defineComponent({
@@ -33,12 +33,15 @@
                 clearTimeout(this.timeout);
             },
             update(event) {
-                this.x = event.layerX;
-                if(event.clientY + 40 > window.innerHeight) {
+                //this.x = -(event.target.getBoundingClientRect().left - event.clientX);
+                //this.y = (event.target.getBoundingClientRect().top + event.layerY);
+                this.x = -event.target.getBoundingClientRect().left + event.clientX;
+                this.y = -event.target.getBoundingClientRect().top + event.clientY;
+                /*if(event.clientY + 40 > window.innerHeight) {
                     this.y = event.layerY - 23;
                 } else {
                     this.y = event.layerY;
-                }
+                }*/
             }
         }
     });
