@@ -1,7 +1,8 @@
 <template>
     <div class="Habbo-Game">
-        <navigator></navigator>
+        <navigator v-if="$store.getters.getVisible('navigator')"></navigator>
         <toolbar></toolbar>
+        <renderer></renderer>
     </div>
 </template>
 

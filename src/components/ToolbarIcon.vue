@@ -14,11 +14,6 @@
             tooltip: String,
             icon: String,
             margin: Number,
-        },
-        methods: {
-            click() {
-                this.$emit('clickd');
-            }
         }
     });
 </script>

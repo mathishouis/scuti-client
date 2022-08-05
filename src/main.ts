@@ -12,15 +12,19 @@ import Scrollbox from './components/Scrollbox.vue';
 import vClickOutside from 'click-outside-vue3';
 import CustomScrollbar from 'custom-vue-scrollbar';
 import UserCount from './components/UserCount.vue';
-import Game from './views/Game.vue'
+import Renderer from './components/Renderer.vue';
+import Game from './views/Game.vue';
+import Loading from './views/Loading.vue';
 import 'custom-vue-scrollbar/dist/style.css';
 import './style.css';
 import drag from 'v-drag';
+import { store } from "./stores/store";
 
 const app = createApp(App)
 
 app.use(drag);
 app.use(vClickOutside);
+app.use(store);
 app.component('toolbar', Toolbar);
 app.component('toolbar-icon', ToolbarIcon);
 app.component('window', Window);
@@ -33,5 +37,7 @@ app.component('scrollbar', CustomScrollbar);
 app.component('scrollbox', Scrollbox);
 app.component('user-count', UserCount);
 app.component('game', Game);
+app.component('renderer', Renderer);
+app.component('loading', Loading);
 
 app.mount('#app');

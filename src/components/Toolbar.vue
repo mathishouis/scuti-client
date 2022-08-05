@@ -4,10 +4,10 @@
             <div class="Habbo-Toolbar__Arrow-Container-Left">
             </div>
             <div class="Habbo-Toolbar__Icon-List">
-                <toolbar-icon tooltip="Aller sur la vue aérienne" icon="images/hotel_view_icon.png" :margin="-2" v-on:clickd=""/>
-                <toolbar-icon tooltip="A visiter" icon="images/navigator_icon.png" :margin="-1" v-on:clickd=""/>
-                <toolbar-icon tooltip="Boutique" icon="images/shop_icon.png" :margin="-1" v-on:clickd=""/>
-                <toolbar-icon tooltip="Inventaire" icon="images/inventory_icon.png" v-on:clickd=""/>
+                <toolbar-icon tooltip="Aller sur la vue aérienne" icon="images/hotel_view_icon.png" :margin="-2"/>
+                <toolbar-icon tooltip="A visiter" icon="images/navigator_icon.png" :margin="-1" @click="toggle('navigator')"/>
+                <toolbar-icon tooltip="Boutique" icon="images/shop_icon.png" :margin="-1"/>
+                <toolbar-icon tooltip="Inventaire" icon="images/inventory_icon.png"/>
             </div>
             <div class="Habbo-Toolbar__Separator">
             </div>
@@ -19,6 +19,11 @@
     import { defineComponent } from 'vue';
 
     export default defineComponent({
+        methods: {
+            toggle(name: string): void {
+                this.$store.commit('setVisible', { name: name, visible: !this.$store.getters.getVisible(name) });
+            }
+        }
     });
 </script>
 
