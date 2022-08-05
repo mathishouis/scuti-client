@@ -1,6 +1,8 @@
 <template>
     <div class="Habbo-Toolbar-Icon">
-        <img :src="icon" :style="{ marginTop: margin + 'px' }">
+        <tooltip :tooltip="tooltip">
+            <img :src="icon" :style="{ marginTop: margin + 'px' }">
+        </tooltip>
     </div>
 </template>
 
@@ -9,7 +11,7 @@
 
     export default defineComponent({
         props: {
-            name: String,
+            tooltip: String,
             icon: String,
             margin: Number,
         },

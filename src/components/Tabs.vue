@@ -1,8 +1,15 @@
 <template>
     <div class="Habbo-Tabs__Container">
         <div class="Habbo-Tabs">
-            <div class="Habbo-Tabs__TabContainer" :class="[selectedTabIndex === index ? 'Habbo-Tabs__Selected' : '', large ? 'Habbo-Tabs__Large' : '']" v-for="(tab, index) in tabs" :key="tab.id" @click="setSelected(index)">
-                <span>{{ tab.title }}</span>
+            <div class="Habbo-Tabs__Tab-Container" :class="[selectedTabIndex === index ? 'Habbo-Tabs__Selected' : '', large ? 'Habbo-Tabs__Large' : '']" v-for="(tab, index) in tabs" :key="tab.id" @click="setSelected(index)">
+                <div v-if="tab.tooltip">
+                    <tooltip :tooltip="tab.tooltip">
+                        <span>{{ tab.title }}</span>
+                    </tooltip>
+                </div>
+                <div v-else>
+                    <span>{{ tab.title }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -21,7 +28,7 @@
         props: {
             tabs: Object,
             selectedTab: Number,
-            large: Boolean
+            large: Boolean,
         },
         data() {
             return {
@@ -69,13 +76,15 @@
         display: flex;
         flex-direction: row;
     }
-    .Habbo-Tabs .Habbo-Tabs__TabContainer.Habbo-Tabs__Large {
+    .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Large {
         width: 100%;
-        padding: 13px 13px 10px;
+        text-wrap: none;
+        padding: 13px 11px 10px;
+        white-space: nowrap;
     }
-    .Habbo-Tabs .Habbo-Tabs__TabContainer {
+    .Habbo-Tabs .Habbo-Tabs__Tab-Container {
         font-weight: 300;
-        color: #000000;
+        color: #050505;
         position: relative;
         cursor: pointer;
         border-image: url(./../../static/images/tab.png);
@@ -90,14 +99,21 @@
         line-height: 9px;
         text-align: center;
     }
-    .Habbo-Tabs .Habbo-Tabs__TabContainer.Habbo-Tabs__Selected {
+    .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Selected {
         border-image: url(./../../static/images/tab_active.png);
         border-image-slice: 7 7 7 7 fill;
         border-image-width: 7px 7px 7px 7px;
         border-image-outset: 0 0 0 0;
         border-image-repeat: repeat repeat;
     }
-    .Habbo-Tabs .Habbo-Tabs__TabContainer:hover {
+    .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Selected:hover {
+        border-image: url(./../../static/images/tab_active.png);
+        border-image-slice: 7 7 7 7 fill;
+        border-image-width: 7px 7px 7px 7px;
+        border-image-outset: 0 0 0 0;
+        border-image-repeat: repeat repeat;
+    }
+    .Habbo-Tabs .Habbo-Tabs__Tab-Container:hover {
         border-image: url(./../../static/images/tab_hover.png);
         border-image-slice: 7 7 7 7 fill;
         border-image-width: 7px 7px 7px 7px;

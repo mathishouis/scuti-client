@@ -1,6 +1,6 @@
 <template>
-    <div class="Habbo-Window" :style="{ width: width + 'px', height: height + 'px' }">
-        <div class="Habbo-Window__Header">
+    <div class="Habbo-Window" :style="{ width: width + 'px', height: height + 'px', resize: resizableX && resizableY ? 'both' : resizableX ? 'horizontal' : resizableY ? 'vertical' : '' }" v-drag="{handle: '#dragger'}">
+        <div class="Habbo-Window__Header" id="dragger">
             <div class="Habbo-Window__Title">
                 {{ title }}
             </div>
@@ -24,7 +24,9 @@
         props: {
             title: String,
             width: Number,
-            height: Number
+            height: Number,
+            resizableX: Boolean,
+            resizableY: Boolean
         }
     });
 </script>
@@ -100,5 +102,8 @@
         margin-left: -1px;
         position: absolute;
         height: 100%;
+    }
+    .drag-handle {
+        cursor: default !important;
     }
 </style>

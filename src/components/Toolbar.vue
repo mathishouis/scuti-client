@@ -4,10 +4,10 @@
             <div class="Habbo-Toolbar__Arrow-Container-Left">
             </div>
             <div class="Habbo-Toolbar__Icon-List">
-                <toolbar-icon name="Aller sur la vue aérienne" icon="images/hotel_view_icon.png" :margin="-2" v-on:clickd=""/>
-                <toolbar-icon name="A visiter" icon="images/navigator_icon.png" :margin="-1" v-on:clickd=""/>
-                <toolbar-icon name="Boutique" icon="images/shop_icon.png" :margin="-1" v-on:clickd=""/>
-                <toolbar-icon name="Inventaire" icon="images/inventory_icon.png" v-on:clickd=""/>
+                <toolbar-icon tooltip="Aller sur la vue aérienne" icon="images/hotel_view_icon.png" :margin="-2" v-on:clickd=""/>
+                <toolbar-icon tooltip="A visiter" icon="images/navigator_icon.png" :margin="-1" v-on:clickd=""/>
+                <toolbar-icon tooltip="Boutique" icon="images/shop_icon.png" :margin="-1" v-on:clickd=""/>
+                <toolbar-icon tooltip="Inventaire" icon="images/inventory_icon.png" v-on:clickd=""/>
             </div>
             <div class="Habbo-Toolbar__Separator">
             </div>

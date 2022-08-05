@@ -22,6 +22,7 @@
     "parcel": "^2.7.0",
     "scuti-renderer": "^1.0.1",
     "typescript": "^4.7.4",
+    "v-drag": "^3.0.7",
     "vue": "^3.2.37"
   },
   "devDependencies": {
