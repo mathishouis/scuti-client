@@ -11,6 +11,8 @@ import SelectionList from './components/SelectionList.vue';
 import Scrollbox from './components/Scrollbox.vue';
 import vClickOutside from 'click-outside-vue3';
 import CustomScrollbar from 'custom-vue-scrollbar';
+import UserCount from './components/UserCount.vue';
+import Game from './views/Game.vue'
 import 'custom-vue-scrollbar/dist/style.css';
 import './style.css';
 import drag from 'v-drag';
@@ -29,5 +31,7 @@ app.component('textfield', Textfield);
 app.component('selection-list', SelectionList);
 app.component('scrollbar', CustomScrollbar);
 app.component('scrollbox', Scrollbox);
+app.component('user-count', UserCount);
+app.component('game', Game);
 
 app.mount('#app');

@@ -67,6 +67,7 @@
         top: 0;
         height: 100%;
         width: calc(100% - 52px);
+        z-index: 1;
     }
     .Habbo-Window__Header .Habbo-Window__Button-Group {
         height: 20px;

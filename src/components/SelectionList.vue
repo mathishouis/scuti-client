@@ -92,7 +92,7 @@
         width: calc(100% - 22px);
     }
     .Habbo-Selection-List .Habbo-Selection-List__Item-List {
-        width: calc(100% - 8px);
+        width: calc(100% + 4px);
         padding-left: 4px;
         padding-right: 4px;
         /*margin-top: 16px;*/
@@ -116,7 +116,7 @@
         padding-right: 7px;
         padding-top: 1px;
         padding-bottom: 2px;
-        width: calc(100% - 14px);
+        width: 100%;
     }
     .Habbo-Selection-List .Habbo-Selection-List__Item-List .Habbo-Selection-List__Item:hover {
         background-color: #D9D9D9;

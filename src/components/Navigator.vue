@@ -1,5 +1,5 @@
 <template>
-    <window :width="panel ? 564 : 411" :height="495" title="Navigateur" resizable-y>
+    <window :width="panel ? 578 : 425" :height="535" title="Navigateur" resizable-y>
         <div class="Habbo-Navigator__Tab-Container">
             <div class="Habbo-Navigator__Saved-Search-Icon" @click="togglePanel">
             </div>
@@ -95,7 +95,87 @@
         <div class="Habbo-Navigator__Content-Panel">
             <scrollbox width="100%" height="330px">
                 <div class="Habbo-Navigator__Content">
-                    flop
+                    <div class="Habbo-Navigator__Category">
+                        <div class="Habbo-Navigator__Header">
+                            <tooltip tooltip="Elargir catégorie">
+                                <div class="Habbo-Navigator__Show-Button Habbo-Navigator__Show-Button--active">
+                                </div>
+                            </tooltip>
+                            <div class="Habbo-Navigator__Title">
+                                Apparts les plus populaires
+                            </div>
+                            <div class="Habbo-Navigator__Button-Group">
+                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
+                                    <div class="Habbo-Navigator__Saved-Search-Button">
+                                    </div>
+                                </tooltip>
+                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
+                                    <div class="Habbo-Navigator__More-Results-Button">
+                                    </div>
+                                </tooltip>
+                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
+                                    <div class="Habbo-Navigator__Display-Button">
+                                    </div>
+                                </tooltip>
+                            </div>
+                        </div>
+                        <div class="Habbo-Navigator__Room-List-Line">
+                            <div class="Habbo-Navigator__Room" v-for="index in 13" :key="index">
+                                <user-count class="Habbo-Navigator__Room-User-Count" :user-count="Math.floor(Math.random() * 10)" :max-user="10"/>
+                                <div class="Habbo-Navigator__Room-Info-Button">
+                                </div>
+                                <div class="Habbo-Navigator__Room-Group-Icon">
+                                </div>
+                                <div class="Habbo-Navigator__Room-State-Icon Habbo-Navigator__Room-State-Icon--locked">
+                                </div>
+                                <div class="Habbo-Navigator__Room-Title">
+                                    Starbucks café (HC A GAGNER POSTIT)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Habbo-Navigator__Category">
+                        <div class="Habbo-Navigator__Header">
+                            <tooltip tooltip="Elargir catégorie">
+                                <div class="Habbo-Navigator__Show-Button">
+                                </div>
+                            </tooltip>
+                            <div class="Habbo-Navigator__Title">
+                                Recommandé par toi
+                            </div>
+                            <div class="Habbo-Navigator__Button-Group">
+                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
+                                    <div class="Habbo-Navigator__Saved-Search-Button">
+                                    </div>
+                                </tooltip>
+                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
+                                    <div class="Habbo-Navigator__More-Results-Button">
+                                    </div>
+                                </tooltip>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Habbo-Navigator__Category">
+                        <div class="Habbo-Navigator__Header">
+                            <tooltip tooltip="Elargir catégorie">
+                                <div class="Habbo-Navigator__Show-Button">
+                                </div>
+                            </tooltip>
+                            <div class="Habbo-Navigator__Title">
+                                Tchat et discussion
+                            </div>
+                            <div class="Habbo-Navigator__Button-Group">
+                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
+                                    <div class="Habbo-Navigator__Saved-Search-Button">
+                                    </div>
+                                </tooltip>
+                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
+                                    <div class="Habbo-Navigator__More-Results-Button">
+                                    </div>
+                                </tooltip>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </scrollbox>
         </div>
@@ -121,7 +201,7 @@
 
 <style scoped>
     .Habbo-Navigator__Tab-Container {
-        height: 33px;
+        height: 34px;
         width: calc(100% + 10px);
         margin-left: -5px;
         border-bottom: 1px solid #000000;
@@ -171,8 +251,8 @@
         top: 2px;
     }
     .Habbo-Navigator__Left-Panel .Habbo-Navigator__Saved-Search {
-        height: 9px;
-        width: calc(100% - 12px);
+        height: 20px;
+        width: calc(100% - 6px);
         color: #000;
         font-family: Ubuntu Light;
         font-size: 9.4pt;
@@ -214,8 +294,8 @@
         gap: 16px;
     }
     .Habbo-Navigator__Action-Panel .Habbo-Navigator__Create-Room-Button {
-        width: 111px;
-        height: 37px;
+        width: 189px;
+        height: 60px;
         background-image: url(./../../static/images/create_room_button.png);
         cursor: pointer;
         font-family: UbuntuBold;
@@ -228,8 +308,8 @@
         overflow: hidden;
     }
     .Habbo-Navigator__Action-Panel .Habbo-Navigator__Create-Event-Button {
-        width: 111px;
-        height: 37px;
+        width: 189px;
+        height: 60px;
         background-image: url(./../../static/images/create_event_button.png);
         cursor: pointer;
         font-family: UbuntuBold;
@@ -259,6 +339,136 @@
     }
     .Habbo-Navigator__Content-Panel .Habbo-Navigator__Content {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .Habbo-Navigator__Content-Panel .Habbo-Navigator__Content .Habbo-Navigator__Category {
         background-color: #FFFFFF;
+        width: 100%;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Header {
+        width: 100%;
+        height: 28px;
+        display: flex;
+        flex-direction: row;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Show-Button {
+        width: 10px;
+        height: 26px;
+        margin-left: 6px;
+        margin-right: 7px;
+        background-image: url(./../../static/images/show_button.png);
+        cursor: pointer;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Show-Button.Habbo-Navigator__Show-Button--active {
+        background-position: -10px 0;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Title {
+        color: #15597E;
+        font-size: 10.8pt;
+        font-family: Ubuntu;
+        padding-top: 4px;
+        cursor: pointer;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group {
+        padding: 5px 7px;
+        margin-left: auto;
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 5px;
+        align-items: center;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__Saved-Search-Button {
+        width: 18px;
+        height: 18px;
+        background-image: url(./../../static/images/saved_search_icon.png);
+        cursor: pointer;
+        position: relative;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__More-Results-Button {
+        width: 11px;
+        height: 11px;
+        background-image: url(./../../static/images/more_results_button.png);
+        cursor: pointer;
+        position: relative;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__More-Results-Button.Habbo-Navigator__More-Results-Button--active {
+        background-position: -11px 0;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__Display-Button {
+        width: 11px;
+        height: 11px;
+        background-image: url(./../../static/images/display_button.png);
+        cursor: pointer;
+        position: relative;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__Display-Button.Habbo-Navigator__Display-Button--active {
+        background-position: -11px 0;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line {
+        width: 100%;
+        padding-left: 4px;
+        padding-right: 1px;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room {
+        width: 100%;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        height: 20px;
+        border-radius: 4px;
+        position: relative;
+        cursor: pointer;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room:nth-child(2n+1) {
+        background-color: #D5EDFF;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room .Habbo-Navigator__Room-Info-Button {
+        height: 18px;
+        width: 18px;
+        background-image: url(./../../static/images/room_info_button.png);
+        position: absolute;
+        right: 6px;
+        cursor: pointer;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room .Habbo-Navigator__Room-Group-Icon {
+         height: 11px;
+         width: 13px;
+         background-image: url(./../../static/images/room_group_icon.png);
+         position: absolute;
+         right: 28px;
+         top: 4px;
+         cursor: pointer;
+     }
+    .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room .Habbo-Navigator__Room-State-Icon {
+        height: 16px;
+        width: 13px;
+        position: absolute;
+        right: 45px;
+        top: 2px;
+        cursor: pointer;
+        background-image: url(./../../static/images/room_locked_icon.png);
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room .Habbo-Navigator__Room-State-Icon .Habbo-Navigator__Room-State-Icon--locked {
+        background-position: 0 0;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room .Habbo-Navigator__Room-State-Icon .Habbo-Navigator__Room-State-Icon--password {
+        background-position: 0 -16px;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room .Habbo-Navigator__Room-State-Icon .Habbo-Navigator__Room-State-Icon--invisible {
+        background-position: 0 -32px;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room .Habbo-Navigator__Room-User-Count {
+        position: absolute;
+        left: 0;
+    }
+    .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room .Habbo-Navigator__Room-Title {
+        position: absolute;
+        left: 47px;
+        color: #000000;
+        font-size: 9.4pt;
+        font-family: Ubuntu Light;
+        top: 1px;
+        line-height: 16px;
     }
 </style>

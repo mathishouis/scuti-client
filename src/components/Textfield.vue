@@ -13,7 +13,7 @@
         border-left: 6px solid transparent;
         border-bottom: 6px solid transparent;
         border-right: 6px solid transparent;
-        height: 12px;
+        height: 24px;
         position: relative;
     }
     .Habbo-Textfield__Input {
