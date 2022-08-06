@@ -1,6 +1,8 @@
 <template>
     <div class="Habbo-Textfield" :style="{ width: width }">
-        <div class="Habbo-Textfield__Input-Focus-Button" @click="focus">
+        <div class="Habbo-Textfield__Input-Focus-Button" @click="focus" v-if="!clearButton">
+        </div>
+        <div class="Habbo-Textfield__Clear-Button" @click="clear" v-else>
         </div>
         <input class="Habbo-Textfield__Input" :placeholder="placeholder" type="text" @input="input($event.target.value)" ref="input">
     </div>
@@ -65,6 +67,15 @@
         top: -1px;
         position: absolute;
     }
+    .Habbo-Textfield__Clear-Button {
+        width: 11px;
+        height: 11px;
+        cursor: pointer;
+        background-image: url(./../../static/images/search_clear_button.png);
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+    }
 
 </style>
 
@@ -77,16 +88,28 @@
             width: Number
         },
 
+        data() {
+            return {
+                clearButton: false,
+            }
+        },
+
         emits: ['update:value', 'change'],
 
 
         methods: {
-            focus() {
+            focus(): void {
                 this.$refs.input.focus();
             },
-            input(value) {
+            input(value): void {
                 this.$emit('update:value', value);
-            }
+                this.$emit('change');
+                this.clearButton = value !== '';
+            },
+            clear(): void {
+                this.input('');
+                this.$refs.input.value = '';
+            },
         }
     })
 </script>

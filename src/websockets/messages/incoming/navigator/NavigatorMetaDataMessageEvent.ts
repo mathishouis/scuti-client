@@ -14,7 +14,7 @@ export class NavigatorMetaDataMessageEvent extends IncomingPacket {
 
         const size: number = this.readInt();
         for(let i: number = 0; i < size; i++){
-            store.commit('clearCategories', this.readString());
+            store.commit('addTab', { name: this.readString(), header: true });
             this.readInt();
         }
 

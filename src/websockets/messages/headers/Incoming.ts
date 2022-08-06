@@ -24,7 +24,8 @@ export const Incoming = {
     NavigatorMetaDataMessageEvent: 2631,
     NavigatorLiftedRoomsMessageEvent: 3709, // ?
     NavigatorSavedSearchesMessageEvent: 2853,
-    NavigatorCollapsedCategoriesMessageEvent: 1146,
+    NavigatorCollapsedCategoriesMessageEvent: 1146, // ?
+
     RoomCategoriesMessageEvent: 2986,
     EventCategoriesMessageEvent: 3851
 }

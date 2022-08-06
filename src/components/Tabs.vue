@@ -55,7 +55,7 @@
 
 <style scoped>
     .Habbo-Tabs__Container {
-        width: calc(100% - 16px);
+        width: 100%;
         padding-left: 8px;
         padding-right: 8px;
         height: 30px;
@@ -80,7 +80,7 @@
     .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Large {
         width: 100%;
         text-wrap: none;
-        padding: 13px 11px 10px;
+        padding: 13px 11px 9px;
         white-space: nowrap;
     }
     .Habbo-Tabs .Habbo-Tabs__Tab-Container {

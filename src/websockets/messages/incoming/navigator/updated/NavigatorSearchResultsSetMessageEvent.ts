@@ -83,7 +83,7 @@ export class NavigatorSearchResultsSetMessageEvent extends IncomingPacket {
             }
         }
         store.commit('setLoading', false);
-        console.log(store.getters.getTabs);
+        store.commit('setSelectedTab', tabName);
     }
 
 }

@@ -8,4 +8,7 @@ export const Outgoing = {
     LoadCategoriesMessageComposer: 1761,
     EventCategoriesMessageComposer: 1735,
     DeleteNavigatorSavedSearchMessageComposer: 2235,
+    SaveNavigatorSearchMessageComposer: 3301,
+    NewNavigatorSearchMessageComposer: 946,
+    NavigatorSaveViewModeMessageComposer: 597
 }

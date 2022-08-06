@@ -24,7 +24,7 @@
                 canvas: document.getElementById("Habbo-Renderer"),
                 width: window.innerWidth,
                 height: window.innerHeight,
-                resources: "https://scuti-resources.netlify.app/",
+                resources: "http://localhost:8081/",
                 background: 0x000000
             }));
             this.$store.getters.getClient.onEvent = (event: Event) => {

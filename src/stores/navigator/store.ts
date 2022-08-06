@@ -24,8 +24,7 @@ export const navigator = {
             tabName: string,
             categoryTabId: number
         }): void {
-            console.log(state.tabs[payload.tabName].find((tab) => tab.id === payload.categoryTabId));
-            state.tabs[payload.tabName].find((tab) => tab.id === payload.categoryTabId).rooms.push({
+            state.tabs.find((tab) => tab.name === payload.tabName).categories.find((category) => category.id === payload.categoryTabId).rooms.push({
                 "id": payload.id,
                 "name": payload.name,
                 "ownerId": payload.ownerId,
@@ -48,17 +47,35 @@ export const navigator = {
             view: number,
             tabName: string
         }): void {
-            state.tabs[payload.tabName].push({
+            state.tabs.find((tab) => tab.name === payload.tabName).categories.push({
                 "id": payload.id,
                 "name": payload.name,
                 "rank": payload.rank,
                 "minimised": payload.minimised,
-                "view_mode": payload.view,
+                "view": payload.view,
                 "rooms": [],
             });
         },
         clearCategories(state: {}, name: string): void {
-            state.tabs[name] = [];
+            let tab = state.tabs.find((tab) => tab.name === name);
+            if(tab) {
+                state.tabs.find((tab) => tab.name === name).name = name;
+                state.tabs.find((tab) => tab.name === name).header = tab.header;
+                state.tabs.find((tab) => tab.name === name).categories = [];
+            } else {
+                state.tabs.push({
+                    name: name,
+                    header: false,
+                    categories: []
+                });
+            }
+        },
+        addTab(state: {}, props: { name: string, header: boolean }): void {
+            state.tabs.push({
+                name: props.name,
+                header: props.header,
+                categories: []
+            });
         },
         clearSavedSearched(state: {}): void {
             state.savedSearches = [];
@@ -84,6 +101,9 @@ export const navigator = {
                 'view': payload.view,
                 'searchQuery': payload.searchQuery
             })
+        },
+        setCategoryViewMode: (state: {}, props: {tab: string, category: string, view: number}) => {
+            state.tabs.find((filterTab) => filterTab.name === props.tab).categories.find((filterCategory) => filterCategory.id === props.category).view = props.view;
         }
     },
     getters: {
@@ -99,5 +119,9 @@ export const navigator = {
         getSavedSearches: (state: {}): [] => {
             return state.savedSearches;
         },
+        getCategoryViewMode: (state: {})  =>  (props: {tab: string, category: string}): number => {
+            let filterCategory = state.tabs.find((filterTab) => filterTab.name === props.tab).categories.find((filterCategory) => filterCategory.id === props.category);
+            return filterCategory ? filterCategory.view : 0;
+        }
     }
 }

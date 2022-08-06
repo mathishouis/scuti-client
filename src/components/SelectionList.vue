@@ -47,8 +47,9 @@
             setSelectedItem(selectedItem) {
                 this.close();
                 this.itemList.forEach((item) => {
-                    if(item !== selectedItem) return item.selected = false;
-                    this.$emit('change', item.value);
+                    if(item.value !== selectedItem.value) return item.selected = false;
+                    this.$emit('update:value', item.value);
+                    this.$emit('change');
                     return item.selected = true;
                 });
             }
@@ -90,6 +91,7 @@
         padding-top: 3px;
         padding-bottom: 2px;
         width: calc(100% - 22px);
+        white-space: nowrap;
     }
     .Habbo-Selection-List .Habbo-Selection-List__Item-List {
         width: calc(100% + 4px);

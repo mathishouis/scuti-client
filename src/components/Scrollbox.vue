@@ -24,13 +24,19 @@
         },
         data() {
             return {
-                disabled: false
+                disabled: false,
+                observer: null,
             }
         },
         mounted(): void {
-            if(this.$refs.content.offsetHeight < Number(this.height.replaceAll('px', '').replaceAll('%', ''))) {
-                this.disabled = true;
-            }
+            this.observer = new MutationObserver(function(mutations) {
+                if(this.$refs.content.offsetHeight < Number(this.height.replaceAll('px', '').replaceAll('%', ''))) {
+                    this.disabled = true;
+                } else {
+                    this.disabled = false;
+                }
+            }.bind(this));
+            this.observer.observe(this.$refs.content, { attributes: true, childList: true, characterData: true, subtree: true });
         },
         methods: {
             up(): void {

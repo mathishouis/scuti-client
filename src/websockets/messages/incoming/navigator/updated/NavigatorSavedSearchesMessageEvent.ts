@@ -26,7 +26,6 @@ export class NavigatorSavedSearchesMessageEvent extends IncomingPacket {
                 'searchQuery': searchQuery
             });
         }
-        console.log("test");
     }
 
 }
