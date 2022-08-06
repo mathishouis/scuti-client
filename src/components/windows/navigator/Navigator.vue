@@ -1,8 +1,10 @@
 <template>
     <window :width="panel ? 578 : 425" :height="535" :title="getTitle" @close="close" resizable-y>
         <div class="Habbo-Navigator__Tab-Container">
-            <div class="Habbo-Navigator__Saved-Search-Icon" @click="togglePanel">
-            </div>
+            <tooltip tooltip="Changer la visibilité du panneau de gauche">
+                <div class="Habbo-Navigator__Saved-Search-Icon" @click="togglePanel">
+                </div>
+            </tooltip>
             <div class="Habbo-Navigator__Tabs" :style="{ left: panel ? '117px' : '37px' }">
                 <tabs :tabs="getTabs" :selected-tab="getSelectedTab" @change="updateTab($event)" large/>
             </div>
@@ -53,31 +55,31 @@
                     <div class="Habbo-Navigator__Category" v-for="category in getCategories">
                         <div class="Habbo-Navigator__Header">
                             <tooltip tooltip="Elargir catégorie">
-                                <div class="Habbo-Navigator__Show-Button Habbo-Navigator__Show-Button--active">
+                                <div class="Habbo-Navigator__Minimise-Button" :class="[getCategoryMinimised(category.id) ? '' : 'Habbo-Navigator__Minimise-Button--active']" @click="toggleMinimised(category.id)">
                                 </div>
                             </tooltip>
-                            <div class="Habbo-Navigator__Title">
-                                {{ category.name }}<span v-if="category.id === 'query'">Recherche</span> {{ category.minimised }}
+                            <div class="Habbo-Navigator__Title" @click="toggleMinimised(category.id)">
+                                {{ category.name }}<span v-if="category.id === 'query'">Recherche</span>
                             </div>
                             <div class="Habbo-Navigator__Button-Group">
                                 <tooltip tooltip="Ajouter aux recherches sauvegardées">
                                     <div class="Habbo-Navigator__Saved-Search-Button" @click="addSavedSearch(category.id, '')">
                                     </div>
                                 </tooltip>
-                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
+                                <tooltip tooltip="Montrer plus de résultats dans la catégorie">
                                     <div class="Habbo-Navigator__More-Results-Button" @click="showMoreResults(category.id)">
                                     </div>
                                 </tooltip>
-                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
-                                    <div class="Habbo-Navigator__Display-Button" :class="[getCategoryViewMode(category.id) === 1 ? 'Habbo-Navigator__Display-Button--active' : '']" @click="toggleViewMode(category.id)">
+                                <tooltip :tooltip="getCategoryViewMode(category.id) === 1 ? 'Liste' : 'Miniatures'">
+                                    <div class="Habbo-Navigator__View-Mode-Button" :class="[getCategoryViewMode(category.id) === 1 ? 'Habbo-Navigator__View-Mode-Button--active' : '']" @click="toggleViewMode(category.id)">
                                     </div>
                                 </tooltip>
                             </div>
                         </div>
-                        <div class="Habbo-Navigator__Room-List-Thumbnail" v-if="getCategoryViewMode(category.id) === 1">
+                        <div class="Habbo-Navigator__Room-List-Thumbnail" v-if="getCategoryViewMode(category.id) === 1 && !getCategoryMinimised(category.id)">
                             <room-info-thumbnail :name="room.name" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="room in category.rooms" :key="room.id"/>
                         </div>
-                        <div class="Habbo-Navigator__Room-List-Line" v-else>
+                        <div class="Habbo-Navigator__Room-List-Line" v-else-if="!getCategoryMinimised(category.id)">
                             <div class="Habbo-Navigator__Room" v-for="room in category.rooms" :key="room.id">
                                 <user-count class="Habbo-Navigator__Room-User-Count" :user-count="room.userCount" :max-user="room.maxUsers"/>
                                 <div class="Habbo-Navigator__Room-Info-Button">
@@ -148,8 +150,20 @@
                     new NavigatorSaveViewModeMessageComposer(this.$store.getters.getWebsocket.connection, category, 1).compose();
                 }
             },
+            toggleMinimised(category: string): void {
+                if(this.$store.getters.getCategoryMinimised({ tab: this.$store.getters.getSelectedTab, category: category })) {
+                    this.$store.commit('setCategoryMinimised', { tab: this.$store.getters.getSelectedTab, category: category, minimised: false });
+                    // TODO: Send minimised packet (add support in emulator)
+                } else {
+                    this.$store.commit('setCategoryMinimised', { tab: this.$store.getters.getSelectedTab, category: category, minimised: true });
+                    // TODO: Send minimised packet (add support in emulator)
+                }
+            },
             getCategoryViewMode(category: string): string {
                 return this.$store.getters.getCategoryViewMode({ tab: this.$store.getters.getSelectedTab, category: category });
+            },
+            getCategoryMinimised(category: string): string {
+                return this.$store.getters.getCategoryMinimised({ tab: this.$store.getters.getSelectedTab, category: category });
             },
             search(): void {
                 if(this.searchCategory !== 'all') {
@@ -215,7 +229,7 @@
     .Habbo-Navigator__Saved-Search-Icon {
         width: 18px;
         height: 18px;
-        background-image: url(../../../../static/images/saved_search_icon.png);
+        background-image: url(../../../assets/images/navigator/buttons/saved_search.png);
         left: 16px;
         top: 9px;
         position: absolute;
@@ -233,7 +247,7 @@
     .Habbo-Navigator__Left-Panel .Habbo-Navigator__Header {
         width: 100%;
         height: 21px;
-        background-image: url(../../../../static/images/navigator_left_panel_header.png);
+        background-image: url(../../../assets/images/navigator/saved_searches_header.png);
         position: relative;
     }
     .Habbo-Navigator__Left-Panel .Habbo-Navigator__Header .Habbo-Navigator__Title {
@@ -263,7 +277,7 @@
     .Habbo-Navigator__Left-Panel .Habbo-Navigator__Saved-Search .Habbo-Navigator__Remove-Button {
         width: 16px;
         height: 16px;
-        background-image: url(../../../../static/images/saved_search_remove.png);
+        background-image: url(../../../assets/images/navigator/buttons/saved_search_remove.png);
         position: absolute;
         right: 1px;
         top: 5px;
@@ -274,11 +288,11 @@
     }
     .Habbo-Navigator__Left-Panel .Habbo-Navigator__Saved-Search .Habbo-Navigator__Remove-Button:hover {
         display: block;
-        background-image: url(../../../../static/images/saved_search_remove_hover.png);
+        background-position: 0 -16px;
     }
     .Habbo-Navigator__Left-Panel .Habbo-Navigator__Saved-Search .Habbo-Navigator__Remove-Button:active {
         display: block;
-        background-image: url(../../../../static/images/saved_search_remove_active.png);
+        background-position: 0 -32px;
     }
     .Habbo-Navigator__Action-Panel {
         width: 394px;
@@ -293,7 +307,7 @@
     .Habbo-Navigator__Action-Panel .Habbo-Navigator__Create-Room-Button {
         width: 189px;
         height: 60px;
-        background-image: url(../../../../static/images/create_room_button.png);
+        background-image: url(../../../assets/images/navigator/buttons/create_room.png);
         cursor: pointer;
         font-family: UbuntuBold;
         color: #ffffff;
@@ -307,7 +321,7 @@
     .Habbo-Navigator__Action-Panel .Habbo-Navigator__Create-Event-Button {
         width: 189px;
         height: 60px;
-        background-image: url(../../../../static/images/create_event_button.png);
+        background-image: url(../../../assets/images/navigator/buttons/create_event.png);
         cursor: pointer;
         font-family: UbuntuBold;
         color: #ffffff;
@@ -330,7 +344,7 @@
     .Habbo-Navigator__Search-Panel .Habbo-Navigator__Refresh-Button {
         width: 25px;
         height: 23px;
-        background-image: url(./../../../../static/images/refresh_search_button.png);
+        background-image: url(../../../assets/images/navigator/buttons/refresh_search.png);
         margin-left: -6px;
         cursor: pointer;
     }
@@ -366,15 +380,15 @@
         display: flex;
         flex-direction: row;
     }
-    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Show-Button {
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Minimise-Button {
         width: 10px;
         height: 26px;
         margin-left: 6px;
         margin-right: 7px;
-        background-image: url(../../../../static/images/show_button.png);
+        background-image: url(../../../assets/images/navigator/buttons/minimise.png);
         cursor: pointer;
     }
-    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Show-Button.Habbo-Navigator__Show-Button--active {
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Minimise-Button.Habbo-Navigator__Minimise-Button--active {
         background-position: -10px 0;
     }
     .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Title {
@@ -395,28 +409,28 @@
     .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__Saved-Search-Button {
         width: 18px;
         height: 18px;
-        background-image: url(../../../../static/images/saved_search_icon.png);
+        background-image: url(../../../assets/images/navigator/buttons/saved_search.png);
         cursor: pointer;
         position: relative;
     }
     .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__More-Results-Button {
         width: 11px;
         height: 11px;
-        background-image: url(../../../../static/images/more_results_button.png);
+        background-image: url(../../../assets/images/navigator/buttons/more_results.png);
         cursor: pointer;
         position: relative;
     }
     .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__More-Results-Button.Habbo-Navigator__More-Results-Button--active {
         background-position: -11px 0;
     }
-    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__Display-Button {
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__View-Mode-Button {
         width: 11px;
         height: 11px;
-        background-image: url(../../../../static/images/display_button.png);
+        background-image: url(../../../assets/images/navigator/buttons/view_mode.png);
         cursor: pointer;
         position: relative;
     }
-    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__Display-Button.Habbo-Navigator__Display-Button--active {
+    .Habbo-Navigator__Category .Habbo-Navigator__Header .Habbo-Navigator__Button-Group .Habbo-Navigator__View-Mode-Button.Habbo-Navigator__View-Mode-Button--active {
         background-position: -11px 0;
     }
     .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Thumbnail {
@@ -450,7 +464,7 @@
     .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room .Habbo-Navigator__Room-Info-Button {
         height: 18px;
         width: 18px;
-        background-image: url(../../../../static/images/room_info_button.png);
+        background-image: url(../../../assets/images/navigator/icons/info.png);
         position: absolute;
         right: 6px;
         cursor: pointer;
@@ -458,7 +472,7 @@
     .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room .Habbo-Navigator__Room-Group-Icon {
          height: 11px;
          width: 13px;
-         background-image: url(../../../../static/images/room_group_icon.png);
+         background-image: url(../../../assets/images/navigator/icons/room_group.png);
          position: absolute;
          right: 28px;
          top: 4px;
@@ -471,7 +485,7 @@
         right: 45px;
         top: 2px;
         cursor: pointer;
-        background-image: url(../../../../static/images/room_locked_icon.png);
+        background-image: url(../../../assets/images/navigator/icons/room_locked.png);
         display: none;
     }
     .Habbo-Navigator__Category .Habbo-Navigator__Room-List-Line .Habbo-Navigator__Room .Habbo-Navigator__Room-State-Icon.Habbo-Navigator__Room-State-Icon--locked {

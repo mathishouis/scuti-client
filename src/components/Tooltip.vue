@@ -1,7 +1,9 @@
 <template>
-    <div class="Habbo-Tooltip" :style="{ top: y +5 + 'px', left: x + 5 + 'px' }" v-if="visible">
-        {{ tooltip }}
-    </div>
+    <teleport to="body">
+        <div class="Habbo-Tooltip" :style="{ top: y + 5 + 'px', left: x + 15 + 'px' }" v-if="visible" ref="tooltip">
+            {{ tooltip }}
+        </div>
+    </teleport>
     <div @mouseover="show" @mouseout="hide" @mousemove="update($event)">
         <slot/>
     </div>
@@ -23,25 +25,24 @@
             }
         },
         methods: {
-            show() {
+            show(): void {
                 this.timeout = setTimeout(() => {
                     this.visible = true;
                 }, 1000);
             },
-            hide() {
+            hide(): void {
                 this.visible = false;
                 clearTimeout(this.timeout);
             },
-            update(event) {
-                //this.x = -(event.target.getBoundingClientRect().left - event.clientX);
-                //this.y = (event.target.getBoundingClientRect().top + event.layerY);
-                this.x = -event.target.getBoundingClientRect().left + event.clientX;
-                this.y = -event.target.getBoundingClientRect().top + event.clientY;
-                /*if(event.clientY + 40 > window.innerHeight) {
-                    this.y = event.layerY - 23;
-                } else {
-                    this.y = event.layerY;
-                }*/
+            update(event): void {
+                this.x = event.clientX;
+                this.y = event.clientY;
+                if(event.clientY > window.innerHeight - 37) {
+                    this.y = window.innerHeight - 37;
+                }
+                if(event.clientX > window.innerWidth - 15 - this.$refs.tooltip.offsetWidth) {
+                    this.x = window.innerWidth - 15 - this.$refs.tooltip.offsetWidth;
+                }
             }
         }
     });
@@ -50,12 +51,12 @@
 <style scoped>
     .Habbo-Tooltip {
         position: absolute;
-        border-image: url(./../../static/images/border_1.png) 6 6 6 6 fill;
+        border-image: url(./../assets/images/border_1.png) 6 6 6 6 fill;
         border-top: 6px solid transparent;
         border-left: 6px solid transparent;
         border-bottom: 6px solid transparent;
         border-right: 6px solid transparent;
-        height: 10px;
+        height: 22px;
         font-family: Ubuntu;
         z-index: 2;
         color: #FFFFFF;

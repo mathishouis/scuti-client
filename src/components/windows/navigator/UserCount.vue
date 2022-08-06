@@ -33,7 +33,7 @@
         top: 5px;
         left: 9px;
         position: absolute;
-        background-image: url(../../../../static/images/user_count_icon.png);
+        background-image: url(../../../assets/images/navigator/icons/user_count.png);
     }
     .Habbo-User-Count__Counter {
         position: absolute;

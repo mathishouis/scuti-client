@@ -9,7 +9,7 @@
 .scrollbar__thumb--vertical {
     width: 100%;
     height: calc(100% - 26px);
-    background-image: url(./../static/images/scrollbar_thumb.png);
+    background-image: url(./assets/images/scrollbar_thumb.png);
     position: relative;
 }
 .scrollbar__thumb--vertical:hover {
@@ -23,7 +23,7 @@
     position: absolute;
     height: 5px;
     width: 100%;
-    background-image: url(./../static/images/scrollbar_thumb_top.png);
+    background-image: url(./assets/images/scrollbar_thumb_top.png);
     top: 0;
 }
 .scrollbar__thumb--vertical:hover:before {
@@ -37,7 +37,7 @@
     position: absolute;
     height: 5px;
     width: 100%;
-    background-image: url(./../static/images/scrollbar_thumb_bottom.png);
+    background-image: url(./assets/images/scrollbar_thumb_bottom.png);
     bottom: 0;
 }
 .scrollbar__thumb--vertical:hover:after {

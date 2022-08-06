@@ -63,7 +63,7 @@
     .Habbo-Scrollbox__Up-Button {
         width: 17px;
         height: 16px;
-        background-image: url(./../../static/images/scrollbar_button_up.png);
+        background-image: url(./../assets/images/scrollbar_button_up.png);
         position: absolute;
         top: 0;
         right: 0;
@@ -71,6 +71,7 @@
     }
     .Habbo-Scrollbox__Up-Button--disabled {
         background-position: 0 -16px;
+        cursor: default !important;
     }
     .Habbo-Scrollbox__Up-Button--disabled:hover {
         background-position: 0 -16px !important;
@@ -87,7 +88,7 @@
     .Habbo-Scrollbox__Down-Button {
         width: 17px;
         height: 16px;
-        background-image: url(./../../static/images/scrollbar_button_down.png);
+        background-image: url(./../assets/images/scrollbar_button_down.png);
         position: absolute;
         bottom: 0;
         right: 0;
@@ -95,6 +96,7 @@
     }
     .Habbo-Scrollbox__Down-Button--disabled {
         background-position: 0 -16px;
+        cursor: default !important;
     }
     .Habbo-Scrollbox__Down-Button--disabled:hover {
         background-position: 0 -16px !important;
@@ -112,7 +114,7 @@
         width: 17px;
         height: calc(100% - 32px);
         top: 16px;
-        background-image: url(./../../static/images/scrollbar_rail.png);
+        background-image: url(./../assets/images/scrollbar_rail.png);
         background-position: -17px 0;
         position: absolute;
         bottom: 0;
@@ -122,7 +124,7 @@
         width: 17px;
         height: calc(100% - 32px);
         top: 16px;
-        background-image: url(./../../static/images/scrollbar_rail.png);
+        background-image: url(./../assets/images/scrollbar_rail.png);
         background-position: 0 0;
         position: absolute;
         bottom: 0;

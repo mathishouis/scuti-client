@@ -88,7 +88,7 @@
         color: #050505;
         position: relative;
         cursor: pointer;
-        border-image: url(./../../static/images/tab.png);
+        border-image: url(./../assets/images/tab.png);
         border-image-slice: 7 7 7 7 fill;
         border-image-width: 7px 7px 7px 7px;
         border-image-outset: 0 0 0 0;
@@ -101,21 +101,21 @@
         text-align: center;
     }
     .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Tab-Container--active {
-        border-image: url(./../../static/images/tab_active.png);
+        border-image: url(./../assets/images/tab_active.png);
         border-image-slice: 7 7 7 7 fill;
         border-image-width: 7px 7px 7px 7px;
         border-image-outset: 0 0 0 0;
         border-image-repeat: repeat repeat;
     }
     .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Tab-Container--active:hover {
-        border-image: url(./../../static/images/tab_active.png);
+        border-image: url(./../assets/images/tab_active.png);
         border-image-slice: 7 7 7 7 fill;
         border-image-width: 7px 7px 7px 7px;
         border-image-outset: 0 0 0 0;
         border-image-repeat: repeat repeat;
     }
     .Habbo-Tabs .Habbo-Tabs__Tab-Container:hover {
-        border-image: url(./../../static/images/tab_hover.png);
+        border-image: url(./../assets/images/tab_hover.png);
         border-image-slice: 7 7 7 7 fill;
         border-image-width: 7px 7px 7px 7px;
         border-image-outset: 0 0 0 0;

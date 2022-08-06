@@ -1,5 +1,5 @@
 <template>
-    <div class="Habbo-Room-Thumbnail" :style="{ backgroundImage: 'url(./images/room_thumbnail.png)' }">
+    <div class="Habbo-Room-Thumbnail" :style="{ backgroundImage: 'url(./images/navigator/room_thumbnail_placeholder.png)' }">
 
     </div>
 </template>
@@ -14,7 +14,7 @@
         methods: {
             getThumbnail(): string {
                 if(this.thumbnail) return this.thumbnail;
-                return '/images/room_thumbnail.png';
+                return '/images/room_thumbnail_placeholder.png';
             }
         }
     });

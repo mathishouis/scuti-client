@@ -4,10 +4,10 @@
             <div class="Habbo-Toolbar__Arrow-Container-Left">
             </div>
             <div class="Habbo-Toolbar__Icon-List">
-                <toolbar-icon tooltip="Aller sur la vue aérienne" icon="images/hotel_view_icon.png" :margin="-2"/>
-                <toolbar-icon tooltip="A visiter" icon="images/navigator_icon.png" :margin="-1" @click="toggle('navigator')"/>
-                <toolbar-icon tooltip="Boutique" icon="images/shop_icon.png" :margin="-1"/>
-                <toolbar-icon tooltip="Inventaire" icon="images/inventory_icon.png"/>
+                <toolbar-icon tooltip="Aller sur la vue aérienne" icon="images/toolbar/icons/hotel_view.png" :margin="-2"/>
+                <toolbar-icon tooltip="A visiter" icon="images/toolbar/icons/navigator.png" :margin="-1" @click="toggle('navigator')"/>
+                <toolbar-icon tooltip="Boutique" icon="images/toolbar/icons/shop.png" :margin="-1"/>
+                <toolbar-icon tooltip="Inventaire" icon="images/toolbar/icons/inventory.png"/>
             </div>
             <div class="Habbo-Toolbar__Separator">
             </div>
@@ -57,7 +57,7 @@
     .Habbo-Toolbar__Bottom-Bar-Left .Habbo-Toolbar__Arrow-Container-Left {
         width: 14px;
         height: 43px;
-        background-image: url(../../static/images/arrow_container_left_collapse_left.png);
+        background-image: url(../assets/images/arrow_container_left_collapse_left.png);
     }
     .Habbo-Toolbar__Bottom-Bar-Left .Habbo-Toolbar__Icon-List {
         height: 41px;

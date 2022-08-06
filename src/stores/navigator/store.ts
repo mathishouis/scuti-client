@@ -104,6 +104,9 @@ export const navigator = {
         },
         setCategoryViewMode: (state: {}, props: {tab: string, category: string, view: number}) => {
             state.tabs.find((filterTab) => filterTab.name === props.tab).categories.find((filterCategory) => filterCategory.id === props.category).view = props.view;
+        },
+        setCategoryMinimised: (state: {}, props: {tab: string, category: string, minimised: boolean}) => {
+            state.tabs.find((filterTab) => filterTab.name === props.tab).categories.find((filterCategory) => filterCategory.id === props.category).minimised = props.minimised;
         }
     },
     getters: {
@@ -122,6 +125,10 @@ export const navigator = {
         getCategoryViewMode: (state: {})  =>  (props: {tab: string, category: string}): number => {
             let filterCategory = state.tabs.find((filterTab) => filterTab.name === props.tab).categories.find((filterCategory) => filterCategory.id === props.category);
             return filterCategory ? filterCategory.view : 0;
+        },
+        getCategoryMinimised: (state: {})  =>  (props: {tab: string, category: string}): boolean => {
+            let filterCategory = state.tabs.find((filterTab) => filterTab.name === props.tab).categories.find((filterCategory) => filterCategory.id === props.category);
+            return filterCategory ? filterCategory.minimised : true;
         }
     }
 }

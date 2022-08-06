@@ -1,17 +1,19 @@
 <template>
-    <div class="Habbo-Room-Info-Thumbnail">
-        <div class="Habbo-Room-Info-Thumbnail__Room-Info-Button">
+    <tooltip tooltip="Aller dans l'appart">
+        <div class="Habbo-Room-Info-Thumbnail">
+            <div class="Habbo-Room-Info-Thumbnail__Room-Info-Button">
+            </div>
+            <room-thumbnail class="Habbo-Room-Info-Thumbnail__Room-Thumbnail"/>
+            <div class="Habbo-Room-Info-Thumbnail__Room-Title">
+                {{ name }}
+            </div>
+            <user-count class="Habbo-Room-Info-Thumbnail__Room-User-Count" :user-count="userCount" :max-users="maxUsers"/>
+            <div class="Habbo-Room-Info-Thumbnail__Room-State-Icon" :class="[skipAuth === 1 ? 'Habbo-Navigator__Room-State-Icon--locked' : skipAuth === 2 ? 'Habbo-Navigator__Room-State-Icon--password' : skipAuth === 3 ? 'Habbo-Navigator__Room-State-Icon--invisible' : '']">
+            </div>
+            <div class="Habbo-Room-Info-Thumbnail__Room-Group-Icon">
+            </div>
         </div>
-        <room-thumbnail class="Habbo-Room-Info-Thumbnail__Room-Thumbnail"/>
-        <div class="Habbo-Room-Info-Thumbnail__Room-Title">
-            {{ name }}
-        </div>
-        <user-count class="Habbo-Room-Info-Thumbnail__Room-User-Count" :user-count="userCount" :max-users="maxUsers"/>
-        <div class="Habbo-Room-Info-Thumbnail__Room-State-Icon" :class="[skipAuth === 1 ? 'Habbo-Navigator__Room-State-Icon--locked' : skipAuth === 2 ? 'Habbo-Navigator__Room-State-Icon--password' : skipAuth === 3 ? 'Habbo-Navigator__Room-State-Icon--invisible' : '']">
-        </div>
-        <div class="Habbo-Room-Info-Thumbnail__Room-Group-Icon">
-        </div>
-    </div>
+    </tooltip>
 </template>
 
 <script lang="ts">
@@ -34,16 +36,17 @@
         width: 122px;
         height: 146px;
         position: relative;
-        border-image: url(../../../../static/images/border_3.png) 6 6 8 6 fill;
+        border-image: url(../../../assets/images/border_3.png) 6 6 8 6 fill;
         border-top: 6px solid transparent;
         border-left: 6px solid transparent;
         border-bottom: 8px solid transparent;
         border-right: 6px solid transparent;
+        cursor: pointer;
     }
     .Habbo-Room-Info-Thumbnail .Habbo-Room-Info-Thumbnail__Room-Info-Button {
         height: 18px;
         width: 18px;
-        background-image: url(../../../../static/images/room_info_button.png);
+        background-image: url(../../../assets/images/navigator/icons/info.png);
         position: absolute;
         right: 0px;
         bottom: 0px;
@@ -79,7 +82,7 @@
         right: 10px;
         top: 89px;
         cursor: pointer;
-        background-image: url(../../../../static/images/room_locked_icon.png);
+        background-image: url(../../../assets/images/navigator/icons/room_locked.png);
         display: none;
     }
     .Habbo-Room-Info-Thumbnail .Habbo-Room-Info-Thumbnail__Room-State-Icon.Habbo-Room-Info-Thumbnail__Room-State-Icon--locked {
@@ -100,6 +103,6 @@
         top: 2px;
         left: 3px;
         position: absolute;
-        background-image: url(./../../../../static/images/group_badge.png);
+        background-image: url(./../../../assets/images/group_badge.png);
     }
 </style>

@@ -42,7 +42,7 @@
     .Habbo-Window {
         height: 300px;
         width: 300px;
-        border-image: url(./../../static/images/frame.png) 33 7 7 7 fill;
+        border-image: url(./../assets/images/frame.png) 33 7 7 7 fill;
         border-top: 33px solid transparent;
         border-left: 7px solid transparent;
         border-bottom: 7px solid transparent;
@@ -88,29 +88,29 @@
         width: 19px;
         height: 20px;
         cursor: pointer;
-        background-image: url(./../../static/images/frame_buttons.png);
+        background-image: url(./../assets/images/frame_buttons.png);
     }
     .Habbo-Window__Header .Habbo-Window__Button-Group .Habbo-Window__Close-Button:hover {
-        background-image: url(./../../static/images/frame_buttons.png);
+        background-image: url(./../assets/images/frame_buttons.png);
         background-position: -19px 0;
     }
     .Habbo-Window__Header .Habbo-Window__Button-Group .Habbo-Window__Close-Button:active {
-        background-image: url(./../../static/images/frame_buttons.png);
+        background-image: url(./../assets/images/frame_buttons.png);
         background-position: 19px 0;
     }
     .Habbo-Window__Header .Habbo-Window__Button-Group .Habbo-Window__Info-Button {
         width: 19px;
         height: 20px;
         cursor: pointer;
-        background-image: url(./../../static/images/frame_buttons.png);
+        background-image: url(./../assets/images/frame_buttons.png);
         background-position: 0 -20px;
     }
     .Habbo-Window__Header .Habbo-Window__Button-Group .Habbo-Window__Info-Button:hover {
-        background-image: url(./../../static/images/frame_buttons.png);
+        background-image: url(./../assets/images/frame_buttons.png);
         background-position: -19px -20px;
     }
     .Habbo-Window__Header .Habbo-Window__Button-Group .Habbo-Window__Info-Button:active {
-        background-image: url(./../../static/images/frame_buttons.png);
+        background-image: url(./../assets/images/frame_buttons.png);
         background-position: 19px -20px;
     }
     .Habbo-Window__Content {

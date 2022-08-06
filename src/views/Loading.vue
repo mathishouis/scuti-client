@@ -63,7 +63,7 @@
     .Habbo-Loading .Habbo-Loading__Splash-Background {
         width: 500px;
         height: 434px;
-        background-image: url(./../../static/images/splash_background.png);
+        background-image: url(../assets/images/loading/background.png);
         position: relative;
     }
     .Habbo-Loading .Habbo-Loading__Splash-Background .Habbo-Loading__Splash-Logo {
@@ -72,7 +72,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-image: url(./../../static/images/splash_logo.png);
+        background-image: url(../assets/images/loading/logo.png);
         z-index: 1;
     }
     .Habbo-Loading .Habbo-Loading__Splash-Background .Habbo-Loading__Splash-Image {
@@ -83,7 +83,7 @@
         left: calc(50% + 5px);
         transform: translateX(-50%);
         background-color: #CCCCCC;
-        background-image: url(./../../static/images/splash_images.png);
+        background-image: url(../assets/images/loading/images.png);
     }
     .Habbo-Loading .Habbo-Loading__Splash-Text {
         font-size: 21.4pt;
