@@ -20,6 +20,7 @@
 </script>
 
 <style scoped>
+
     .Habbo-User-Count {
         width: 40px;
         height: 18px;
@@ -27,6 +28,7 @@
         background-color: #CAC9C0;
         position: relative;
     }
+
     .Habbo-User-Count__Icon {
         width: 7px;
         height: 8px;
@@ -35,6 +37,7 @@
         position: absolute;
         background-image: url(../../../assets/images/navigator/icons/user_count.png);
     }
+
     .Habbo-User-Count__Counter {
         position: absolute;
         transform: translateX(50%);
@@ -44,13 +47,17 @@
         font-size: 9.2pt;
         text-align: center;
     }
+
     .Habbo-User-Count--green {
         background-color: #62B061;
     }
+
     .Habbo-User-Count--orange {
         background-color:  #FFB01A;
     }
+
     .Habbo-User-Count--red {
         background-color:  #AE232D;
     }
+
 </style>

@@ -35,13 +35,15 @@
                 clearTimeout(this.timeout);
             },
             update(event): void {
-                this.x = event.clientX;
-                this.y = event.clientY;
-                if(event.clientY > window.innerHeight - 37) {
-                    this.y = window.innerHeight - 37;
-                }
-                if(event.clientX > window.innerWidth - 15 - this.$refs.tooltip.offsetWidth) {
-                    this.x = window.innerWidth - 15 - this.$refs.tooltip.offsetWidth;
+                if(this.visible) {
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                    if (event.clientY > window.innerHeight - 37) {
+                        this.y = window.innerHeight - 37;
+                    }
+                    if (event.clientX > window.innerWidth - 15 - this.$refs.tooltip.offsetWidth) {
+                        this.x = window.innerWidth - 15 - this.$refs.tooltip.offsetWidth;
+                    }
                 }
             }
         }

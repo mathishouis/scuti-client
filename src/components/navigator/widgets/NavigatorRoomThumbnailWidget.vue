@@ -5,22 +5,26 @@
 </template>
 
 <script lang="ts">
-    import {defineComponent} from "vue";
+    import {defineComponent} from 'vue';
 
     export default defineComponent({
+
         props: {
             thumbnail: String
         },
+
         methods: {
             getThumbnail(): string {
                 if(this.thumbnail) return this.thumbnail;
                 return '/images/room_thumbnail_placeholder.png';
             }
         }
+
     });
 </script>
 
 <style scoped>
+
     .Habbo-Room-Thumbnail {
         width: 108px;
         height: 109px;
@@ -28,4 +32,5 @@
         background-color: #B4B3AA;
         background-position: center center;
     }
+
 </style>

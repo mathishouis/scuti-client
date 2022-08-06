@@ -1,6 +1,6 @@
 import {IncomingPacket} from "../../IncomingPacket";
 import {Buffer} from "buffer";
-import {store} from "../../../../stores/store";
+import {store} from "../../../../store/store";
 import {LoadCategoriesMessagecomposer} from "../../outgoing/navigator/LoadCategoriesMessagecomposer";
 import {EventCategoriesMessagecomposer} from "../../outgoing/navigator/EventCategoriesMessagecomposer";
 

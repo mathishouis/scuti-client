@@ -1,6 +1,6 @@
 import {OutgoingPacket} from "../../../OutgoingPacket";
 import {Outgoing} from "../../../headers/Outgoing";
-import {store} from "../../../../../stores/store";
+import {store} from "../../../../../store/store";
 
 export class NavigatorSearchMessageComposer extends OutgoingPacket {
 

@@ -18,7 +18,6 @@ export default {
                 });
                 value = value.replace(variable, variableValue);
             });
-            console.log(value);
             return value;
         }
     }
