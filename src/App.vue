@@ -55,7 +55,7 @@
                 this.$store.commit('setLoadState', LoadState.NETWORK_ESTABLISHED);
                 this.$store.commit('setLoadState', LoadState.LOADED);
                 let packet = new SSOTicketMessageComposer(this.$store.getters.getWebsocket.connection);
-                packet.writeString("authticket696969");
+                packet.writeString("auth38383838");
                 packet.compose();
             }
             this.$store.getters.getWebsocket.connect();

@@ -18,6 +18,13 @@ import {AchievementPointsMessageEvent} from "./incoming/user/achievements/Achiev
 import {AchievementUnlockedMessageEvent} from "./incoming/user/achievements/AchievementUnlockedMessageEvent";
 import {BadgeInventoryMessageEvent} from "./incoming/user/inventory/BadgeInventoryMessageEvent";
 import {UnseenItemsMessageEvent} from "./incoming/catalog/UnseenItemsMessageEvent";
+import {NavigatorSearchResultsSetMessageEvent} from "./incoming/navigator/updated/NavigatorSearchResultsSetMessageEvent";
+import {UserObjectMessageEvent} from "./incoming/user/details/UserObjectMessageEvent";
+import {NavigatorPreferencesMessageEvent} from "./incoming/navigator/updated/NavigatorPreferencesMessageEvent";
+import {NavigatorMetaDataMessageEvent} from "./incoming/navigator/NavigatorMetaDataMessageEvent";
+import {RoomCategoriesMessageEvent} from "./incoming/navigator/RoomCategoriesMessageEvent";
+import {EventCategoriesMessageEvent} from "./incoming/navigator/EventCategoriesMessageEvent";
+import {NavigatorSavedSearchesMessageEvent} from "./incoming/navigator/updated/NavigatorSavedSearchesMessageEvent";
 
 export class PacketHandler {
 
@@ -45,6 +52,13 @@ export class PacketHandler {
         this._registerPacket(Incoming.AchievementUnlockedMessageEvent, <IncomingPacket><unknown>AchievementUnlockedMessageEvent);
         this._registerPacket(Incoming.BadgeInventoryMessageEvent, <IncomingPacket><unknown>BadgeInventoryMessageEvent);
         this._registerPacket(Incoming.UnseenItemsMessageEvent, <IncomingPacket><unknown>UnseenItemsMessageEvent);
+        this._registerPacket(Incoming.NavigatorSearchResultSetMessageEvent, <IncomingPacket><unknown>NavigatorSearchResultsSetMessageEvent);
+        this._registerPacket(Incoming.UserObjectMessageEvent, <IncomingPacket><unknown>UserObjectMessageEvent);
+        this._registerPacket(Incoming.NavigatorPreferencesMessageEvent, <IncomingPacket><unknown>NavigatorPreferencesMessageEvent);
+        this._registerPacket(Incoming.NavigatorMetaDataMessageEvent, <IncomingPacket><unknown>NavigatorMetaDataMessageEvent);
+        this._registerPacket(Incoming.RoomCategoriesMessageEvent, <IncomingPacket><unknown>RoomCategoriesMessageEvent);
+        this._registerPacket(Incoming.EventCategoriesMessageEvent, <IncomingPacket><unknown>EventCategoriesMessageEvent);
+        this._registerPacket(Incoming.NavigatorSavedSearchesMessageEvent, <IncomingPacket><unknown>NavigatorSavedSearchesMessageEvent);
     }
 
     private _registerPacket(header: number, handler: IncomingPacket): void {

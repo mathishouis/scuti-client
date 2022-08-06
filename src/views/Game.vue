@@ -2,6 +2,7 @@
     <div class="Habbo-Game">
         <navigator v-if="$store.getters.getVisible('navigator')"></navigator>
         <toolbar></toolbar>
+        <landing-view></landing-view>
         <renderer></renderer>
     </div>
 </template>

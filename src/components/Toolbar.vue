@@ -17,6 +17,7 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
+    import {NavigatorSearchMessageComposer} from "../websockets/messages/outgoing/navigator/updated/NavigatorSearchMessageComposer";
 
     export default defineComponent({
         methods: {
@@ -36,6 +37,7 @@
         background-color: rgba(47, 47, 44, 0.58);
         border-bottom: 1px solid rgba(112, 112, 105, 0.44);
         border-top: 2px solid rgba(112, 112, 105, 0.44);
+        z-index: 1;
     }
     .Habbo-Toolbar:before {
         content: "";

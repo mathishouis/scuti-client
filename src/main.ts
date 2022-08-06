@@ -15,6 +15,7 @@ import UserCount from './components/UserCount.vue';
 import Renderer from './components/Renderer.vue';
 import Game from './views/Game.vue';
 import Loading from './views/Loading.vue';
+import LandingView from './components/LandingView.vue';
 import 'custom-vue-scrollbar/dist/style.css';
 import './style.css';
 import drag from 'v-drag';
@@ -39,5 +40,6 @@ app.component('user-count', UserCount);
 app.component('game', Game);
 app.component('renderer', Renderer);
 app.component('loading', Loading);
+app.component('landing-view', LandingView);
 
 app.mount('#app');

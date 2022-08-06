@@ -3,10 +3,12 @@ import { windows } from "./windows/store";
 import { Scuti } from 'scuti-renderer';
 import {LoadState} from "../enums/LoadState";
 import { Client } from "../websockets/Client";
+import {navigator} from "./navigator/store";
 
 export const store = new Vuex.Store({
     modules: {
-        windows: windows
+        windows: windows,
+        navigator: navigator
     },
     state: {
         loadState: LoadState.STARTUP,

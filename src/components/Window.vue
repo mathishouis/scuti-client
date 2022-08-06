@@ -7,7 +7,7 @@
                 {{ title }}
             </div>
             <div class="Habbo-Window__Button-Group">
-                <div class="Habbo-Window__Close-Button">
+                <div class="Habbo-Window__Close-Button" @click="close">
                 </div>
                 <div class="Habbo-Window__Info-Button">
                 </div>
@@ -29,6 +29,11 @@
             height: Number,
             resizableX: Boolean,
             resizableY: Boolean
+        },
+        methods: {
+            close(): void {
+                this.$emit('close');
+            }
         }
     });
 </script>
@@ -43,6 +48,7 @@
         border-bottom: 7px solid transparent;
         border-right: 7px solid transparent;
         position: relative;
+        z-index: 2;
     }
     .Habbo-Window__Header {
         width: calc(100% + 14px);

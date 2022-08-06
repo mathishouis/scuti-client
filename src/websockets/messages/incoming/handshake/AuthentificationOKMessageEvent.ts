@@ -1,5 +1,7 @@
 import {IncomingPacket} from "../../IncomingPacket";
 import {Buffer} from "buffer";
+import {InfoRetrieveMessageComposer} from "../../outgoing/user/details/InfoRetrieveMessageComposer";
+import {store} from "../../../../stores/store";
 
 export class AuthentificationOKMessageEvent extends IncomingPacket {
 
@@ -8,7 +10,7 @@ export class AuthentificationOKMessageEvent extends IncomingPacket {
     }
 
     public handle(): void {
-        //console.log(this.header);
+        new InfoRetrieveMessageComposer(store.getters.getWebsocket.connection).compose();
     }
 
 }

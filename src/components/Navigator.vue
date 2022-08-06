@@ -1,36 +1,10 @@
 <template>
-    <window :width="panel ? 578 : 425" :height="535" title="Navigateur" resizable-y>
+    <window :width="panel ? 578 : 425" :height="535" :title="getTitle" @close="close" resizable-y>
         <div class="Habbo-Navigator__Tab-Container">
             <div class="Habbo-Navigator__Saved-Search-Icon" @click="togglePanel">
             </div>
             <div class="Habbo-Navigator__Tabs" :style="{ left: panel ? '117px' : '37px' }">
-                <tabs :tabs="[
-                    {
-                        id: 'all',
-                        title: 'Public',
-                        slot: 'all-content',
-                        tooltip: 'Une vue des différents apparts de Habbo Hôtel'
-                    },
-                    {
-                        id: 'validation',
-                        title: 'Tous les apparts',
-                        slot: 'validate-content',
-                        tooltip: 'Une vue des différents apparts de Habbo Hôtel'
-                    },
-                    {
-                        id: 'validation',
-                        title: 'Events',
-                        slot: 'validate-content',
-                        tooltip: 'Une vue des différents apparts de Habbo Hôtel'
-                    },
-                    {
-                        id: 'validation',
-                        title: 'Mon monde',
-                        slot: 'validate-content',
-                        tooltip: 'Une vue des différents apparts de Habbo Hôtel'
-                    }
-
-                ]" :selected-tab="0" large/>
+                <tabs :tabs="getTabs" :selected-tab="getTabs.indexOf($store.getters.getSelectedTab)" @change="updateTab($event)" large/>
             </div>
         </div>
         <div class="Habbo-Navigator__Left-Panel" v-if="panel">
@@ -41,31 +15,10 @@
                     </div>
                 </div>
             </tooltip>
-            <tooltip tooltip="Recherche avec les paramètres sauvegardés">
+            <tooltip tooltip="Recherche avec les paramètres sauvegardés" v-for="savedSearch in getSavedSearches">
                 <div class="Habbo-Navigator__Saved-Search">
-                    Lieux Publics
-                    <div class="Habbo-Navigator__Remove-Button">
-                    </div>
-                </div>
-            </tooltip>
-            <tooltip tooltip="Recherche avec les paramètres sauvegardés">
-                <div class="Habbo-Navigator__Saved-Search">
-                    Recommandé par toi
-                    <div class="Habbo-Navigator__Remove-Button">
-                    </div>
-                </div>
-            </tooltip>
-            <tooltip tooltip="Recherche avec les paramètres sauvegardés">
-                <div class="Habbo-Navigator__Saved-Search">
-                    Mes apparts
-                    <div class="Habbo-Navigator__Remove-Button">
-                    </div>
-                </div>
-            </tooltip>
-            <tooltip tooltip="Recherche avec les paramètres sauvegardés">
-                <div class="Habbo-Navigator__Saved-Search">
-                    Mes apparts préférés
-                    <div class="Habbo-Navigator__Remove-Button">
+                    {{ savedSearch.view }}
+                    <div class="Habbo-Navigator__Remove-Button" @click="removeSavedSearch(savedSearch.id)">
                     </div>
                 </div>
             </tooltip>
@@ -94,15 +47,15 @@
         </div>
         <div class="Habbo-Navigator__Content-Panel">
             <scrollbox width="100%" height="330px">
-                <div class="Habbo-Navigator__Content">
-                    <div class="Habbo-Navigator__Category">
+                <div class="Habbo-Navigator__Content" :class="[isLoading ? 'Habbo-Navigator__Content--loading' : '']">
+                    <div class="Habbo-Navigator__Category" v-for="category in getCategories">
                         <div class="Habbo-Navigator__Header">
                             <tooltip tooltip="Elargir catégorie">
                                 <div class="Habbo-Navigator__Show-Button Habbo-Navigator__Show-Button--active">
                                 </div>
                             </tooltip>
                             <div class="Habbo-Navigator__Title">
-                                Apparts les plus populaires
+                                {{ category.name }}
                             </div>
                             <div class="Habbo-Navigator__Button-Group">
                                 <tooltip tooltip="Ajouter aux recherches sauvegardées">
@@ -120,59 +73,17 @@
                             </div>
                         </div>
                         <div class="Habbo-Navigator__Room-List-Line">
-                            <div class="Habbo-Navigator__Room" v-for="index in 13" :key="index">
-                                <user-count class="Habbo-Navigator__Room-User-Count" :user-count="Math.floor(Math.random() * 10)" :max-user="10"/>
+                            <div class="Habbo-Navigator__Room" v-for="room in category.rooms" :key="room.id">
+                                <user-count class="Habbo-Navigator__Room-User-Count" :user-count="room.userCount" :max-user="room.maxUsers"/>
                                 <div class="Habbo-Navigator__Room-Info-Button">
                                 </div>
                                 <div class="Habbo-Navigator__Room-Group-Icon">
                                 </div>
-                                <div class="Habbo-Navigator__Room-State-Icon Habbo-Navigator__Room-State-Icon--locked">
+                                <div class="Habbo-Navigator__Room-State-Icon" :class="[room.skipAuth === 1 ? 'Habbo-Navigator__Room-State-Icon--locked' : room.skipAuth === 2 ? 'Habbo-Navigator__Room-State-Icon--password' : room.skipAuth === 3 ? 'Habbo-Navigator__Room-State-Icon--invisible' : '']">
                                 </div>
                                 <div class="Habbo-Navigator__Room-Title">
-                                    Starbucks café (HC A GAGNER POSTIT)
+                                    {{ room.name }}
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="Habbo-Navigator__Category">
-                        <div class="Habbo-Navigator__Header">
-                            <tooltip tooltip="Elargir catégorie">
-                                <div class="Habbo-Navigator__Show-Button">
-                                </div>
-                            </tooltip>
-                            <div class="Habbo-Navigator__Title">
-                                Recommandé par toi
-                            </div>
-                            <div class="Habbo-Navigator__Button-Group">
-                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
-                                    <div class="Habbo-Navigator__Saved-Search-Button">
-                                    </div>
-                                </tooltip>
-                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
-                                    <div class="Habbo-Navigator__More-Results-Button">
-                                    </div>
-                                </tooltip>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="Habbo-Navigator__Category">
-                        <div class="Habbo-Navigator__Header">
-                            <tooltip tooltip="Elargir catégorie">
-                                <div class="Habbo-Navigator__Show-Button">
-                                </div>
-                            </tooltip>
-                            <div class="Habbo-Navigator__Title">
-                                Tchat et discussion
-                            </div>
-                            <div class="Habbo-Navigator__Button-Group">
-                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
-                                    <div class="Habbo-Navigator__Saved-Search-Button">
-                                    </div>
-                                </tooltip>
-                                <tooltip tooltip="Ajouter aux recherches sauvegardées">
-                                    <div class="Habbo-Navigator__More-Results-Button">
-                                    </div>
-                                </tooltip>
                             </div>
                         </div>
                     </div>
@@ -184,6 +95,9 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
+    import { mapState } from "vuex";
+    import {NavigatorSearchMessageComposer} from "../websockets/messages/outgoing/navigator/updated/NavigatorSearchMessageComposer";
+    import {DeleteNavigatorSavedSearchMessageComposer} from "../websockets/messages/outgoing/navigator/updated/DeleteNavigatorSavedSearchMessageComposer";
 
     export default defineComponent({
         data() {
@@ -191,10 +105,53 @@
                 panel: true,
             }
         },
+        //computed: mapState(['getTabs']),
         methods: {
-            togglePanel() {
+            togglePanel(): void {
                 this.panel = !this.panel;
+            },
+            updateTab(tab: string): void {
+                this.$store.commit('setSelectedTab', tab);
+                new NavigatorSearchMessageComposer(this.$store.getters.getWebsocket.connection,tab).compose();
+            },
+            close(): void {
+                this.$store.commit('setVisible', { name: 'navigator', visible: false });
+            },
+            removeSavedSearch(id: number): void {
+                console.log("delete");
+                new DeleteNavigatorSavedSearchMessageComposer(this.$store.getters.getWebsocket.connection,id).compose();
             }
+        },
+        computed: {
+            getTabs(): [] {
+                let tabs = this.$store.getters.getTabs;
+                let finalTabs = [];
+                Object.keys(tabs).forEach((tab: string) => {
+                    finalTabs.push({
+                        id: tab,
+                        title: tab,
+                        tooltip: tab
+                    });
+                });
+                return finalTabs;
+            },
+            getCategories(): [] {
+                let tabs = this.$store.getters.getTabs;
+                console.log(tabs[this.$store.getters.getSelectedTab]);
+                return tabs[this.$store.getters.getSelectedTab];
+            },
+            getTitle(): string {
+                return this.$store.getters.getTitle('navigator');
+            },
+            isLoading(): boolean {
+                return this.$store.getters.getLoading;
+            },
+            getSavedSearches(): string {
+                return this.$store.getters.getSavedSearches;
+            },
+        },
+        mounted() {
+            new NavigatorSearchMessageComposer(this.$store.getters.getWebsocket.connection, this.$store.getters.getSelectedTab).compose();
         }
     });
 </script>
@@ -342,6 +299,9 @@
         display: flex;
         flex-direction: column;
         gap: 5px;
+    }
+    .Habbo-Navigator__Content-Panel .Habbo-Navigator__Content .Habbo-Navigator__Content--loading {
+        opacity: .5;
     }
     .Habbo-Navigator__Content-Panel .Habbo-Navigator__Content .Habbo-Navigator__Category {
         background-color: #FFFFFF;
