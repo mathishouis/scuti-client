@@ -51,7 +51,7 @@
 <style scoped>
     .Habbo-Tooltip {
         position: absolute;
-        border-image: url(./../assets/images/border_1.png) 6 6 6 6 fill;
+        border-image: url(../../assets/images/border_1.png) 6 6 6 6 fill;
         border-top: 6px solid transparent;
         border-left: 6px solid transparent;
         border-bottom: 6px solid transparent;

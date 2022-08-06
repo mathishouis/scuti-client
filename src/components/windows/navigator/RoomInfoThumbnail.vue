@@ -18,7 +18,7 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
-    import RoomThumbnail from "../../RoomThumbnail.vue";
+    import RoomThumbnail from "./RoomThumbnail.vue";
 
     export default defineComponent({
         components: {RoomThumbnail},

@@ -17,7 +17,7 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
-    import {NavigatorSearchMessageComposer} from "../websockets/messages/outgoing/navigator/updated/NavigatorSearchMessageComposer";
+    import {NavigatorSearchMessageComposer} from "../../websockets/messages/outgoing/navigator/updated/NavigatorSearchMessageComposer";
 
     export default defineComponent({
         methods: {
@@ -57,7 +57,7 @@
     .Habbo-Toolbar__Bottom-Bar-Left .Habbo-Toolbar__Arrow-Container-Left {
         width: 14px;
         height: 43px;
-        background-image: url(../assets/images/arrow_container_left_collapse_left.png);
+        background-image: url(../../assets/images/arrow_container_left_collapse_left.png);
     }
     .Habbo-Toolbar__Bottom-Bar-Left .Habbo-Toolbar__Icon-List {
         height: 41px;

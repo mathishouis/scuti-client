@@ -10,7 +10,7 @@
 
 <style scoped>
     .Habbo-Textfield {
-        border-image: url(./../assets/images/border_2.png) 6 6 6 6 fill;
+        border-image: url(../../assets/images/border_2.png) 6 6 6 6 fill;
         border-top: 6px solid transparent;
         border-left: 6px solid transparent;
         border-bottom: 6px solid transparent;
@@ -61,7 +61,7 @@
     .Habbo-Textfield__Input-Focus-Button {
         width: 17px;
         height: 18px;
-        background-image: url(./../assets/images/textfield_focus_button.png);
+        background-image: url(../../assets/images/textfield_focus_button.png);
         cursor: pointer;
         right: -4px;
         top: -1px;
@@ -71,7 +71,7 @@
         width: 11px;
         height: 11px;
         cursor: pointer;
-        background-image: url(../assets/images/navigator/buttons/search_clear.png);
+        background-image: url(../../assets/images/navigator/buttons/search_clear.png);
         position: absolute;
         right: 0px;
         bottom: 0px;

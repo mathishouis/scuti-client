@@ -59,7 +59,7 @@
 
 <style scoped>
     .Habbo-Selection-List {
-        border-image: url(./../assets/images/select_menu.png) 2 2 2 2 fill;
+        border-image: url(../../assets/images/select_menu.png) 2 2 2 2 fill;
         border-top: 2px solid transparent;
         border-left: 2px solid transparent;
         border-bottom: 2px solid transparent;
@@ -75,7 +75,7 @@
     .Habbo-Selection-List .Habbo-Selection-List__Arrow {
         width: 14px;
         height: 16px;
-        background-image: url(./../assets/images/select_menu_arrow.png);
+        background-image: url(../../assets/images/select_menu_arrow.png);
         top: 0px;
         right: 5px;
         position: absolute;
@@ -105,7 +105,7 @@
         position: absolute;
         padding-top: 2px;
         padding-bottom: 2px;
-        border-image: url(./../assets/images/select_menu.png) 2 2 3 2 fill;
+        border-image: url(../../assets/images/select_menu.png) 2 2 3 2 fill;
         border-left: 2px solid transparent;
         border-bottom: 3px solid transparent;
         border-right: 2px solid transparent;
