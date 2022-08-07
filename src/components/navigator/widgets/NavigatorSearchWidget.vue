@@ -19,6 +19,7 @@
     import { defineComponent } from 'vue';
 
     import {NewNavigatorSearchMessageComposer} from '../../../websockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer';
+    import {mapGetters} from "vuex";
 
     export default defineComponent({
 
@@ -30,8 +31,9 @@
         },
 
         methods: {
+            ...mapGetters("Navigator", ["getView"]),
             search(): void {
-                this.$store.getters.getWebsocket.sendMessageComposer(new NewNavigatorSearchMessageComposer(this.$store.getters.getSelectedTab, (this.searchCategory !== 'all' ? this.searchCategory : '') + (this.searchCategory !== 'all' ? ':' : '') + this.searchQuery));
+                this.$store.getters.getWebsocket.sendMessageComposer(new NewNavigatorSearchMessageComposer(this.getView, (this.searchCategory !== 'all' ? this.searchCategory : '') + (this.searchCategory !== 'all' ? ':' : '') + this.searchQuery));
             }
         }
 

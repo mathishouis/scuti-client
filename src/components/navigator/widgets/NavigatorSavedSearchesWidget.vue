@@ -5,7 +5,7 @@
                 {{ __locale('navigator.quick.links.title') }}
             </div>
         </div>
-        <tooltip :tooltip="__locale('navigator.tooltip.open.saved.search')" v-for="savedSearch in getSavedSearches">
+        <tooltip :tooltip="__locale('navigator.tooltip.open.saved.search')" v-for="savedSearch in getSearches">
             <div class="Habbo-Navigator__Saved-Search">
                 <span @click="searchSavedSearch(savedSearch.view, '')">{{ savedSearch.view }}</span>
                 <div class="Habbo-Navigator__Remove-Button" @click="removeSavedSearch(savedSearch.id)">
@@ -21,6 +21,8 @@
     import {NewNavigatorSearchMessageComposer} from '../../../websockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer';
     import {DeleteNavigatorSavedSearchMessageComposer} from '../../../websockets/messages/outgoing/navigator/updated/DeleteNavigatorSavedSearchMessageComposer';
 
+    import {mapGetters} from "vuex";
+
     export default defineComponent({
 
         methods: {
@@ -34,9 +36,7 @@
         },
 
         computed: {
-            getSavedSearches(): string {
-                return this.$store.getters.getSavedSearches;
-            },
+            ...mapGetters("Navigator/Searches", ["getSearches"]),
         }
 
     });

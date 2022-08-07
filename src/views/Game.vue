@@ -1,6 +1,6 @@
 <template>
     <div class="Habbo-Game">
-        <navigator v-if="$store.getters.getVisible('navigator')"></navigator>
+        <navigator v-if="isVisible"></navigator>
         <toolbar></toolbar>
         <landing-view></landing-view>
         <renderer></renderer>
@@ -9,8 +9,12 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
+    import {mapGetters} from "vuex";
 
     export default defineComponent({
+        computed: {
+            ...mapGetters("Navigator", ["isVisible"]),
+        }
     });
 </script>
 

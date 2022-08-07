@@ -2,7 +2,7 @@ import {IncomingPacket} from "../../../IncomingPacket";
 import {Buffer} from "buffer";
 import {ConfirmUsernameMessageComposer} from "../../../outgoing/handshake/ConfirmUsernameMessageComposer";
 import {InitializeNewNavigatorMessageComposer} from "../../../outgoing/navigator/updated/InitializeNewNavigatorMessageComposer";
-import {store} from "../../../../../store/store";
+import {store} from "../../../../../store";
 
 export class UserObjectMessageEvent extends IncomingPacket {
 

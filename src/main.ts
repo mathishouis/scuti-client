@@ -20,7 +20,7 @@ import Config from './mixins/Config';
 import 'custom-vue-scrollbar/dist/style.css';
 import './style.css';
 import drag from 'v-drag';
-import { store } from "./store/store";
+import { store } from "./store";
 import Locale from "./mixins/Locale";
 
 const app = createApp(App)

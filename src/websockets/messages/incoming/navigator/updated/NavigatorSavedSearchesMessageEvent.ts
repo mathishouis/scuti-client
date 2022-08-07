@@ -1,6 +1,6 @@
 import {IncomingPacket} from "../../../IncomingPacket";
 import {Buffer} from "buffer";
-import {store} from "../../../../../store/store";
+import {store} from "../../../../../store";
 
 export class NavigatorSavedSearchesMessageEvent extends IncomingPacket {
 
@@ -10,7 +10,7 @@ export class NavigatorSavedSearchesMessageEvent extends IncomingPacket {
 
     public handle(): void {
 
-        store.commit('clearSavedSearched');
+        store.commit('Navigator/Searches/clearSearches');
 
         const size: number = this.readInt();
 
@@ -20,7 +20,7 @@ export class NavigatorSavedSearchesMessageEvent extends IncomingPacket {
             const searchQuery: string = this.readString();
             this.readString();
 
-            store.commit('addSavedSearch', {
+            store.commit('Navigator/Searches/addSearch', {
                 'id': id,
                 'view': view,
                 'searchQuery': searchQuery

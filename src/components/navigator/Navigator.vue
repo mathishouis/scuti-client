@@ -6,7 +6,7 @@
                 </div>
             </tooltip>
             <div class="Habbo-Navigator__Tabs" :style="{ left: panel ? '117px' : '37px' }">
-                <tabs :tabs="getTabs" :selected-tab="getSelectedTab" @change="updateTab($event)" large/>
+                <tabs :tabs="getProcessedViews" :selected-tab="getCurrentViewIndex" @change="updateView($event)" large/>
             </div>
         </div>
         <navigator-search-widget/>
@@ -35,6 +35,7 @@
     import NavigatorSearchWidget from './widgets/NavigatorSearchWidget.vue';
     import NavigatorSavedSearchesWidget from './widgets/NavigatorSavedSearchesWidget.vue';
     import NavigatorSearchResultWidget from './widgets/NavigatorSearchResultWidget.vue';
+    import {mapGetters, mapMutations} from "vuex";
 
     export default defineComponent({
         components: {
@@ -50,40 +51,41 @@
         },
 
         methods: {
+            ...mapMutations("Navigator", ["setVisible"]),
+            ...mapMutations("Navigator/Views", ["setCurrentView"]),
+            ...mapGetters("Navigator/Views", ["getViews", "getCurrentView"]),
             togglePanel(): void {
                 this.panel = !this.panel;
             },
-            updateTab(tab: string): void {
-                this.$store.commit('setSelectedTab', tab);
-                this.$store.getters.getWebsocket.sendMessageComposer(new NavigatorSearchMessageComposer(tab));
+            updateView(view: string): void {
+                this.setCurrentView(view);
+                this.$store.getters.getWebsocket.sendMessageComposer(new NavigatorSearchMessageComposer(view));
             },
             close(): void {
-                this.$store.commit('setVisible', { name: 'navigator', visible: false });
+                this.setVisible(false);
             },
         },
         computed: {
-            getTabs(): [] {
-                let tabs = this.$store.getters.getTabs.filter(tab => tab.header);
-                let finalTabs = [];
-                tabs.forEach((tab: { name: string, header: boolean, categories: [] }) => {
-                    finalTabs.push({
-                        id: tab.name,
-                        title: this.__locale('navigator.toplevelview.' + tab.name),
+            ...mapGetters("Navigator", ["isLoading"]),
+            ...mapGetters("Navigator/Views", ["getViews", "getCurrentView"]),
+            getProcessedViews(): {}[] {
+                let views: {}[] = [];
+                console.log(this.getViews);
+                this.getViews.forEach((view: string) => {
+                    views.push({
+                        id: view,
+                        title: this.__locale('navigator.toplevelview.' + view),
                         tooltip: this.__locale('navigator.tooltip.select.tab')
                     });
                 });
-                return finalTabs;
+                return views;
             },
-            getSelectedTab(): number {
-                let tab = this.$store.getters.getTabs.find((tab) => tab.name === this.$store.getters.getSelectedTab);
-                return this.$store.getters.getTabs.indexOf(tab);
-            },
-            isLoading(): boolean {
-                return this.$store.getters.getLoading;
-            },
+            getCurrentViewIndex(): number {
+                return this.getViews.findIndex(view => view === this.getCurrentView);
+            }
         },
         mounted() {
-            this.$store.getters.getWebsocket.sendMessageComposer(new NavigatorSearchMessageComposer(this.$store.getters.getSelectedTab));
+            this.$store.getters.getWebsocket.sendMessageComposer(new NavigatorSearchMessageComposer(this.getCurrentView));
         }
     });
 </script>

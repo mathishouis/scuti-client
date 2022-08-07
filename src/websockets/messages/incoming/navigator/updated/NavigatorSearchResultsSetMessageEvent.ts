@@ -1,6 +1,6 @@
 import {IncomingPacket} from "../../../IncomingPacket";
 import {Buffer} from "buffer";
-import {store} from "../../../../../store/store";
+import {store} from "../../../../../store";
 
 export class NavigatorSearchResultsSetMessageEvent extends IncomingPacket {
 
@@ -13,7 +13,7 @@ export class NavigatorSearchResultsSetMessageEvent extends IncomingPacket {
         const data: string = this.readString();
 
         if(tabName !== null) {
-            store.commit('clearCategories', tabName);
+            store.commit('Navigator/Categories/clearCategories');
 
 
             const size: number = this.readInt();
@@ -25,14 +25,14 @@ export class NavigatorSearchResultsSetMessageEvent extends IncomingPacket {
                 const minimised: boolean = this.readBool();
                 const view: number = this.readInt();
 
-                store.commit('addCategory', {
+                let category: {} = {
                     'id': id,
                     'name': name,
                     'rank': rank,
                     'minimised': minimised,
                     'view': view,
-                    'tabName': tabName
-                });
+                    'rooms': []
+                };
 
                 const roomSize: number = this.readInt();
 
@@ -50,7 +50,7 @@ export class NavigatorSearchResultsSetMessageEvent extends IncomingPacket {
                     this.readInt();
                     const categoryId: number = this.readInt();
 
-                    store.commit('addRoom', {
+                    category['rooms'].push({
                         'id': roomId,
                         'name': roomName,
                         'ownerId': roomOwnerId,
@@ -63,8 +63,6 @@ export class NavigatorSearchResultsSetMessageEvent extends IncomingPacket {
                         'score': score,
                         'categoryId': categoryId,
                         'tags': [],
-                        'tabName': tabName,
-                        'categoryTabId': id,
                     });
 
                     const tagSize: number = this.readInt();
@@ -80,10 +78,13 @@ export class NavigatorSearchResultsSetMessageEvent extends IncomingPacket {
                         const thumbnailUrl: string = this.readString();
                     }
                 }
+
+                store.commit('Navigator/Categories/addCategory', category);
+
             }
         }
-        store.commit('setLoading', false);
-        store.commit('setSelectedTab', tabName);
+        store.commit('Navigator/setLoading', false);
+        store.commit('Navigator/Views/setCurrentView', tabName);
     }
 
 }

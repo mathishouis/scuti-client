@@ -21,7 +21,7 @@
     export default defineComponent({
         methods: {
             toggle(name: string): void {
-                this.$store.commit('setVisible', { name: name, visible: !this.$store.getters.getVisible(name) });
+                this.$store.commit('Navigator/setVisible', !this.$store.getters['Navigator/getVisibility']);
             }
         }
     });

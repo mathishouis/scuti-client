@@ -1,6 +1,6 @@
 import {IncomingPacket} from "../../../IncomingPacket";
 import {Buffer} from "buffer";
-import {store} from "../../../../../store/store";
+import {store} from "../../../../../store";
 import {InitializeRoomMessageComposer} from "../../../outgoing/room/engine/InitializeRoomMessageComposer";
 
 export class FollowRoomDataMessageEvent extends IncomingPacket {

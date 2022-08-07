@@ -4,11 +4,12 @@ import { Scuti } from 'scuti-renderer';
 import {LoadState} from "../enums/LoadState";
 import { Client } from "../websockets/Client";
 import {navigator} from "./navigator/store";
+import Navigator from './modules/navigator';
 
 export const store = new Vuex.Store({
     modules: {
         windows: windows,
-        navigator: navigator
+        Navigator
     },
     state: {
         loadState: LoadState.STARTUP,

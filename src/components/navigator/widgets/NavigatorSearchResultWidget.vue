@@ -4,8 +4,8 @@
             <div class="Habbo-Navigator__Content" :class="[isLoading ? 'Habbo-Navigator__Content--loading' : '']">
                 <div class="Habbo-Navigator__Category" v-for="category in getCategories">
                     <div class="Habbo-Navigator__Header">
-                        <tooltip :tooltip="getCategoryMinimised(category.id) ? __locale('navigator.tooltip.category.expand') : __locale('navigator.tooltip.category.collapse')">
-                            <div class="Habbo-Navigator__Minimise-Button" :class="[getCategoryMinimised(category.id) ? '' : 'Habbo-Navigator__Minimise-Button--active']" @click="toggleMinimised(category.id)">
+                        <tooltip :tooltip="getCategory(category.id).minimised ? __locale('navigator.tooltip.category.expand') : __locale('navigator.tooltip.category.collapse')">
+                            <div class="Habbo-Navigator__Minimise-Button" :class="[getCategory(category.id).minimised ? '' : 'Habbo-Navigator__Minimise-Button--active']" @click="toggleMinimised(category.id)">
                             </div>
                         </tooltip>
                         <div class="Habbo-Navigator__Title" @click="toggleMinimised(category.id)">
@@ -20,16 +20,16 @@
                                 <div class="Habbo-Navigator__More-Results-Button" @click="showMoreResults(category.id)">
                                 </div>
                             </tooltip>
-                            <tooltip :tooltip="getCategoryViewMode(category.id) === 1 ? __locale('navigator.tooltip.rows') : __locale('navigator.tooltip.tiles')">
-                                <div class="Habbo-Navigator__View-Mode-Button" :class="[getCategoryViewMode(category.id) === 1 ? 'Habbo-Navigator__View-Mode-Button--active' : '']" @click="toggleViewMode(category.id)">
+                            <tooltip :tooltip="getCategory(category.id).view === 1 ? __locale('navigator.tooltip.rows') : __locale('navigator.tooltip.tiles')">
+                                <div class="Habbo-Navigator__View-Mode-Button" :class="[getCategory(category.id).view === 1 ? 'Habbo-Navigator__View-Mode-Button--active' : '']" @click="toggleViewMode(category.id)">
                                 </div>
                             </tooltip>
                         </div>
                     </div>
-                    <div class="Habbo-Navigator__Room-List-Thumbnail" v-if="getCategoryViewMode(category.id) === 1 && !getCategoryMinimised(category.id)">
+                    <div class="Habbo-Navigator__Room-List-Thumbnail" v-if="getCategory(category.id).view === 1 && !getCategory(category.id).minimised">
                         <navigator-layout-room-thumbnail-widget :id="room.id" :name="room.name" :owner-name="room.ownerName" :description="room.description" :trade="room.trade" :tags="room.tags" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="room in category.rooms" :key="room.id"/>
                     </div>
-                    <div class="Habbo-Navigator__Room-List-Line" v-else-if="!getCategoryMinimised(category.id)">
+                    <div class="Habbo-Navigator__Room-List-Line" v-else-if="!getCategory(category.id).minimised">
                         <navigator-layout-room-list-widget :id="room.id" :index="index" :name="room.name" :owner-name="room.ownerName" :description="room.description" :trade="room.trade" :tags="room.tags" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="(room, index) in category.rooms" :key="room.id"/>
                     </div>
                 </div>
@@ -48,6 +48,8 @@
     import {NewNavigatorSearchMessageComposer} from '../../../websockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer';
     import {NavigatorSaveViewModeMessageComposer} from '../../../websockets/messages/outgoing/navigator/updated/NavigatorSaveViewModeMessageComposer';
 
+    import {mapGetters, mapMutations} from "vuex";
+
     export default defineComponent({
 
         components: {
@@ -56,6 +58,7 @@
         },
 
         methods: {
+            ...mapMutations("Navigator/Categories", ["setCategory"]),
             addSavedSearch(view: string, searchQuery: string): void {
                 this.$store.getters.getWebsocket.sendMessageComposer(new SaveNavigatorSearchMessageComposer(view, searchQuery));
             },
@@ -64,43 +67,24 @@
                 this.$store.getters.getWebsocket.sendMessageComposer(new NewNavigatorSearchMessageComposer(view, ''));
             },
 
-            toggleViewMode(category: string): void {
-                if(this.$store.getters.getCategoryViewMode({ tab: this.$store.getters.getSelectedTab, category: category }) === 1) {
-                    this.$store.commit('setCategoryViewMode', { tab: this.$store.getters.getSelectedTab, category: category, view: 0 });
-                    this.$store.getters.getWebsocket.sendMessageComposer(new NavigatorSaveViewModeMessageComposer(category, 0));
-                } else {
-                    this.$store.commit('setCategoryViewMode', { tab: this.$store.getters.getSelectedTab, category: category, view: 1 });
-                    this.$store.getters.getWebsocket.sendMessageComposer(new NavigatorSaveViewModeMessageComposer(category, 1));
-                }
+            toggleViewMode(id: string): void {
+                let category: {} = this.getCategory(id);
+                category.view = category.view === 1 ? 0 : 1;
+                this.setCategory({ id: id, category: category });
+                this.$store.getters.getWebsocket.sendMessageComposer(new NavigatorSaveViewModeMessageComposer(category.id, category.view));
             },
 
-            toggleMinimised(category: string): void {
-                if(this.$store.getters.getCategoryMinimised({ tab: this.$store.getters.getSelectedTab, category: category })) {
-                    this.$store.commit('setCategoryMinimised', { tab: this.$store.getters.getSelectedTab, category: category, minimised: false });
-                    // TODO: Send minimised packet (add support in emulator)
-                } else {
-                    this.$store.commit('setCategoryMinimised', { tab: this.$store.getters.getSelectedTab, category: category, minimised: true });
-                    // TODO: Send minimised packet (add support in emulator)
-                }
+            toggleMinimised(id: string): void {
+                let category: {} = this.getCategory(id);
+                category.minimised = !category.minimised;
+                this.setCategory({ id: id, category: category });
+                // TODO: Send minimised packet (add support in emulator)
             },
-
-            getCategoryViewMode(category: string): string {
-                return this.$store.getters.getCategoryViewMode({ tab: this.$store.getters.getSelectedTab, category: category });
-            },
-
-            getCategoryMinimised(category: string): string {
-                return this.$store.getters.getCategoryMinimised({ tab: this.$store.getters.getSelectedTab, category: category });
-            }
         },
 
         computed: {
-            isLoading(): boolean {
-                return this.$store.getters.getLoading;
-            },
-
-            getCategories(): [] {
-                return this.$store.getters.getTabs.find((tab) => tab.name === this.$store.getters.getSelectedTab).categories;
-            },
+            ...mapGetters("Navigator/Categories", ["getCategories", "getCategory"]),
+            ...mapGetters("Navigator", ["isLoading"]),
         }
 
     });

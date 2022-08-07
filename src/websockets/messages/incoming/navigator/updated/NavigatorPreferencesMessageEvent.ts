@@ -1,6 +1,6 @@
 import {IncomingPacket} from "../../../IncomingPacket";
 import {Buffer} from "buffer";
-import {store} from "../../../../../store/store";
+import {store} from "../../../../../store";
 
 export class NavigatorPreferencesMessageEvent extends IncomingPacket {
 

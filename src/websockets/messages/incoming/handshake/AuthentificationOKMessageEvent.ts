@@ -1,7 +1,7 @@
 import {IncomingPacket} from "../../IncomingPacket";
 import {Buffer} from "buffer";
 import {InfoRetrieveMessageComposer} from "../../outgoing/user/details/InfoRetrieveMessageComposer";
-import {store} from "../../../../store/store";
+import {store} from "../../../../store";
 
 export class AuthentificationOKMessageEvent extends IncomingPacket {
 
