@@ -1,8 +1,8 @@
 import {IncomingPacket} from "../../../IncomingPacket";
 import {Buffer} from "buffer";
 import {ConfirmUsernameMessageComposer} from "../../../outgoing/handshake/ConfirmUsernameMessageComposer";
-import {store} from "../../../../../store/store";
 import {InitializeNewNavigatorMessageComposer} from "../../../outgoing/navigator/updated/InitializeNewNavigatorMessageComposer";
+import {store} from "../../../../../store/store";
 
 export class UserObjectMessageEvent extends IncomingPacket {
 
@@ -29,8 +29,8 @@ export class UserObjectMessageEvent extends IncomingPacket {
         this.readBool();
         this.readBool();
 
-        new ConfirmUsernameMessageComposer(store.getters.getWebsocket.connection).compose();
-        new InitializeNewNavigatorMessageComposer(store.getters.getWebsocket.connection).compose();
+        store.getters.getWebsocket.sendMessageComposer(new ConfirmUsernameMessageComposer());
+        store.getters.getWebsocket.sendMessageComposer(new InitializeNewNavigatorMessageComposer());
 
     }
 

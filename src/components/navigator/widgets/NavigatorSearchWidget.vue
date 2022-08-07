@@ -1,13 +1,15 @@
 <template>
     <div class="Habbo-Navigator__Search-Panel">
         <selection-list class="Habbo-Navigator__Search-Filter" :items="[
-                { name: 'Tout', value: 'all', selected: true },
-                { name: 'Nom d\'appart', value: 'roomname' },
-                { name: 'Propriétaire', value: 'owner' },
-                { name: 'Tag', value: 'tag' },
-                { name: 'Groupe', value: 'group' }
+                { name: __locale('navigator.filter.anything'), value: 'all', selected: true },
+                { name: __locale('navigator.filter.room.name'), value: 'roomname' },
+                { name: __locale('navigator.filter.owner'), value: 'owner' },
+                { name: __locale('navigator.filter.tag'), value: 'tag' },
+                { name: __locale('navigator.filter.group'), value: 'group' }
             ]" width="104px" v-model:value="searchCategory" @change="search"/>
-        <textfield class="Habbo-Navigator__Search-Textfield" width="233px" placeholder="Filtrer apparts par..." v-model:value="searchQuery" @change="search"/>
+        <tooltip :tooltip="__locale('navigator.tooltip.filter.input')">
+            <textfield class="Habbo-Navigator__Search-Textfield" width="233px" :placeholder="__locale('navigator.filter.input.placeholder')" v-model:value="searchQuery" @change="search"/>
+        </tooltip>
         <div class="Habbo-Navigator__Refresh-Button" v-if="searchQuery !== ''" @click="search">
         </div>
     </div>
@@ -29,7 +31,7 @@
 
         methods: {
             search(): void {
-                new NewNavigatorSearchMessageComposer(this.$store.getters.getWebsocket.connection, this.$store.getters.getSelectedTab, (this.searchCategory !== 'all' ? this.searchCategory : '') + (this.searchCategory !== 'all' ? ':' : '') + this.searchQuery).compose();
+                this.$store.getters.getWebsocket.sendMessageComposer(new NewNavigatorSearchMessageComposer(this.$store.getters.getSelectedTab, (this.searchCategory !== 'all' ? this.searchCategory : '') + (this.searchCategory !== 'all' ? ':' : '') + this.searchQuery));
             }
         }
 

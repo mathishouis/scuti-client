@@ -33,6 +33,7 @@
     "@types/node": "^18.6.4",
     "buffer": "^6.0.3",
     "parcel-reporter-static-files-copy": "^1.4.0",
+    "process": "^0.11.10",
     "querystring-es3": "^0.2.1"
   },
   "staticFiles": {

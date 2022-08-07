@@ -1,4 +1,5 @@
 import {PacketHandler} from "./messages/PacketHandler";
+import {OutgoingPacket} from "./messages/OutgoingPacket";
 
 export class Client {
 
@@ -44,6 +45,10 @@ export class Client {
 
     public get connection(): WebSocket {
         return this._connection;
+    }
+
+    public sendMessageComposer(packet: OutgoingPacket): void {
+        this._connection.send(packet.compose());
     }
 
 

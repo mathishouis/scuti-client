@@ -1,13 +1,11 @@
 <template>
     <div class="Habbo-Navigator__Left-Panel">
-        <tooltip tooltip="Recherche avec les paramètres sauvegardés">
-            <div class="Habbo-Navigator__Header">
-                <div class="Habbo-Navigator__Title">
-                    Sauvegarder les recherches
-                </div>
+        <div class="Habbo-Navigator__Header">
+            <div class="Habbo-Navigator__Title">
+                {{ __locale('navigator.quick.links.title') }}
             </div>
-        </tooltip>
-        <tooltip tooltip="Recherche avec les paramètres sauvegardés" v-for="savedSearch in getSavedSearches">
+        </div>
+        <tooltip :tooltip="__locale('navigator.tooltip.open.saved.search')" v-for="savedSearch in getSavedSearches">
             <div class="Habbo-Navigator__Saved-Search">
                 <span @click="searchSavedSearch(savedSearch.view, '')">{{ savedSearch.view }}</span>
                 <div class="Habbo-Navigator__Remove-Button" @click="removeSavedSearch(savedSearch.id)">
@@ -27,11 +25,11 @@
 
         methods: {
             removeSavedSearch(id: number): void {
-                new DeleteNavigatorSavedSearchMessageComposer(this.$store.getters.getWebsocket.connection, id).compose();
+                this.$store.getters.getWebsocket.sendMessageComposer(new DeleteNavigatorSavedSearchMessageComposer(id));
             },
 
             searchSavedSearch(category: string, data: string): void {
-                new NewNavigatorSearchMessageComposer(this.$store.getters.getWebsocket.connection, category, data).compose();
+                this.$store.getters.getWebsocket.sendMessageComposer(new NewNavigatorSearchMessageComposer(category, data));
             },
         },
 

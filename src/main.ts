@@ -21,13 +21,16 @@ import 'custom-vue-scrollbar/dist/style.css';
 import './style.css';
 import drag from 'v-drag';
 import { store } from "./store/store";
+import Locale from "./mixins/Locale";
 
 const app = createApp(App)
 
 app.use(drag);
 app.use(vClickOutside);
 app.use(store);
+
 app.mixin(Config);
+app.mixin(Locale);
 
 app.component('window', Window);
 app.component('tabs', Tabs);

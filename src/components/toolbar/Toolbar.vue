@@ -17,7 +17,6 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
-    import {NavigatorSearchMessageComposer} from "../../websockets/messages/outgoing/navigator/updated/NavigatorSearchMessageComposer";
 
     export default defineComponent({
         methods: {

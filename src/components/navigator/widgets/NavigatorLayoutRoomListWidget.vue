@@ -1,6 +1,6 @@
 <template>
-    <tooltip tooltip="Aller dans l'appart">
-        <div class="Habbo-Navigator__Room" :class="[index % 2 !== 0 ? 'Habbo-Navigator__Room--white' : '']">
+    <tooltip :tooltip="__locale('navigator.tooltip.go.to.room')">
+        <div class="Habbo-Navigator__Room" :class="[index % 2 !== 0 ? 'Habbo-Navigator__Room--white' : '']" @click="joinRoom">
             <navigator-user-count-widget class="Habbo-Navigator__Room-User-Count" :user-count="userCount" :max-user="maxUsers"/>
             <div class="Habbo-Navigator__Room-Info-Button" @mouseout="hideInfo" @mouseover="showInfo($event)">
             </div>
@@ -11,7 +11,7 @@
             <div class="Habbo-Navigator__Room-Title">
                 {{ name }}
             </div>
-            <navigator-room-info-widget :x="x" :y="y" class="Habbo-Navigator__Room-Info" v-if="info"/>
+            <navigator-room-info-widget :name="name" :owner-name="ownerName" :max-users="maxUsers" :description="description" :trade="trade" :tags="tags" :x="x" :y="y" class="Habbo-Navigator__Room-Info" v-if="info"/>
         </div>
     </tooltip>
 </template>
@@ -22,6 +22,7 @@
 
     import NavigatorUserCountWidget from './NavigatorUserCountWidget.vue';
     import NavigatorRoomInfoWidget from './NavigatorRoomInfoWidget.vue';
+    import { FollowRoomInfoMessageComposer } from '../../../websockets/messages/outgoing/room/engine/FollowRoomInfoMessageComposer';
 
     export default defineComponent({
 
@@ -32,9 +33,14 @@
 
         props: {
             index: Number,
+            id: Number,
             name: String,
-            userCount: Number,
+            ownerName: String,
             maxUsers: Number,
+            description: String,
+            trade: Number,
+            tags: Object,
+            userCount: Number,
             skipAuth: Number,
         },
 
@@ -56,6 +62,11 @@
 
             hideInfo(): void {
                 this.info = false;
+            },
+
+            joinRoom(): void {
+                console.log("flop land");
+                this.$store.getters.getWebsocket.sendMessageComposer(new FollowRoomInfoMessageComposer(this.id, 0, 1));
             }
         }
 

@@ -10,7 +10,7 @@ export class AuthentificationOKMessageEvent extends IncomingPacket {
     }
 
     public handle(): void {
-        new InfoRetrieveMessageComposer(store.getters.getWebsocket.connection).compose();
+        store.getters.getWebsocket.sendMessageComposer(new InfoRetrieveMessageComposer());
     }
 
 }

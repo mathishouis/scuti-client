@@ -1,7 +1,7 @@
 <template>
-    <window :width="panel ? 578 : 425" :height="535" :title="getTitle" @close="close" resizable-y>
+    <window :width="panel ? 578 : 425" :height="535" :title="isLoading ? __locale('navigator.title.is.busy') : __locale('navigator.title')" @close="close" resizable-y>
         <div class="Habbo-Navigator__Tab-Container">
-            <tooltip tooltip="Changer la visibilité du panneau de gauche">
+            <tooltip :tooltip="__locale('navigator.tooltip.left.show.hide')">
                 <div class="Habbo-Navigator__Saved-Search-Icon" @click="togglePanel">
                 </div>
             </tooltip>
@@ -13,14 +13,14 @@
         <navigator-saved-searches-widget v-if="panel"/>
         <navigator-search-result-widget/>
         <div class="Habbo-Navigator__Action-Panel">
-            <tooltip tooltip="Créer un nouvel appart !">
+            <tooltip :tooltip="__locale('navigator.tooltip.create.room')">
                 <div class="Habbo-Navigator__Create-Room-Button">
-                    Créer un appart
+                    {{ __locale('navigator.create.room') }}
                 </div>
             </tooltip>
-            <tooltip tooltip="Fais la promo de ton appart">
+            <tooltip :tooltip="__locale('navigator.tooltip.promote.room')">
                 <div class="Habbo-Navigator__Create-Event-Button">
-                    Créer un évènement
+                    {{ __locale('navigator.create.event') }}
                 </div>
             </tooltip>
         </div>
@@ -55,7 +55,7 @@
             },
             updateTab(tab: string): void {
                 this.$store.commit('setSelectedTab', tab);
-                new NavigatorSearchMessageComposer(this.$store.getters.getWebsocket.connection,tab).compose();
+                this.$store.getters.getWebsocket.sendMessageComposer(new NavigatorSearchMessageComposer(tab));
             },
             close(): void {
                 this.$store.commit('setVisible', { name: 'navigator', visible: false });
@@ -68,22 +68,22 @@
                 tabs.forEach((tab: { name: string, header: boolean, categories: [] }) => {
                     finalTabs.push({
                         id: tab.name,
-                        title: tab.name,
-                        tooltip: tab.name
+                        title: this.__locale('navigator.toplevelview.' + tab.name),
+                        tooltip: this.__locale('navigator.tooltip.select.tab')
                     });
                 });
                 return finalTabs;
             },
-            getTitle(): string {
-                return this.$store.getters.getTitle('navigator');
-            },
             getSelectedTab(): number {
                 let tab = this.$store.getters.getTabs.find((tab) => tab.name === this.$store.getters.getSelectedTab);
                 return this.$store.getters.getTabs.indexOf(tab);
-            }
+            },
+            isLoading(): boolean {
+                return this.$store.getters.getLoading;
+            },
         },
         mounted() {
-            new NavigatorSearchMessageComposer(this.$store.getters.getWebsocket.connection, this.$store.getters.getSelectedTab).compose();
+            this.$store.getters.getWebsocket.sendMessageComposer(new NavigatorSearchMessageComposer(this.$store.getters.getSelectedTab));
         }
     });
 </script>

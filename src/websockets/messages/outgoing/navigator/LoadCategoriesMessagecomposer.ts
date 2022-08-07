@@ -1,18 +1,15 @@
 import {OutgoingPacket} from "../../OutgoingPacket";
 import {Outgoing} from "../../headers/Outgoing";
+import {Buffer} from "buffer";
 
 export class LoadCategoriesMessagecomposer extends OutgoingPacket {
 
-    private readonly _connection: WebSocket;
-
-    constructor(connection: WebSocket) {
+    constructor() {
         super(Outgoing.LoadCategoriesMessageComposer);
-
-        this._connection = connection;
     }
 
-    public compose(): void {
-        this._connection.send(this.prepare());
+    public compose(): Buffer {
+        return this.prepare();
     }
 
 

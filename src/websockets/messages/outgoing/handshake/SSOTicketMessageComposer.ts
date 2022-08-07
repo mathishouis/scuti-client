@@ -1,18 +1,20 @@
 import {OutgoingPacket} from "../../OutgoingPacket";
 import {Outgoing} from "../../headers/Outgoing";
+import {Buffer} from "buffer";
 
 export class SSOTicketMessageComposer extends OutgoingPacket {
 
-    private readonly _connection: WebSocket;
+    private readonly _authTicket: string;
 
-    constructor(connection: WebSocket) {
+    constructor(authTicket: string) {
         super(Outgoing.SSOTicketMessageComposer);
 
-        this._connection = connection;
+        this._authTicket = authTicket;
     }
 
-    public compose(): void {
-        this._connection.send(this.prepare());
+    public compose(): Buffer {
+        this.writeString(this._authTicket);
+        return this.prepare();
     }
 
 

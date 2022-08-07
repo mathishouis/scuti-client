@@ -7,43 +7,45 @@
                 </div>
                 <div class="Habbo-Navigator__Room-Info-Panel">
                     <div class="Habbo-Navigator__Room-Name">
-                        Pack Place Principale du Village Fantastique
+                        {{ name }}
                     </div>
                     <div class="Habbo-Navigator__Room-Description">
-                        Icetea
+                        {{ description }}
                     </div>
                 </div>
             </card>
             <div class="Habbo-Navigator__Room-Info-Panel">
                 <div class="Habbo-Navigator__Left-Panel">
-                    <tooltip tooltip="Propriétaire">
+                    <tooltip :tooltip="__locale('navigator.tooltip.roominfo.owner')">
                         <div class="Habbo-Navigator__Owner-Profile">
                             <div class="Habbo-Navigator__Icon">
                             </div>
-                            -=icetea=-
+                            {{ ownerName }}
                         </div>
                     </tooltip>
                     <div class="Habbo-Navigator__Room-Settings">
                         <div class="Habbo-Navigator__Settings-Row">
                             <div class="Habbo-Navigator__Row-Left">
-                                Troc
+                                {{ __locale('navigator.roompopup.property.trading') }}
                             </div>
                             <div class="Habbo-Navigator__Row-Right">
-                                Autorisé
+                                <span v-if="trade === 0">Pas autorisé</span>
+                                <span v-if="trade === 1">Utilisateurs avec droits</span>
+                                <span v-if="trade === 2">Autorisé</span>
                             </div>
                         </div>
                         <div class="Habbo-Navigator__Settings-Row">
                             <div class="Habbo-Navigator__Row-Left">
-                                Nombre max
+                                {{ __locale('navigator.roompopup.property.max_users') }}
                             </div>
                             <div class="Habbo-Navigator__Row-Right">
-                                50
+                                {{ maxUsers }}
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="Habbo-Navigator__Right-Panel">
-                    <tooltip tooltip="Nom de Groupe">
+                    <tooltip :tooltip="__locale('navigator.tooltip.groupinfo.owner')">
                         <div class="Habbo-Navigator__Group-Info">
                             <div class="Habbo-Navigator__Icon">
                             </div>
@@ -57,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="Habbo-Navigator__Row-Right">
-                                Favori
+                                {{ __locale('navigator.room.popup.room.info.favorite') }}
                             </div>
                         </div>
                         <div class="Habbo-Navigator__Actions-Row">
@@ -66,7 +68,7 @@
                                 </div>
                             </div>
                             <div class="Habbo-Navigator__Row-Right">
-                                Chez moi
+                                {{ __locale('navigator.room.popup.room.info.home') }}
                             </div>
                         </div>
                         <div class="Habbo-Navigator__Actions-Row">
@@ -75,7 +77,7 @@
                                 </div>
                             </div>
                             <div class="Habbo-Navigator__Row-Right">
-                                Signaler l'appart
+                                {{ __locale('navigator.room.popup.report.room') }}
                             </div>
                         </div>
                     </div>
@@ -98,7 +100,13 @@
 
         props: {
             x: Number,
-            y: Number
+            y: Number,
+            name: String,
+            ownerName: String,
+            maxUsers: Number,
+            description: String,
+            trade: Number,
+            tags: Object
         },
 
     });

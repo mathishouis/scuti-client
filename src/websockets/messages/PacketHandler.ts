@@ -25,6 +25,7 @@ import {NavigatorMetaDataMessageEvent} from "./incoming/navigator/NavigatorMetaD
 import {RoomCategoriesMessageEvent} from "./incoming/navigator/RoomCategoriesMessageEvent";
 import {EventCategoriesMessageEvent} from "./incoming/navigator/EventCategoriesMessageEvent";
 import {NavigatorSavedSearchesMessageEvent} from "./incoming/navigator/updated/NavigatorSavedSearchesMessageEvent";
+import {FollowRoomDataMessageEvent} from "./incoming/room/engine/FollowRoomDataMessageEvent";
 
 export class PacketHandler {
 
@@ -59,6 +60,7 @@ export class PacketHandler {
         this._registerPacket(Incoming.RoomCategoriesMessageEvent, <IncomingPacket><unknown>RoomCategoriesMessageEvent);
         this._registerPacket(Incoming.EventCategoriesMessageEvent, <IncomingPacket><unknown>EventCategoriesMessageEvent);
         this._registerPacket(Incoming.NavigatorSavedSearchesMessageEvent, <IncomingPacket><unknown>NavigatorSavedSearchesMessageEvent);
+        this._registerPacket(Incoming.FollowRoomDataMessageEvent, <IncomingPacket><unknown>FollowRoomDataMessageEvent);
     }
 
     private _registerPacket(header: number, handler: IncomingPacket): void {

@@ -18,8 +18,8 @@ export class NavigatorMetaDataMessageEvent extends IncomingPacket {
             this.readInt();
         }
 
-        new LoadCategoriesMessagecomposer(store.getters.getWebsocket.connection).compose();
-        new EventCategoriesMessagecomposer(store.getters.getWebsocket.connection).compose();
+        store.getters.getWebsocket.sendMessageComposer(new LoadCategoriesMessagecomposer());
+        store.getters.getWebsocket.sendMessageComposer(new EventCategoriesMessagecomposer());
 
     }
 

@@ -1,6 +1,6 @@
 <template>
-    <tooltip tooltip="Aller dans l'appart">
-        <div class="Habbo-Room-Info-Thumbnail">
+    <tooltip :tooltip="__locale('navigator.tooltip.go.to.room')">
+        <div class="Habbo-Room-Info-Thumbnail" @click="go">
             <div class="Habbo-Room-Info-Thumbnail__Room-Info-Button" @mouseout="hideInfo" @mouseover="showInfo($event)">
             </div>
             <navigator-room-thumbnail-widget width="108px" height="109px" class="Habbo-Room-Info-Thumbnail__Room-Thumbnail"/>
@@ -23,6 +23,7 @@
     import NavigatorUserCountWidget from './NavigatorUserCountWidget.vue';
     import NavigatorRoomThumbnailWidget from './NavigatorRoomThumbnailWidget.vue';
     import NavigatorRoomInfoWidget from './NavigatorRoomInfoWidget.vue';
+    import { FollowRoomInfoMessageComposer } from '../../../websockets/messages/outgoing/room/engine/FollowRoomInfoMessageComposer';
 
     export default defineComponent({
 
@@ -33,6 +34,7 @@
         },
 
         props: {
+            id: Number,
             name: String,
             userCount: Number,
             maxUsers: Number,
@@ -57,6 +59,10 @@
 
             hideInfo(): void {
                 this.info = false;
+            },
+
+            go(): void {
+                this.$store.getters.getWebsocket.sendMessageComposer(new FollowRoomInfoMessageComposer(this.id, 0, 1));
             }
         }
 

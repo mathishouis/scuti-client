@@ -85,7 +85,7 @@
     export default defineComponent({
         props: {
             placeholder: String,
-            width: Number
+            width: String
         },
 
         data() {

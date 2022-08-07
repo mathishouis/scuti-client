@@ -4,7 +4,7 @@
             <div class="Habbo-Navigator__Content" :class="[isLoading ? 'Habbo-Navigator__Content--loading' : '']">
                 <div class="Habbo-Navigator__Category" v-for="category in getCategories">
                     <div class="Habbo-Navigator__Header">
-                        <tooltip tooltip="Elargir catégorie">
+                        <tooltip :tooltip="getCategoryMinimised(category.id) ? __locale('navigator.tooltip.category.expand') : __locale('navigator.tooltip.category.collapse')">
                             <div class="Habbo-Navigator__Minimise-Button" :class="[getCategoryMinimised(category.id) ? '' : 'Habbo-Navigator__Minimise-Button--active']" @click="toggleMinimised(category.id)">
                             </div>
                         </tooltip>
@@ -12,25 +12,25 @@
                             {{ category.name }}<span v-if="category.id === 'query'">Recherche</span>
                         </div>
                         <div class="Habbo-Navigator__Button-Group">
-                            <tooltip tooltip="Ajouter aux recherches sauvegardées">
+                            <tooltip :tooltip="__locale('navigator.tooltip.add.saved.search')">
                                 <div class="Habbo-Navigator__Saved-Search-Button" @click="addSavedSearch(category.id, '')">
                                 </div>
                             </tooltip>
-                            <tooltip tooltip="Montrer plus de résultats dans la catégorie">
+                            <tooltip :tooltip="__locale('navigator.tooltip.category.show.more')">
                                 <div class="Habbo-Navigator__More-Results-Button" @click="showMoreResults(category.id)">
                                 </div>
                             </tooltip>
-                            <tooltip :tooltip="getCategoryViewMode(category.id) === 1 ? 'Liste' : 'Miniatures'">
+                            <tooltip :tooltip="getCategoryViewMode(category.id) === 1 ? __locale('navigator.tooltip.rows') : __locale('navigator.tooltip.tiles')">
                                 <div class="Habbo-Navigator__View-Mode-Button" :class="[getCategoryViewMode(category.id) === 1 ? 'Habbo-Navigator__View-Mode-Button--active' : '']" @click="toggleViewMode(category.id)">
                                 </div>
                             </tooltip>
                         </div>
                     </div>
                     <div class="Habbo-Navigator__Room-List-Thumbnail" v-if="getCategoryViewMode(category.id) === 1 && !getCategoryMinimised(category.id)">
-                        <navigator-layout-room-thumbnail-widget :name="room.name" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="room in category.rooms" :key="room.id"/>
+                        <navigator-layout-room-thumbnail-widget :id="room.id" :name="room.name" :owner-name="room.ownerName" :description="room.description" :trade="room.trade" :tags="room.tags" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="room in category.rooms" :key="room.id"/>
                     </div>
                     <div class="Habbo-Navigator__Room-List-Line" v-else-if="!getCategoryMinimised(category.id)">
-                        <navigator-layout-room-list-widget :index="index" :name="room.name" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="(room, index) in category.rooms" :key="room.id"/>
+                        <navigator-layout-room-list-widget :id="room.id" :index="index" :name="room.name" :owner-name="room.ownerName" :description="room.description" :trade="room.trade" :tags="room.tags" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="(room, index) in category.rooms" :key="room.id"/>
                     </div>
                 </div>
             </div>
@@ -57,20 +57,20 @@
 
         methods: {
             addSavedSearch(view: string, searchQuery: string): void {
-                new SaveNavigatorSearchMessageComposer(this.$store.getters.getWebsocket.connection, view, searchQuery).compose();
+                this.$store.getters.getWebsocket.sendMessageComposer(new SaveNavigatorSearchMessageComposer(view, searchQuery));
             },
 
             showMoreResults(view: string): void {
-                new NewNavigatorSearchMessageComposer(this.$store.getters.getWebsocket.connection, view, '').compose();
+                this.$store.getters.getWebsocket.sendMessageComposer(new NewNavigatorSearchMessageComposer(view, ''));
             },
 
             toggleViewMode(category: string): void {
                 if(this.$store.getters.getCategoryViewMode({ tab: this.$store.getters.getSelectedTab, category: category }) === 1) {
                     this.$store.commit('setCategoryViewMode', { tab: this.$store.getters.getSelectedTab, category: category, view: 0 });
-                    new NavigatorSaveViewModeMessageComposer(this.$store.getters.getWebsocket.connection, category, 0).compose();
+                    this.$store.getters.getWebsocket.sendMessageComposer(new NavigatorSaveViewModeMessageComposer(category, 0));
                 } else {
                     this.$store.commit('setCategoryViewMode', { tab: this.$store.getters.getSelectedTab, category: category, view: 1 });
-                    new NavigatorSaveViewModeMessageComposer(this.$store.getters.getWebsocket.connection, category, 1).compose();
+                    this.$store.getters.getWebsocket.sendMessageComposer(new NavigatorSaveViewModeMessageComposer(category, 1));
                 }
             },
 

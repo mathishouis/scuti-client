@@ -1,5 +1,3 @@
-import {store} from "../store";
-
 export const navigator = {
     state: {
         selectedTab: 'hotel_view',
@@ -81,11 +79,6 @@ export const navigator = {
             state.savedSearches = [];
         },
         setLoading(state: {}, loading: boolean): void {
-            if(loading) {
-                store.commit('setTitle', { name: 'navigator', title: 'Navigateur - Chargement...' });
-            } else {
-                store.commit('setTitle', { name: 'navigator', title: 'Navigateur' });
-            }
             state.loading = loading;
         },
         setSelectedTab(state: {}, tab: string): void {

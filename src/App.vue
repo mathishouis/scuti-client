@@ -9,6 +9,7 @@
     import {SSOTicketMessageComposer} from "./websockets/messages/outgoing/handshake/SSOTicketMessageComposer";
     import {Scuti, Room, Event} from 'scuti-renderer';
     import {LoadState} from "./enums/LoadState";
+    import {UniqueIdMessageComposer} from "./websockets/messages/outgoing/handshake/UniqueIdMessageComposer";
 
     export default defineComponent({
         data() {
@@ -54,9 +55,8 @@
             this.$store.getters.getWebsocket.onConnect = () => {
                 this.$store.commit('setLoadState', LoadState.NETWORK_ESTABLISHED);
                 this.$store.commit('setLoadState', LoadState.LOADED);
-                let packet = new SSOTicketMessageComposer(this.$store.getters.getWebsocket.connection);
-                packet.writeString("auth38383838");
-                packet.compose();
+                this.$store.getters.getWebsocket.sendMessageComposer(new SSOTicketMessageComposer("auth38383838"));
+                this.$store.getters.getWebsocket.sendMessageComposer(new UniqueIdMessageComposer());
             }
             this.$store.getters.getWebsocket.connect();
         },

@@ -4,7 +4,7 @@
             {{ tooltip }}
         </div>
     </teleport>
-    <div @mouseover="show" @mouseout="hide" @mousemove="update($event)">
+    <div @mouseover="show($event)" @mouseout="hide" @mousemove="update($event)">
         <slot/>
     </div>
 </template>
@@ -25,9 +25,10 @@
             }
         },
         methods: {
-            show(): void {
+            show(event): void {
                 this.timeout = setTimeout(() => {
                     this.visible = true;
+                    this.update(event);
                 }, 1000);
             },
             hide(): void {

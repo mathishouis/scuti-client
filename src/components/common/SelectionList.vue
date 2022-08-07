@@ -18,7 +18,7 @@
 
     export default defineComponent({
         props: {
-            width: Number,
+            width: String,
             items: Object,
         },
 
