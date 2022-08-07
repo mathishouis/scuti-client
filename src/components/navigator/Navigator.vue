@@ -10,7 +10,7 @@
             </div>
         </div>
         <navigator-search-widget/>
-        <navigator-saved-searches-widget/>
+        <navigator-saved-searches-widget v-if="panel"/>
         <navigator-search-result-widget/>
         <div class="Habbo-Navigator__Action-Panel">
             <tooltip tooltip="Créer un nouvel appart !">

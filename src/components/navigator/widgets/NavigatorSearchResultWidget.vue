@@ -30,7 +30,7 @@
                         <navigator-layout-room-thumbnail-widget :name="room.name" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="room in category.rooms" :key="room.id"/>
                     </div>
                     <div class="Habbo-Navigator__Room-List-Line" v-else-if="!getCategoryMinimised(category.id)">
-                        <navigator-layout-room-list-widget :name="room.name" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="room in category.rooms" :key="room.id"/>
+                        <navigator-layout-room-list-widget :index="index" :name="room.name" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="(room, index) in category.rooms" :key="room.id"/>
                     </div>
                 </div>
             </div>

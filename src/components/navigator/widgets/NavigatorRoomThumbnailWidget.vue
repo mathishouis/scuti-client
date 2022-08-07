@@ -1,5 +1,5 @@
 <template>
-    <div class="Habbo-Room-Thumbnail" :style="{ backgroundImage: 'url(./images/navigator/room_thumbnail_placeholder.png)' }">
+    <div class="Habbo-Room-Thumbnail" :style="{ backgroundImage: 'url(./images/navigator/room_thumbnail_placeholder.png)', width: width, height: height, minWidth: width, minHeight: height }">
 
     </div>
 </template>
@@ -10,7 +10,9 @@
     export default defineComponent({
 
         props: {
-            thumbnail: String
+            thumbnail: String,
+            height: String,
+            width: String,
         },
 
         methods: {
@@ -26,8 +28,6 @@
 <style scoped>
 
     .Habbo-Room-Thumbnail {
-        width: 108px;
-        height: 109px;
         border: 1px solid #000000;
         background-color: #B4B3AA;
         background-position: center center;

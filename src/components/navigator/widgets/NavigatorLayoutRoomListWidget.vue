@@ -1,8 +1,8 @@
 <template>
     <tooltip tooltip="Aller dans l'appart">
-        <div class="Habbo-Navigator__Room">
+        <div class="Habbo-Navigator__Room" :class="[index % 2 !== 0 ? 'Habbo-Navigator__Room--white' : '']">
             <navigator-user-count-widget class="Habbo-Navigator__Room-User-Count" :user-count="userCount" :max-user="maxUsers"/>
-            <div class="Habbo-Navigator__Room-Info-Button">
+            <div class="Habbo-Navigator__Room-Info-Button" @mouseout="hideInfo" @mouseover="showInfo($event)">
             </div>
             <div class="Habbo-Navigator__Room-Group-Icon">
             </div>
@@ -11,6 +11,7 @@
             <div class="Habbo-Navigator__Room-Title">
                 {{ name }}
             </div>
+            <navigator-room-info-widget :x="x" :y="y" class="Habbo-Navigator__Room-Info" v-if="info"/>
         </div>
     </tooltip>
 </template>
@@ -20,18 +21,42 @@
     import { defineComponent } from 'vue';
 
     import NavigatorUserCountWidget from './NavigatorUserCountWidget.vue';
+    import NavigatorRoomInfoWidget from './NavigatorRoomInfoWidget.vue';
 
     export default defineComponent({
 
         components: {
-            NavigatorUserCountWidget
+            NavigatorUserCountWidget,
+            NavigatorRoomInfoWidget
         },
 
         props: {
+            index: Number,
             name: String,
             userCount: Number,
             maxUsers: Number,
             skipAuth: Number,
+        },
+
+        data() {
+            return {
+                info: false,
+                x: 0,
+                y: 0,
+            }
+        },
+
+        methods: {
+            showInfo(event): void {
+                const offsets: DOMRect = event.target.getBoundingClientRect();
+                this.y = offsets.top;
+                this.x = offsets.left;
+                this.info = true;
+            },
+
+            hideInfo(): void {
+                this.info = false;
+            }
         }
 
     });
@@ -47,10 +72,11 @@
         border-radius: 4px;
         position: relative;
         cursor: pointer;
+        background-color: #D5EDFF;
     }
 
-    .Habbo-Navigator__Room:nth-child(2n+1) {
-        background-color: #D5EDFF;
+    .Habbo-Navigator__Room--white {
+        background-color: #FFFFFF;
     }
 
     .Habbo-Navigator__Room .Habbo-Navigator__Room-Info-Button {
@@ -112,5 +138,6 @@
         top: 1px;
         line-height: 16px;
     }
+
 
 </style>

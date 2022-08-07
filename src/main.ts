@@ -15,6 +15,7 @@ import Renderer from './components/Renderer.vue';
 import Game from './views/Game.vue';
 import Loading from './views/Loading.vue';
 import LandingView from './components/landing-view/LandingView.vue';
+import Card from './components/common/Card.vue';
 import Config from './mixins/Config';
 import 'custom-vue-scrollbar/dist/style.css';
 import './style.css';
@@ -34,6 +35,7 @@ app.component('tooltip', Tooltip);
 app.component('textfield', Textfield);
 app.component('selection-list', SelectionList);
 app.component('scrollbox', Scrollbox);
+app.component('card', Card);
 
 app.component('toolbar', Toolbar);
 app.component('toolbar-icon', ToolbarIcon);

@@ -1,9 +1,9 @@
 <template>
     <tooltip tooltip="Aller dans l'appart">
         <div class="Habbo-Room-Info-Thumbnail">
-            <div class="Habbo-Room-Info-Thumbnail__Room-Info-Button">
+            <div class="Habbo-Room-Info-Thumbnail__Room-Info-Button" @mouseout="hideInfo" @mouseover="showInfo($event)">
             </div>
-            <navigator-room-thumbnail-widget class="Habbo-Room-Info-Thumbnail__Room-Thumbnail"/>
+            <navigator-room-thumbnail-widget width="108px" height="109px" class="Habbo-Room-Info-Thumbnail__Room-Thumbnail"/>
             <div class="Habbo-Room-Info-Thumbnail__Room-Title">
                 {{ name }}
             </div>
@@ -12,6 +12,7 @@
             </div>
             <div class="Habbo-Room-Info-Thumbnail__Room-Group-Icon">
             </div>
+            <navigator-room-info-widget :x="x" :y="y" class="Habbo-Navigator__Room-Info" v-if="info"/>
         </div>
     </tooltip>
 </template>
@@ -21,12 +22,14 @@
 
     import NavigatorUserCountWidget from './NavigatorUserCountWidget.vue';
     import NavigatorRoomThumbnailWidget from './NavigatorRoomThumbnailWidget.vue';
+    import NavigatorRoomInfoWidget from './NavigatorRoomInfoWidget.vue';
 
     export default defineComponent({
 
         components: {
             NavigatorRoomThumbnailWidget,
-            NavigatorUserCountWidget
+            NavigatorUserCountWidget,
+            NavigatorRoomInfoWidget
         },
 
         props: {
@@ -34,6 +37,27 @@
             userCount: Number,
             maxUsers: Number,
             skipAuth: Number,
+        },
+
+        data() {
+            return {
+                info: false,
+                x: 0,
+                y: 0,
+            }
+        },
+
+        methods: {
+            showInfo(event): void {
+                const offsets: DOMRect = event.target.getBoundingClientRect();
+                this.y = offsets.top;
+                this.x = offsets.left;
+                this.info = true;
+            },
+
+            hideInfo(): void {
+                this.info = false;
+            }
         }
 
     });
