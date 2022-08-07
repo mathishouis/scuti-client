@@ -4,10 +4,11 @@
             <div class="Habbo-Toolbar__Arrow-Container-Left">
             </div>
             <div class="Habbo-Toolbar__Icon-List">
-                <toolbar-icon tooltip="Aller sur la vue aérienne" icon="images/toolbar/icons/hotel_view.png" :margin="-2"/>
-                <toolbar-icon tooltip="A visiter" icon="images/toolbar/icons/navigator.png" :margin="-1" @click="toggle('navigator')"/>
-                <toolbar-icon tooltip="Boutique" icon="images/toolbar/icons/shop.png" :margin="-1"/>
-                <toolbar-icon tooltip="Inventaire" icon="images/toolbar/icons/inventory.png"/>
+                <toolbar-icon tooltip="Aller sur la vue aérienne" icon="images/toolbar/icons/hotel_view.png" :margin="1" v-if="roomVisible" @click="hotelView"/>
+                <toolbar-icon tooltip="Aller chez moi" icon="images/toolbar/icons/home_room.png" :margin="4" v-else/>
+                <toolbar-icon tooltip="A visiter" icon="images/toolbar/icons/navigator.png" :margin="4" @click="toggleNavigator"/>
+                <toolbar-icon tooltip="Boutique" icon="images/toolbar/icons/shop.png" :margin="3"/>
+                <toolbar-icon tooltip="Inventaire" icon="images/toolbar/icons/inventory.png" :margin="3" v-if="roomVisible"/>
             </div>
             <div class="Habbo-Toolbar__Separator">
             </div>
@@ -17,12 +18,22 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
+    import {mapGetters, mapMutations} from "vuex";
+    import {ExitRoomMessageComposer} from "../../websockets/messages/outgoing/room/action/ExitRoomMessageComposer";
 
     export default defineComponent({
         methods: {
-            toggle(name: string): void {
-                this.$store.commit('Navigator/setVisible', !this.$store.getters['Navigator/getVisibility']);
+            ...mapMutations("Navigator", { setNavigatorVisible: "setVisible"}),
+            toggleNavigator(): void {
+                this.setNavigatorVisible(!this.navigatorVisible);
+            },
+            hotelView(): void {
+                this.$store.getters.getWebsocket.sendMessageComposer(new ExitRoomMessageComposer());
             }
+        },
+        computed: {
+            ...mapGetters("Navigator", { navigatorVisible: "isVisible"}),
+            ...mapGetters("Room", { roomVisible: "isVisible"}),
         }
     });
 </script>

@@ -35,6 +35,8 @@ export class NavigatorSearchResultsSetMessageEvent extends IncomingPacket {
                 };
 
                 const roomSize: number = this.readInt();
+                if(id === "") break;
+                console.log("Room Size:", roomSize, id, name);
 
                 for (let j: number = 0; j < roomSize; j++) {
                     const roomId: number = this.readInt();

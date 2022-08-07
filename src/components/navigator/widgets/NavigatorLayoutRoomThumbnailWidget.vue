@@ -1,6 +1,6 @@
 <template>
     <tooltip :tooltip="__locale('navigator.tooltip.go.to.room')">
-        <div class="Habbo-Room-Info-Thumbnail" @click="go">
+        <div class="Habbo-Room-Info-Thumbnail" @click="visit">
             <div class="Habbo-Room-Info-Thumbnail__Room-Info-Button" @mouseout="hideInfo" @mouseover="showInfo($event)">
             </div>
             <navigator-room-thumbnail-widget width="108px" height="109px" class="Habbo-Room-Info-Thumbnail__Room-Thumbnail"/>
@@ -24,6 +24,7 @@
     import NavigatorRoomThumbnailWidget from './NavigatorRoomThumbnailWidget.vue';
     import NavigatorRoomInfoWidget from './NavigatorRoomInfoWidget.vue';
     import { FollowRoomInfoMessageComposer } from '../../../websockets/messages/outgoing/room/engine/FollowRoomInfoMessageComposer';
+    import {mapMutations} from "vuex";
 
     export default defineComponent({
 
@@ -50,6 +51,7 @@
         },
 
         methods: {
+            ...mapMutations("Navigator", ["setVisible"]),
             showInfo(event): void {
                 const offsets: DOMRect = event.target.getBoundingClientRect();
                 this.y = offsets.top;
@@ -61,7 +63,8 @@
                 this.info = false;
             },
 
-            go(): void {
+            visit(): void {
+                this.setVisible(false);
                 this.$store.getters.getWebsocket.sendMessageComposer(new FollowRoomInfoMessageComposer(this.id, 0, 1));
             }
         }

@@ -26,6 +26,11 @@ import {RoomCategoriesMessageEvent} from "./incoming/navigator/RoomCategoriesMes
 import {EventCategoriesMessageEvent} from "./incoming/navigator/EventCategoriesMessageEvent";
 import {NavigatorSavedSearchesMessageEvent} from "./incoming/navigator/updated/NavigatorSavedSearchesMessageEvent";
 import {FollowRoomDataMessageEvent} from "./incoming/room/engine/FollowRoomDataMessageEvent";
+import {OpenConnectionMessageEvent} from "./incoming/room/engine/OpenConnectionMessageEvent";
+import {HotelViewMessageEvent} from "./incoming/room/engine/HotelViewMessageEvent";
+import {RoomReadyMessageEvent} from "./incoming/room/access/RoomReadyMessageEvent";
+import {RoomPropertyMessageEvent} from "./incoming/room/engine/RoomPropertyMessageEvent";
+import {RelativeHeightmapMessageEvent} from "./incoming/room/engine/RelativeHeightmapMessageEvent";
 
 export class PacketHandler {
 
@@ -61,6 +66,11 @@ export class PacketHandler {
         this._registerPacket(Incoming.EventCategoriesMessageEvent, <IncomingPacket><unknown>EventCategoriesMessageEvent);
         this._registerPacket(Incoming.NavigatorSavedSearchesMessageEvent, <IncomingPacket><unknown>NavigatorSavedSearchesMessageEvent);
         this._registerPacket(Incoming.FollowRoomDataMessageEvent, <IncomingPacket><unknown>FollowRoomDataMessageEvent);
+        this._registerPacket(Incoming.OpenConnectionMessageEvent, <IncomingPacket><unknown>OpenConnectionMessageEvent);
+        this._registerPacket(Incoming.HotelViewMessageEvent, <IncomingPacket><unknown>HotelViewMessageEvent);
+        this._registerPacket(Incoming.RoomReadyMessageEvent, <IncomingPacket><unknown>RoomReadyMessageEvent);
+        this._registerPacket(Incoming.RoomPropertyMessageEvent, <IncomingPacket><unknown>RoomPropertyMessageEvent);
+        this._registerPacket(Incoming.RelativeHeightmapMessageEvent, <IncomingPacket><unknown>RelativeHeightmapMessageEvent);
     }
 
     private _registerPacket(header: number, handler: IncomingPacket): void {

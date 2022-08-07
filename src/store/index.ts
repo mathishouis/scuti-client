@@ -1,15 +1,17 @@
 import Vuex from 'vuex';
-import { windows } from "./windows/store";
 import { Scuti } from 'scuti-renderer';
 import {LoadState} from "../enums/LoadState";
 import { Client } from "../websockets/Client";
-import {navigator} from "./navigator/store";
+
 import Navigator from './modules/navigator';
+import LandingView from './modules/landingview';
+import Room from './modules/room';
 
 export const store = new Vuex.Store({
     modules: {
-        windows: windows,
-        Navigator
+        Navigator,
+        LandingView,
+        Room
     },
     state: {
         loadState: LoadState.STARTUP,

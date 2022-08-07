@@ -36,7 +36,7 @@
                 clearTimeout(this.timeout);
             },
             update(event): void {
-                if(this.visible) {
+                if(this.visible && this.$refs.tooltip) {
                     this.x = event.clientX;
                     this.y = event.clientY;
                     if (event.clientY > window.innerHeight - 37) {

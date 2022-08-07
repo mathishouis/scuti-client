@@ -16,7 +16,7 @@ export class NewNavigatorSearchMessageComposer extends OutgoingPacket {
     }
 
     public compose(): Buffer {
-        store.commit('setLoading', true);
+        store.commit('Navigator/setLoading', true);
         this.writeString(this._category);
         this.writeString(this._data);
         return this.prepare();

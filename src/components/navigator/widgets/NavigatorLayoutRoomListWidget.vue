@@ -1,6 +1,6 @@
 <template>
     <tooltip :tooltip="__locale('navigator.tooltip.go.to.room')">
-        <div class="Habbo-Navigator__Room" :class="[index % 2 !== 0 ? 'Habbo-Navigator__Room--white' : '']" @click="joinRoom">
+        <div class="Habbo-Navigator__Room" :class="[index % 2 !== 0 ? 'Habbo-Navigator__Room--white' : '']" @click="visit">
             <navigator-user-count-widget class="Habbo-Navigator__Room-User-Count" :user-count="userCount" :max-user="maxUsers"/>
             <div class="Habbo-Navigator__Room-Info-Button" @mouseout="hideInfo" @mouseover="showInfo($event)">
             </div>
@@ -23,6 +23,7 @@
     import NavigatorUserCountWidget from './NavigatorUserCountWidget.vue';
     import NavigatorRoomInfoWidget from './NavigatorRoomInfoWidget.vue';
     import { FollowRoomInfoMessageComposer } from '../../../websockets/messages/outgoing/room/engine/FollowRoomInfoMessageComposer';
+    import {mapMutations} from "vuex";
 
     export default defineComponent({
 
@@ -53,6 +54,7 @@
         },
 
         methods: {
+            ...mapMutations("Navigator", ["setVisible"]),
             showInfo(event): void {
                 const offsets: DOMRect = event.target.getBoundingClientRect();
                 this.y = offsets.top;
@@ -64,8 +66,8 @@
                 this.info = false;
             },
 
-            joinRoom(): void {
-                console.log("flop land");
+            visit(): void {
+                this.setVisible(false);
                 this.$store.getters.getWebsocket.sendMessageComposer(new FollowRoomInfoMessageComposer(this.id, 0, 1));
             }
         }

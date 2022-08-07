@@ -1,8 +1,8 @@
 <template>
     <div class="Habbo-Game">
-        <navigator v-if="isVisible"></navigator>
+        <navigator v-if="navigatorVisible"></navigator>
         <toolbar></toolbar>
-        <landing-view></landing-view>
+        <landing-view v-if="landingViewVisible"></landing-view>
         <renderer></renderer>
     </div>
 </template>
@@ -13,7 +13,8 @@
 
     export default defineComponent({
         computed: {
-            ...mapGetters("Navigator", ["isVisible"]),
+            ...mapGetters("Navigator", { navigatorVisible: "isVisible"}),
+            ...mapGetters("LandingView", { landingViewVisible: "isVisible"}),
         }
     });
 </script>

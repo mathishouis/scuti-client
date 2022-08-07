@@ -39,6 +39,7 @@ export const Incoming = {
     RelativeHeightmapMessageEvent: 3841,
     RoomPromotionMessageEvent: 1488,
     AvatarsMessageEvent: 2775,
+    HotelViewMessageEvent: 1297,
 
     RoomCategoriesMessageEvent: 2986,
     EventCategoriesMessageEvent: 3851
