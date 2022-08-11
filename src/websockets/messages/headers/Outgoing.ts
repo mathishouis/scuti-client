@@ -13,5 +13,7 @@ export const Outgoing = {
     NavigatorSaveViewModeMessageComposer: 597,
     FollowRoomInfoMessageComposer: 3646,
     InitializeRoomMessageComposer: 2450,
-    ExitRoomMessageComposer: 2644
+    ExitRoomMessageComposer: 2644,
+    AddUserToRoomMessageComposer: 2195,
+    WalkMessageComposer: 3802
 }

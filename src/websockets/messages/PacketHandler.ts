@@ -31,6 +31,10 @@ import {HotelViewMessageEvent} from "./incoming/room/engine/HotelViewMessageEven
 import {RoomReadyMessageEvent} from "./incoming/room/access/RoomReadyMessageEvent";
 import {RoomPropertyMessageEvent} from "./incoming/room/engine/RoomPropertyMessageEvent";
 import {RelativeHeightmapMessageEvent} from "./incoming/room/engine/RelativeHeightmapMessageEvent";
+import {AvatarsMessageEvent} from "./incoming/room/avatar/AvatarsMessageEvent";
+import {AvatarUpdateMessageEvent} from "./incoming/room/avatar/AvatarUpdateMessageEvent";
+import {FloorItemsMessageEvent} from "./incoming/room/items/FloorItemsMessageEvent";
+import {WallItemsMessageEvent} from "./incoming/room/items/WallItemsMessageEvent";
 
 export class PacketHandler {
 
@@ -71,6 +75,10 @@ export class PacketHandler {
         this._registerPacket(Incoming.RoomReadyMessageEvent, <IncomingPacket><unknown>RoomReadyMessageEvent);
         this._registerPacket(Incoming.RoomPropertyMessageEvent, <IncomingPacket><unknown>RoomPropertyMessageEvent);
         this._registerPacket(Incoming.RelativeHeightmapMessageEvent, <IncomingPacket><unknown>RelativeHeightmapMessageEvent);
+        this._registerPacket(Incoming.AvatarsMessageEvent, <IncomingPacket><unknown>AvatarsMessageEvent);
+        this._registerPacket(Incoming.AvatarUpdateMessageEvent, <IncomingPacket><unknown>AvatarUpdateMessageEvent);
+        this._registerPacket(Incoming.FloorItemsMessageEvent, <IncomingPacket><unknown>FloorItemsMessageEvent);
+        this._registerPacket(Incoming.WallItemsMessageEvent, <IncomingPacket><unknown>WallItemsMessageEvent);
     }
 
     private _registerPacket(header: number, handler: IncomingPacket): void {

@@ -14,6 +14,19 @@ export class RoomPropertyMessageEvent extends IncomingPacket {
         const key: string = this.readString();
         const value: string = this.readString();
 
+        console.log(key, value);
+
+        switch(key) {
+            case 'wallpaper':
+                store.getters['Room/Renderer/getRoom'].wallMaterial = store.getters['Room/Renderer/getRenderer'].materials.getWallMaterial(Number(value));
+                break;
+            case 'floor':
+                store.getters['Room/Renderer/getRoom'].floorMaterial = store.getters['Room/Renderer/getRenderer'].materials.getFloorMaterial(Number(value));
+                break;
+            case 'landscape':
+                break;
+        }
+
     }
 
 }

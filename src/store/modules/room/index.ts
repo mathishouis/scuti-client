@@ -1,10 +1,14 @@
 import Renderer from './renderer';
+import Avatars from './avatars';
+import Furnitures from './furnitures';
 
 export default {
     namespaced: true,
 
     modules: {
-        Renderer
+        Renderer,
+        Avatars,
+        Furnitures
     },
 
     state: {

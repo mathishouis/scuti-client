@@ -11,6 +11,7 @@
     import {LoadState} from "./enums/LoadState";
     import {UniqueIdMessageComposer} from "./websockets/messages/outgoing/handshake/UniqueIdMessageComposer";
     import {store} from "./store";
+    import {WalkMessageComposer} from "./websockets/messages/outgoing/room/action/WalkMessageComposer";
 
     export default defineComponent({
         data() {
@@ -53,7 +54,7 @@
             }
             await this.$store.getters['Room/Renderer/getRenderer'].initialise();
             let room = new Room(store.getters['Room/Renderer/getRenderer'], {
-                tilemap: "00", floorMaterial: 101, wallMaterial: 1501
+                tilemap: "00", floorMaterial: 111, wallMaterial: 201
             });
             this.$store.commit('Room/Renderer/setRoom', room);
             this.$store.commit('setWebsocket', new Client(false, '127.0.0.1', 30001));
@@ -62,6 +63,9 @@
                 this.$store.commit('setLoadState', LoadState.LOADED);
                 this.$store.getters.getWebsocket.sendMessageComposer(new SSOTicketMessageComposer("auth38383838"));
                 this.$store.getters.getWebsocket.sendMessageComposer(new UniqueIdMessageComposer());
+                this.$store.getters['Room/Renderer/getRoom'].tileClick = (x, y, z) => {
+                    this.$store.getters.getWebsocket.sendMessageComposer(new WalkMessageComposer(x, y));
+                }
             }
             this.$store.getters.getWebsocket.connect();
         },
