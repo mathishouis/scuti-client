@@ -23,9 +23,9 @@ export class WallItemsMessageEvent extends IncomingPacket {
         const itemSize: number = this.readInt();
 
         for (let i: number = 0; i < itemSize; i++) {
-            const virtualId: number = this.readString();
+            const virtualId: number = Number(this.readString());
             const spriteId: number = this.readInt();
-            const wallPosition: number = this.readString();
+            const wallPosition: string = this.readString();
 
             const extradata: string = this.readString();
 

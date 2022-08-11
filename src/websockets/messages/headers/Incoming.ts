@@ -43,6 +43,12 @@ export const Incoming = {
     HotelViewMessageEvent: 1297,
     FloorItemsMessageEvent: 1264,
     WallItemsMessageEvent: 2649,
+    SendFloorItemMessageEvent: 3340,
+    SendWallItemMessageEvent: 366,
+    UpdateFloorItemMessageEvent: 1125,
+    UpdateWallItemMessageEvent: 1481,
+    RemoveFloorItemMessageEvent: 2039,
+    RemoveWallItemMessageEvent: 2091,
 
     RoomCategoriesMessageEvent: 2986,
     EventCategoriesMessageEvent: 3851,

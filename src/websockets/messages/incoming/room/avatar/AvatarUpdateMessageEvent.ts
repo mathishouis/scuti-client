@@ -31,7 +31,7 @@ export class AvatarUpdateMessageEvent extends IncomingPacket {
                 let value = parsedState.split(" ")[1];
                 if(action === "mv") {
                     console.log(store.getters['Room/Avatars/getAvatar'](avatarId).avatar._actions.includes("Move"))
-                    store.getters['Room/Avatars/getAvatar'](avatarId).avatar.move(value.split(",")[0], value.split(",")[1], value.split(",")[2]);
+                    store.getters['Room/Avatars/getAvatar'](avatarId).avatar.move(value.split(",")[0], value.split(",")[1], value.split(",")[2], true);
                     if(!store.getters['Room/Avatars/getAvatar'](avatarId).avatar._actions.includes("Move")) {
                         store.getters['Room/Avatars/getAvatar'](avatarId).avatar.addAction(Action.Walk);
                     }

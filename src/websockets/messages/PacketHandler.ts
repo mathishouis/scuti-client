@@ -35,6 +35,15 @@ import {AvatarsMessageEvent} from "./incoming/room/avatar/AvatarsMessageEvent";
 import {AvatarUpdateMessageEvent} from "./incoming/room/avatar/AvatarUpdateMessageEvent";
 import {FloorItemsMessageEvent} from "./incoming/room/items/FloorItemsMessageEvent";
 import {WallItemsMessageEvent} from "./incoming/room/items/WallItemsMessageEvent";
+import {SendFloorItemMessageEvent} from "./incoming/room/items/SendFloorItemMessageEvent";
+import {SendWallItemMessageEvent} from "./incoming/room/items/SendWallItemMessageEvent";
+import {UpdateFloorItemMessageEvent} from "./incoming/room/items/UpdateFloorItemMessageEvent";
+import {UpdateWallItemMessageEvent} from "./incoming/room/items/UpdateWallItemMessageEvent";
+import {
+    RemoveFloorItemMessageComposer,
+    RemoveFloorItemMessageEvent
+} from "./incoming/room/items/RemoveFloorItemMessageEvent";
+import {RemoveWallItemMessageEvent} from "./incoming/room/items/RemoveWallItemMessageEvent";
 
 export class PacketHandler {
 
@@ -79,6 +88,12 @@ export class PacketHandler {
         this._registerPacket(Incoming.AvatarUpdateMessageEvent, <IncomingPacket><unknown>AvatarUpdateMessageEvent);
         this._registerPacket(Incoming.FloorItemsMessageEvent, <IncomingPacket><unknown>FloorItemsMessageEvent);
         this._registerPacket(Incoming.WallItemsMessageEvent, <IncomingPacket><unknown>WallItemsMessageEvent);
+        this._registerPacket(Incoming.SendFloorItemMessageEvent, <IncomingPacket><unknown>SendFloorItemMessageEvent);
+        this._registerPacket(Incoming.SendWallItemMessageEvent, <IncomingPacket><unknown>SendWallItemMessageEvent);
+        this._registerPacket(Incoming.UpdateFloorItemMessageEvent, <IncomingPacket><unknown>UpdateFloorItemMessageEvent);
+        this._registerPacket(Incoming.UpdateWallItemMessageEvent, <IncomingPacket><unknown>UpdateWallItemMessageEvent);
+        this._registerPacket(Incoming.RemoveFloorItemMessageEvent, <IncomingPacket><unknown>RemoveFloorItemMessageEvent);
+        this._registerPacket(Incoming.RemoveWallItemMessageEvent, <IncomingPacket><unknown>RemoveWallItemMessageEvent);
     }
 
     private _registerPacket(header: number, handler: IncomingPacket): void {
