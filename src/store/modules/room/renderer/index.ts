@@ -1,4 +1,5 @@
 import {Scuti, Room} from 'scuti-renderer';
+import { isProxy, toRaw } from 'vue';
 
 export default {
     namespaced: true,
@@ -19,10 +20,10 @@ export default {
 
     getters: {
         getRenderer: (state): Scuti => {
-            return state.renderer;
+            return toRaw(state.renderer);
         },
         getRoom: (state): Room => {
-            return state.room;
+            return toRaw(state.room);
         }
     },
 

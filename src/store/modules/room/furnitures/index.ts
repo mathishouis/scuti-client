@@ -1,3 +1,5 @@
+import { isProxy, toRaw } from 'vue';
+
 export default {
     namespaced: true,
 
@@ -23,16 +25,16 @@ export default {
 
     getters: {
         getFloorItems: (state): {}[] => {
-            return state.floorItems;
+            return toRaw(state.floorItems);
         },
         getFloorItem: (state) => (id): {} => {
-            return state.floorItems.find(floorItem => floorItem.id === id);
+            return toRaw(state.floorItems.find(floorItem => floorItem.id === id));
         },
         getWallItems: (state): {}[] => {
-            return state.wallItems;
+            return toRaw(state.wallItems);
         },
         getWallItem: (state) => (id): {} => {
-            return state.wallItems.find(wallItem => wallItem.id === id);
+            return toRaw(state.wallItems.find(wallItem => wallItem.id === id));
         }
     },
 

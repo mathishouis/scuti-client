@@ -48,6 +48,7 @@ export class FloorItemsMessageEvent extends IncomingPacket {
                 id: spriteId,
                 state: Number(extradata),
             });
+            //furniture.updateZOrder();
 
             store.getters['Room/Renderer/getRoom'].addRoomObject(furniture);
 
@@ -55,6 +56,7 @@ export class FloorItemsMessageEvent extends IncomingPacket {
                 id: virtualId,
                 furniture: furniture
             });
+
         }
 
 

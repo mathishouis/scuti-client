@@ -1,3 +1,5 @@
+import { isProxy, toRaw } from 'vue';
+
 export default {
     namespaced: true,
 
@@ -13,10 +15,10 @@ export default {
 
     getters: {
         getAvatars: (state): {}[] => {
-            return state.avatars;
+            return toRaw(state.avatars);
         },
         getAvatar: (state) => (id): {} => {
-            return state.avatars.find(avatar => avatar.id === id);
+            return toRaw(state.avatars.find(avatar => avatar.id === id));
         }
     },
 
