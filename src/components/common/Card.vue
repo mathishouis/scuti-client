@@ -45,4 +45,13 @@
         position: relative;
     }
 
+    .Habbo-Card__Card--7 {
+        border-image: url(../../assets/images/common/border_7.png) 6 6 6 6 fill;
+        border-top: 6px solid transparent;
+        border-left: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-right: 6px solid transparent;
+        position: relative;
+    }
+
 </style>

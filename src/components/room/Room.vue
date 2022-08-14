@@ -1,11 +1,17 @@
 <template>
+    <furniture-widget/>
     <div class="Habbo-Renderer" id="Habbo-Renderer"></div>
 </template>
 
 <script lang="ts">
     import { defineComponent } from 'vue';
 
+    import FurnitureWidget from "./widgets/furniture/FurnitureWidget.vue";
+
     export default defineComponent({
+        components: {
+            FurnitureWidget,
+        }
     });
 </script>
 

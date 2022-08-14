@@ -1,5 +1,5 @@
 <template>
-    <window :width="panel ? 578 : 425" :height="535" :title="isLoading ? __locale('navigator.title.is.busy') : __locale('navigator.title')" @close="close" resizable-y>
+    <window :id="3" :width="panel ? '578px' : '425px'" height="535px" :title="isLoading ? __locale('navigator.title.is.busy') : __locale('navigator.title')" @close="close" resizable-y>
         <div class="Habbo-Navigator__Tab-Container">
             <tooltip :tooltip="__locale('navigator.tooltip.left.show.hide')">
                 <div class="Habbo-Navigator__Saved-Search-Icon" @click="togglePanel">

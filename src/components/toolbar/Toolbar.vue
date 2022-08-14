@@ -21,7 +21,12 @@
     import {mapGetters, mapMutations} from "vuex";
     import {ExitRoomMessageComposer} from "../../websockets/messages/outgoing/room/action/ExitRoomMessageComposer";
 
+    import ToolbarIcon from "./ToolbarIcon.vue";
+
     export default defineComponent({
+        components: {
+            ToolbarIcon
+        },
         methods: {
             ...mapMutations("Navigator", { setNavigatorVisible: "setVisible"}),
             toggleNavigator(): void {

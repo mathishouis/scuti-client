@@ -3,7 +3,7 @@
         <navigator v-if="navigatorVisible"></navigator>
         <toolbar></toolbar>
         <landing-view v-if="landingViewVisible"></landing-view>
-        <renderer></renderer>
+        <room></room>
     </div>
 </template>
 
@@ -11,7 +11,18 @@
     import { defineComponent } from 'vue';
     import {mapGetters} from "vuex";
 
+    import Room from "../components/room/Room.vue";
+    import LandingView from "../components/landingview/LandingView.vue";
+    import Navigator from "../components/navigator/Navigator.vue";
+    import Toolbar from "../components/toolbar/Toolbar.vue";
+
     export default defineComponent({
+        components: {
+            Room,
+            LandingView,
+            Navigator,
+            Toolbar
+        },
         computed: {
             ...mapGetters("Navigator", { navigatorVisible: "isVisible"}),
             ...mapGetters("LandingView", { landingViewVisible: "isVisible"}),

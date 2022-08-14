@@ -4,6 +4,7 @@ import {store} from "../../../../../store";
 import {InitializeRoomMessageComposer} from "../../../outgoing/room/engine/InitializeRoomMessageComposer";
 import {AddUserToRoomMessageComposer} from "../../../outgoing/room/engine/AddUserToRoomMessageComposer";
 import {FloorFurniture} from "scuti-renderer";
+import {ChangeFloorItemStateMessageComposer} from "../../../outgoing/room/item/ChangeFloorItemStateMessageComposer";
 
 export class FloorItemsMessageEvent extends IncomingPacket {
 
@@ -48,7 +49,11 @@ export class FloorItemsMessageEvent extends IncomingPacket {
                 id: spriteId,
                 state: Number(extradata),
             });
-            //furniture.updateZOrder();
+
+            furniture.doubleClick = (event) => {
+                console.log(event);
+                store.getters['getWebsocket'].sendMessageComposer(new ChangeFloorItemStateMessageComposer(virtualId));
+            }
 
             store.getters['Room/Renderer/getRoom'].addRoomObject(furniture);
 

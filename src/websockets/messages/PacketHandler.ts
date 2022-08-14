@@ -44,6 +44,7 @@ import {
     RemoveFloorItemMessageEvent
 } from "./incoming/room/items/RemoveFloorItemMessageEvent";
 import {RemoveWallItemMessageEvent} from "./incoming/room/items/RemoveWallItemMessageEvent";
+import {SlideObjectBundleMessageEvent} from "./incoming/room/items/SlideObjectBundleMessageEvent";
 
 export class PacketHandler {
 
@@ -94,6 +95,7 @@ export class PacketHandler {
         this._registerPacket(Incoming.UpdateWallItemMessageEvent, <IncomingPacket><unknown>UpdateWallItemMessageEvent);
         this._registerPacket(Incoming.RemoveFloorItemMessageEvent, <IncomingPacket><unknown>RemoveFloorItemMessageEvent);
         this._registerPacket(Incoming.RemoveWallItemMessageEvent, <IncomingPacket><unknown>RemoveWallItemMessageEvent);
+        this._registerPacket(Incoming.SlideObjectBundleMessageEvent, <IncomingPacket><unknown>SlideObjectBundleMessageEvent);
     }
 
     private _registerPacket(header: number, handler: IncomingPacket): void {

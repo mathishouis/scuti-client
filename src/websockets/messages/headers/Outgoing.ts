@@ -15,5 +15,6 @@ export const Outgoing = {
     InitializeRoomMessageComposer: 2450,
     ExitRoomMessageComposer: 2644,
     AddUserToRoomMessageComposer: 2195,
-    WalkMessageComposer: 3802
+    WalkMessageComposer: 3802,
+    ChangeFloorItemStateMessageComposer: 788,
 }

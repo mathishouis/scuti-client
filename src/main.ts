@@ -11,7 +11,6 @@ import SelectionList from './components/common/SelectionList.vue';
 import Scrollbox from './components/common/Scrollbox.vue';
 import vClickOutside from 'click-outside-vue3';
 import CustomScrollbar from 'custom-vue-scrollbar';
-import Renderer from './components/Renderer.vue';
 import Game from './views/Game.vue';
 import Loading from './views/Loading.vue';
 import LandingView from './components/landing-view/LandingView.vue';
@@ -22,6 +21,7 @@ import './style.css';
 import drag from 'v-drag';
 import { store } from "./store";
 import Locale from "./mixins/Locale";
+import Button from "./components/common/Button.vue";
 
 const app = createApp(App)
 
@@ -39,14 +39,10 @@ app.component('textfield', Textfield);
 app.component('selection-list', SelectionList);
 app.component('scrollbox', Scrollbox);
 app.component('card', Card);
+app.component('habbo-button', Button);
 
-app.component('toolbar', Toolbar);
-app.component('toolbar-icon', ToolbarIcon);
-app.component('navigator', Navigator);
 app.component('scrollbar', CustomScrollbar);
 app.component('game', Game);
-app.component('renderer', Renderer);
 app.component('loading', Loading);
-app.component('landing-view', LandingView);
 
 app.mount('#app');
