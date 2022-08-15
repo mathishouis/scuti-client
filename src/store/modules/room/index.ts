@@ -1,6 +1,7 @@
 import Renderer from './renderer';
 import Avatars from './avatars';
 import Furnitures from './furnitures';
+import InfoStands from './infostands';
 
 export default {
     namespaced: true,
@@ -8,7 +9,8 @@ export default {
     modules: {
         Renderer,
         Avatars,
-        Furnitures
+        Furnitures,
+        InfoStands
     },
 
     state: {

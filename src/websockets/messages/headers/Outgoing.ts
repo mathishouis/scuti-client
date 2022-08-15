@@ -17,4 +17,6 @@ export const Outgoing = {
     AddUserToRoomMessageComposer: 2195,
     WalkMessageComposer: 3802,
     ChangeFloorItemStateMessageComposer: 788,
+    ChangeFloorItemPositionMessageComposer: 2955,
+    PickUpItemMessageComposer: 3064
 }

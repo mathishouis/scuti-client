@@ -1,7 +1,8 @@
 <template>
-    <div :class="'Habbo-Window--style-' + id" :style="{ width: width, height: height, resize: resizableX && resizableY ? 'both' : resizableX ? 'horizontal' : resizableY ? 'vertical' : '' }" v-drag="{handle: '#dragger-' + width + '-' + height + '-' + id}">
+    <div id="invisible-dragger"></div>
+    <div :class="'Habbo-Window--style-' + id" :style="{ width: width, height: height, resize: resizableX && resizableY ? 'both' : resizableX ? 'horizontal' : resizableY ? 'vertical' : '' }" v-drag="{handle: draggable ? '#dragger-' + width + '-' + height + '-' + id : '#invisible-dragger'}">
         <div class="Habbo-Window__Header">
-            <div class="Habbo-Window__Handle" :id="'dragger-' + width + '-' + height + '-' + id">
+            <div class="Habbo-Window__Handle" :id="'dragger-' + width + '-' + height + '-' + id" v-if="draggable">
             </div>
             <div class="Habbo-Window__Title">
                 {{ title }}
@@ -29,7 +30,8 @@
             height: String,
             resizableX: Boolean,
             resizableY: Boolean,
-            id: Number
+            id: Number,
+            draggable: Boolean
         },
         methods: {
             close(): void {
@@ -158,7 +160,7 @@
         position: absolute;
         left: 12px;
         margin-top: 10px;
-        letter-spacing: 0.1pt;
+        letter-spacing: 0.4pt;
         font-weight: bold;
     }
     .Habbo-Window--style-1 .Habbo-Window__Header .Habbo-Window__Handle {
@@ -188,9 +190,9 @@
         display: none;
     }
     .Habbo-Window--style-1 .Habbo-Window__Content {
-        width: 100%;
+        width: calc(100% - 8px);
         margin-top: 21px;
         position: absolute;
-        height: 100%;
+        height: calc(100% - 29px);
     }
 </style>

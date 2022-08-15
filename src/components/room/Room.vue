@@ -1,16 +1,20 @@
 <template>
-    <furniture-widget/>
+    <furniture-info-stand-widget v-if="getSelectedItem !== undefined"/>
     <div class="Habbo-Renderer" id="Habbo-Renderer"></div>
 </template>
 
 <script lang="ts">
     import { defineComponent } from 'vue';
 
-    import FurnitureWidget from "./widgets/furniture/FurnitureWidget.vue";
+    import FurnitureInfoStandWidget from "./widgets/infostand/FurnitureInfoStandWidget.vue";
+    import {mapGetters} from "vuex";
 
     export default defineComponent({
         components: {
-            FurnitureWidget,
+            FurnitureInfoStandWidget
+        },
+        computed: {
+            ...mapGetters("Room/InfoStands", ["getSelectedItem"]),
         }
     });
 </script>
