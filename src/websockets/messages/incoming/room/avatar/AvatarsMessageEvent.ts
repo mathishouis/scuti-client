@@ -25,9 +25,17 @@ export class AvatarsMessageEvent extends IncomingPacket {
             const bodyRotation: number = this.readInt();
             const type: number = this.readInt();
             const gender: number = this.readString();
-            this.readInt();
-            this.readInt();
-            this.readInt();
+
+            const groupId: number = this.readInt();
+
+            if(groupId === -1) {
+                this.readInt();
+                this.readInt();
+            } else {
+                this.readInt();
+                this.readString();
+                this.readString();
+            }
 
             this.readInt();
             this.readBool();
