@@ -1,6 +1,7 @@
 <template>
     <div class="Habbo-Game">
         <navigator v-if="navigatorVisible"></navigator>
+        <inventory v-if="true"></inventory>
         <toolbar></toolbar>
         <landing-view v-if="landingViewVisible"></landing-view>
         <room></room>
@@ -15,16 +16,19 @@
     import LandingView from "../components/landingview/LandingView.vue";
     import Navigator from "../components/navigator/Navigator.vue";
     import Toolbar from "../components/toolbar/Toolbar.vue";
+    import Inventory from "../components/inventory/Inventory.vue";
 
     export default defineComponent({
         components: {
             Room,
             LandingView,
             Navigator,
-            Toolbar
+            Toolbar,
+            Inventory
         },
         computed: {
             ...mapGetters("Navigator", { navigatorVisible: "isVisible"}),
+            ...mapGetters("Inventory", { inventoryVisible: "isVisible"}),
             ...mapGetters("LandingView", { landingViewVisible: "isVisible"}),
         }
     });

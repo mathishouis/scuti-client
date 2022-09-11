@@ -10,6 +10,9 @@ export default {
     mutations: {
         addAvatar: (state, payload): void => {
             state.avatars.push(payload);
+        },
+        removeAvatar: (state, id): void => {
+            state.avatars = state.avatars.filter(avatar => avatar.id !== id);
         }
     },
 

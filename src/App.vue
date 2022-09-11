@@ -61,7 +61,7 @@
             this.$store.getters.getWebsocket.onConnect = () => {
                 this.$store.commit('setLoadState', LoadState.NETWORK_ESTABLISHED);
                 this.$store.commit('setLoadState', LoadState.LOADED);
-                this.$store.getters.getWebsocket.sendMessageComposer(new SSOTicketMessageComposer("auth38383838"));
+                this.$store.getters.getWebsocket.sendMessageComposer(new SSOTicketMessageComposer(new URLSearchParams(window.location.search).get('sso')));
                 this.$store.getters.getWebsocket.sendMessageComposer(new UniqueIdMessageComposer());
                 this.$store.getters['Room/Renderer/getRoom'].tileClick = (x, y, z) => {
                     this.$store.getters.getWebsocket.sendMessageComposer(new WalkMessageComposer(x, y));

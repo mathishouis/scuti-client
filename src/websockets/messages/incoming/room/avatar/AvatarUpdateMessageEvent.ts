@@ -48,6 +48,7 @@ export class AvatarUpdateMessageEvent extends IncomingPacket {
             if(!state.includes("sit")) {
                 store.getters['Room/Avatars/getAvatar'](avatarId).avatar.removeAction(Action.Sit);
             }
+            store.getters['Room/Avatars/getAvatar'](avatarId).avatar.move(x, y, z, false);
 
 
         }

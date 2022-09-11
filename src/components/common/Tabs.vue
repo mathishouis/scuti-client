@@ -99,6 +99,7 @@
         padding: 11px 13px 12px;
         line-height: 9px;
         text-align: center;
+        white-space: nowrap;
     }
     .Habbo-Tabs .Habbo-Tabs__Tab-Container.Habbo-Tabs__Tab-Container--active {
         border-image: url(../../assets/images/tab_active.png);

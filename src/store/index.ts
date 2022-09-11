@@ -6,12 +6,14 @@ import { Client } from "../websockets/Client";
 import Navigator from './modules/navigator';
 import LandingView from './modules/landingview';
 import Room from './modules/room';
+import Inventory from './modules/inventory';
 
 export const store = new Vuex.Store({
     modules: {
         Navigator,
         LandingView,
-        Room
+        Room,
+        Inventory
     },
     state: {
         loadState: LoadState.STARTUP,

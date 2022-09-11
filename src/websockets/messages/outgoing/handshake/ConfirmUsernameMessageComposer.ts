@@ -10,7 +10,7 @@ export class ConfirmUsernameMessageComposer extends OutgoingPacket {
 
     public compose(): Buffer {
         // TODO: Send player username
-        this.writeString("Kozen");
+        this.writeString("Anis");
         return this.prepare();
     }
 
