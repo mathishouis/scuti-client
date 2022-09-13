@@ -46,6 +46,7 @@ import {
 import {RemoveWallItemMessageEvent} from "./incoming/room/items/RemoveWallItemMessageEvent";
 import {SlideObjectBundleMessageEvent} from "./incoming/room/items/SlideObjectBundleMessageEvent";
 import {LeaveRoomMessageEvent} from "./incoming/room/avatar/LeaveRoomMessageEvent";
+import {InventoryMessageEvent} from "./incoming/user/inventory/InventoryMessageEvent";
 
 export class PacketHandler {
 
@@ -98,6 +99,7 @@ export class PacketHandler {
         this._registerPacket(Incoming.RemoveWallItemMessageEvent, <IncomingPacket><unknown>RemoveWallItemMessageEvent);
         this._registerPacket(Incoming.SlideObjectBundleMessageEvent, <IncomingPacket><unknown>SlideObjectBundleMessageEvent);
         this._registerPacket(Incoming.LeaveRoomMessageEvent, <IncomingPacket><unknown>LeaveRoomMessageEvent);
+        this._registerPacket(Incoming.InventoryMessageEvent, <IncomingPacket><unknown>InventoryMessageEvent);
     }
 
     private _registerPacket(header: number, handler: IncomingPacket): void {

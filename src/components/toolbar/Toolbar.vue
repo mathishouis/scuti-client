@@ -8,7 +8,7 @@
                 <toolbar-icon tooltip="Aller chez moi" icon="images/toolbar/icons/home_room.png" :margin="4" v-else/>
                 <toolbar-icon tooltip="A visiter" icon="images/toolbar/icons/navigator.png" :margin="4" @click="toggleNavigator"/>
                 <toolbar-icon tooltip="Boutique" icon="images/toolbar/icons/shop.png" :margin="3"/>
-                <toolbar-icon tooltip="Inventaire" icon="images/toolbar/icons/inventory.png" :margin="3" v-if="roomVisible"/>
+                <toolbar-icon tooltip="Inventaire" icon="images/toolbar/icons/inventory.png" :margin="3" @click="toggleInventory" v-if="roomVisible"/>
             </div>
             <div class="Habbo-Toolbar__Separator">
             </div>
@@ -22,6 +22,7 @@
     import {ExitRoomMessageComposer} from "../../websockets/messages/outgoing/room/action/ExitRoomMessageComposer";
 
     import ToolbarIcon from "./ToolbarIcon.vue";
+    import {OpenInventoryMessageComposer} from "../../websockets/messages/outgoing/user/inventory/OpenInventoryMessageComposer";
 
     export default defineComponent({
         components: {
@@ -31,6 +32,9 @@
             ...mapMutations("Navigator", { setNavigatorVisible: "setVisible"}),
             toggleNavigator(): void {
                 this.setNavigatorVisible(!this.navigatorVisible);
+            },
+            toggleInventory(): void {
+                this.$store.getters.getWebsocket.sendMessageComposer(new OpenInventoryMessageComposer());
             },
             hotelView(): void {
                 this.$store.getters.getWebsocket.sendMessageComposer(new ExitRoomMessageComposer());

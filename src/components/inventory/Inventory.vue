@@ -23,6 +23,7 @@
             </div>
         </div>
         <inventory-search-widget/>
+        <inventory-furnitures-widget/>
 
     </window>
 </template>
@@ -33,10 +34,12 @@
     import {mapGetters, mapMutations} from "vuex";
 
     import InventorySearchWidget from "./widgets/InventorySearchWidget.vue";
+    import InventoryFurnituresWidget from "./widgets/InventoryFurnituresWidget.vue";
 
     export default defineComponent({
         components: {
-            InventorySearchWidget
+            InventorySearchWidget,
+            InventoryFurnituresWidget
         },
 
         data() {

@@ -8,7 +8,7 @@
                 { name: __locale('navigator.filter.group'), value: 'group' }
             ]" width="104px" v-model:value="searchCategory" @change="search"/>
         <tooltip :tooltip="__locale('navigator.tooltip.filter.input')">
-            <textfield class="Habbo-Navigator__Search-Textfield" width="233px" :placeholder="__locale('navigator.filter.input.placeholder')" v-model:value="searchQuery" @change="search"/>
+            <textfield class="Habbo-Navigator__Search-Textfield" width="233px" :placeholder="__locale('navigator.filter.input.placeholder')" v-model:value="searchQuery" @change="search" focus-button/>
         </tooltip>
         <div class="Habbo-Navigator__Refresh-Button" v-if="searchQuery !== ''" @click="search">
         </div>

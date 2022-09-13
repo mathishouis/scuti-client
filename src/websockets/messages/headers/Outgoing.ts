@@ -18,5 +18,6 @@ export const Outgoing = {
     WalkMessageComposer: 3802,
     ChangeFloorItemStateMessageComposer: 788,
     ChangeFloorItemPositionMessageComposer: 2955,
-    PickUpItemMessageComposer: 3064
+    PickUpItemMessageComposer: 3064,
+    OpenInventoryMessageComposer: 3750,
 }

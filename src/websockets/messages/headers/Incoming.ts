@@ -51,6 +51,8 @@ export const Incoming = {
     RemoveWallItemMessageEvent: 2091,
     SlideObjectBundleMessageEvent: 352,
 
+    InventoryMessageEvent: 1669,
+
     RoomCategoriesMessageEvent: 2986,
     EventCategoriesMessageEvent: 3851,
 }

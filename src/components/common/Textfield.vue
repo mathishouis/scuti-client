@@ -1,8 +1,8 @@
 <template>
     <div class="Habbo-Textfield" :style="{ width: width }">
-        <div class="Habbo-Textfield__Input-Focus-Button" @click="focus" v-if="!clearButton">
+        <div class="Habbo-Textfield__Input-Focus-Button" @click="focus" v-if="!clearButton && focusButton">
         </div>
-        <div class="Habbo-Textfield__Clear-Button" @click="clear" v-else>
+        <div class="Habbo-Textfield__Clear-Button" @click="clear" v-if="clearButton">
         </div>
         <input class="Habbo-Textfield__Input" :placeholder="placeholder" type="text" @input="input($event.target.value)" ref="input">
     </div>
@@ -85,7 +85,8 @@
     export default defineComponent({
         props: {
             placeholder: String,
-            width: String
+            width: String,
+            focusButton: Boolean
         },
 
         data() {

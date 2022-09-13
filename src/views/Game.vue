@@ -1,7 +1,7 @@
 <template>
     <div class="Habbo-Game">
         <navigator v-if="navigatorVisible"></navigator>
-        <inventory v-if="true"></inventory>
+        <inventory v-if="inventoryVisible"></inventory>
         <toolbar></toolbar>
         <landing-view v-if="landingViewVisible"></landing-view>
         <room></room>
