@@ -32,5 +32,13 @@ export default defineComponent({
     border-bottom: 6px solid transparent;
     border-right: 6px solid transparent;
   }
+
+  &--3 {
+    border-image: url(@images/borders/3.png) 6 6 6 6 fill;
+    border-top: 6px solid transparent;
+    border-left: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 6px solid transparent;
+  }
 }
 </style>

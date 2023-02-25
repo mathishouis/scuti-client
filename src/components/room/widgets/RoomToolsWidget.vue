@@ -114,7 +114,7 @@ export default defineComponent({
         return;
       }
       this.infosVisible = true;
-      clearInterval(this.timeout);
+      clearTimeout(this.timeout);
       this.timeout = setTimeout(() => (this.infosVisible = false), 5000);
     },
   },
