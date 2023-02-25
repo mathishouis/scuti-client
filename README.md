@@ -1,2 +1,0 @@
-# scuti-client
-Scuti client

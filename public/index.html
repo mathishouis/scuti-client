@@ -1,41 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Habbo</title>
-    <link rel="icon" type="image/png" href="../src/assets/images/favicon.png" />
-    <style>
-        @font-face { font-family: "Ubuntu"; src: url("https://fonts.gstatic.com/s/ubuntu/v20/4iCs6KVjbNBYlgoKfw72.woff2") format("woff2"); font-style: normal; font-weight: 400; font-display: swap; unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-        @font-face { font-family: "Ubuntu"; src: url("https://fonts.gstatic.com/s/ubuntu/v20/4iCv6KVjbNBYlgoCjC3jsGyN.woff2") format("woff2"); font-style: normal; font-weight: 500; font-display: swap; unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-        @font-face { font-family: "Ubuntu"; src: url("https://fonts.gstatic.com/s/ubuntu/v20/4iCv6KVjbNBYlgoCxCvjsGyN.woff2") format("woff2"); font-style: normal; font-weight: 700; font-display: swap; unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-        @font-face { font-family: Ubuntu; src: url("./../src/assets/fonts/Ubuntu.woff"); }
-        @font-face { font-family: UbuntuBold; src: url("./../src/assets/fonts/UbuntuBold.woff"); }
-        @font-face { font-family: Goldfish; src: url("./../src/assets/fonts/Volter.woff"); }
-
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            image-rendering: pixelated;
-            image-rendering: -moz-crisp-edges;
-            background-color: #000000;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-        body *, html * {
-            /*-webkit-font-smoothing: antialiased;*/
-            box-sizing: border-box;
-        }
-    </style>
-</head>
-<body>
-<div id="app">
-</div>
-
-
-
-<script type="module" src="../src/main.ts"></script>
-</body>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
 </html>
