@@ -4,17 +4,29 @@
       <border-card
         type="2"
         class="tool-bar__arrow-left"
-        :class="!leftToggleState ? 'tool-bar__arrow-left--active' : ''"
+        :class="leftToggleState ? 'tool-bar__arrow-left--active' : ''"
         @click="toggleLeft"
       />
       <div class="tool-bar__icons">
-        <tool-bar-icon icon="hotel-view" v-if="!leftToggleState" />
-        <tool-bar-icon icon="home-room" v-if="false" />
+        <tool-bar-icon
+          icon="hotel-view"
+          v-if="!leftToggleState && !landingViewVisible"
+        />
+        <tool-bar-icon
+          icon="home-room"
+          v-if="!leftToggleState && landingViewVisible"
+        />
         <tool-bar-icon icon="navigator" v-if="!leftToggleState" />
-        <tool-bar-icon icon="quest" v-if="!leftToggleState" />
+        <tool-bar-icon
+          icon="quest"
+          v-if="!leftToggleState && !landingViewVisible"
+        />
         <tool-bar-icon icon="shop" />
-        <tool-bar-icon icon="inventory" />
-        <tool-bar-icon icon="camera" />
+        <tool-bar-icon
+          icon="inventory"
+          v-if="!landingViewVisible || (landingViewVisible && leftToggleState)"
+        />
+        <tool-bar-icon icon="camera" v-if="!landingViewVisible" />
       </div>
       <div class="tool-bar__separator"></div>
     </div>
@@ -31,7 +43,8 @@ export default defineComponent({
     ...mapMutations("ToolBar", ["toggleLeft"]),
   },
   computed: {
-    ...mapGetters("ToolBar", { leftToggleState: "getLeftToggleState" }),
+    ...mapGetters("ToolBar", ["leftToggleState"]),
+    ...mapGetters("LandingView", ["isVisible"]),
   },
 });
 </script>
@@ -65,9 +78,9 @@ export default defineComponent({
   }
 
   &__arrow-left {
-    width: 21px;
+    width: 19px;
     height: 43px;
-    margin-left: -6px;
+    margin-left: -5px;
     position: relative;
     cursor: pointer;
 
@@ -77,7 +90,7 @@ export default defineComponent({
       position: absolute;
       width: 6px;
       height: 8px;
-      left: calc(50% + 4px);
+      left: calc(50% + 3px);
       top: 50%;
       transform: translate(-50%, -50%);
     }

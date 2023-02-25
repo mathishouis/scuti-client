@@ -8,7 +8,7 @@ export default {
     leftToggled: false,
   },
   getters: {
-    getLeftToggleState: (state: LoadingState): boolean => {
+    leftToggleState: (state: LoadingState): boolean => {
       return state.leftToggled;
     },
   },

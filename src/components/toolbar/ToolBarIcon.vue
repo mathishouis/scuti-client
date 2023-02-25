@@ -28,20 +28,17 @@ export default defineComponent({
   position: relative;
 
   &__icon {
-    -webkit-filter: drop-shadow(1px 1px 0px #141312);
     filter: drop-shadow(1px 1px 0px #141312);
   }
 
   &:hover &__icon {
     margin: -1px 1px 1px -1px;
-    -webkit-filter: drop-shadow(2px 2px 0px #141312);
     filter: drop-shadow(2px 2px 0px #141312);
   }
 
   &:active &__icon {
     margin: 0;
     opacity: 0.7;
-    -webkit-filter: drop-shadow(0px 0px 0px #141312);
     filter: drop-shadow(0px 0px 0px #141312);
   }
 

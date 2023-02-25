@@ -12,8 +12,6 @@ import LandingView from "@/components/landingview/LandingView.vue";
 
 createApp(App)
   .use(store)
-  .component("loading-view", LoadingView)
-  .component("game-view", GameView)
   .component("tool-tip", ToolTip)
   .component("tool-bar", ToolBar)
   .component("tool-bar-icon", ToolBarIcon)

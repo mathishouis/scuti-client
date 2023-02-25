@@ -1,15 +1,24 @@
 <template>
   <div class="game">
     <tool-bar />
-    <landing-view />
+    <room-view />
+    <landing-view v-if="landingViewVisible" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
+import RoomView from "@/components/room/RoomView.vue";
 
 export default defineComponent({
   name: "GameView",
+  components: {
+    RoomView,
+  },
+  computed: {
+    ...mapGetters("LandingView", { landingViewVisible: "isVisible" }),
+  },
 });
 </script>
 

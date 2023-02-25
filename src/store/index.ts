@@ -1,6 +1,8 @@
 import { createStore } from "vuex";
 import Loading from "@/store/modules/loading";
 import ToolBar from "@/store/modules/toolbar";
+import LandingView from "@/store/modules/landingview";
+import Room from "@/store/modules/room";
 
 export default createStore({
   state: {},
@@ -10,5 +12,7 @@ export default createStore({
   modules: {
     Loading,
     ToolBar,
+    LandingView,
+    Room,
   },
 });
