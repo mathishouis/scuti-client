@@ -78,7 +78,7 @@ export default defineComponent({
   &__background {
     width: 500px;
     height: 434px;
-    background-image: url(@/assets/images/loading/background.png);
+    background-image: url(@images/loading/background.png);
     position: relative;
   }
 
@@ -88,7 +88,7 @@ export default defineComponent({
     position: absolute;
     top: 0;
     left: 0;
-    background-image: url(@/assets/images/loading/logo.png);
+    background-image: url(@images/loading/logo.png);
     z-index: 1;
   }
 
@@ -100,7 +100,7 @@ export default defineComponent({
     left: calc(50% + 5px);
     transform: translateX(-50%);
     background-color: #cccccc;
-    background-image: url(@/assets/images/loading/images.png);
+    background-image: url(@images/loading/images.png);
   }
 
   &__text {

@@ -9,6 +9,7 @@ module.exports = defineConfig({
         .set('@sass', path.resolve(__dirname, 'src/assets/sass'))
         .set('@fonts', path.resolve(__dirname, 'src/assets/fonts'))
         .set('@store', path.resolve(__dirname, 'src/store'))
+        .set('@images', path.resolve(__dirname, 'src/assets/images'))
         .set('@components', path.resolve(__dirname, 'src/components'));
   }
 });

@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import Loading from "@/store/modules/loading";
+import ToolBar from "@/store/modules/toolbar";
 
 export default createStore({
   state: {},
@@ -8,5 +9,6 @@ export default createStore({
   actions: {},
   modules: {
     Loading,
+    ToolBar,
   },
 });

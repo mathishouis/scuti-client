@@ -1,5 +1,6 @@
 <template>
   <loading-view v-if="loadingVisibility" />
+  <game-view v-else />
 </template>
 
 <script lang="ts">
