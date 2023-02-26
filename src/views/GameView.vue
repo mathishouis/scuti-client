@@ -1,7 +1,18 @@
 <template>
   <div class="game">
     <window-frame type="1" color="#408caf">
-      ______________________________________________________
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      ________________________________________________________________<br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </window-frame>
     <info-bar />
     <tool-bar />

@@ -1,7 +1,7 @@
 <template>
   <div
     class="window-frame"
-    style="left: 0px; top: 0px"
+    :style="{ left: x, top: y, width: width, height: height }"
     :class="'window-frame--' + type"
     ref="window"
   >
@@ -12,7 +12,7 @@
         :style="{ backgroundColor: color }"
       ></div>
     </div>
-    <div class="window-frame__title">Inventaire</div>
+    <div class="window-frame__title">Navigateur</div>
     <div
       class="window-frame__handler"
       @mousedown="onDragStart"
@@ -25,6 +25,7 @@
     <div class="window-frame__content">
       <slot />
     </div>
+    <div class="window-frame__resizer" @mousedown="onResizeStart"></div>
   </div>
 </template>
 
@@ -36,6 +37,30 @@ export default defineComponent({
   props: {
     type: String,
     color: String,
+    x: {
+      type: String,
+      default: "100px",
+    },
+    y: {
+      type: String,
+      default: "100px",
+    },
+    width: {
+      type: String,
+      default: "300px",
+    },
+    height: {
+      type: String,
+      default: "400px",
+    },
+    maxWidth: {
+      type: String,
+      default: "400px",
+    },
+    maxHeight: {
+      type: String,
+      default: "400px",
+    },
   },
   data: () => ({
     dragging: false,
@@ -44,21 +69,13 @@ export default defineComponent({
   methods: {
     onDragStart(event: PointerEvent): void {
       this.dragging = true;
-      /*console.log(
-        event.offsetX,
-        (this.$refs["handler"] as any).clientWidth,
-        event
-      );*/
-      //console.log((this.$refs["handler"] as any).clientWidth - event.offsetX);
-      (this.$refs["handler"] as any).style.cursor = "grabbing";
     },
     onDragEnd(event: PointerEvent): void {
       this.dragging = false;
-      (this.$refs["handler"] as any).style.cursor = "auto";
     },
     onDragMove(event: MouseEvent): void {
       if (this.dragging) {
-        if (!this.outOfBoundsX(event)) {
+        /*if (!this.outOfBoundsX(event)) {
           (this.$refs["window"] as any).style.left =
             parseInt((this.$refs["window"] as any).style.left, 10) +
             event.movementX +
@@ -67,6 +84,50 @@ export default defineComponent({
         if (!this.outOfBoundsY(event)) {
           (this.$refs["window"] as any).style.top =
             parseInt((this.$refs["window"] as any).style.top, 10) +
+            event.movementY +
+            "px";
+        }*/
+        (this.$refs["window"] as any).style.left =
+          parseInt((this.$refs["window"] as any).style.left, 10) +
+          event.movementX +
+          "px";
+        (this.$refs["window"] as any).style.top =
+          parseInt((this.$refs["window"] as any).style.top, 10) +
+          event.movementY +
+          "px";
+      }
+    },
+    onResizeStart(event: PointerEvent): void {
+      this.resizing = true;
+    },
+    onResizeEnd(event: PointerEvent): void {
+      this.resizing = false;
+    },
+    onResizeMove(event: PointerEvent): void {
+      if (this.resizing) {
+        if (
+          parseInt((this.$refs["window"] as any).style.width, 10) +
+            event.movementX >=
+            parseInt(this.width, 10) &&
+          parseInt((this.$refs["window"] as any).style.width, 10) +
+            event.movementX <=
+            parseInt(this.maxWidth, 10)
+        ) {
+          (this.$refs["window"] as any).style.width =
+            parseInt((this.$refs["window"] as any).style.width, 10) +
+            event.movementX +
+            "px";
+        }
+        if (
+          parseInt((this.$refs["window"] as any).style.height, 10) +
+            event.movementY >=
+            parseInt(this.height, 10) &&
+          parseInt((this.$refs["window"] as any).style.height, 10) +
+            event.movementY <=
+            parseInt(this.maxHeight, 10)
+        ) {
+          (this.$refs["window"] as any).style.height =
+            parseInt((this.$refs["window"] as any).style.height, 10) +
             event.movementY +
             "px";
         }
@@ -114,8 +175,12 @@ export default defineComponent({
     document.body.addEventListener("pointerup", (event) =>
       this.onDragEnd(event)
     );
-    //document.body.addEventListener('pointermove', event => this.onResizeMove(event));
-    //document.body.addEventListener('pointerup', event => this.onResizeEnd(event));
+    document.body.addEventListener("pointermove", (event) =>
+      this.onResizeMove(event)
+    );
+    document.body.addEventListener("pointerup", (event) =>
+      this.onResizeEnd(event)
+    );
   },
 });
 </script>
@@ -222,6 +287,16 @@ export default defineComponent({
     position: absolute;
     left: 0;
     top: 0;
+  }
+
+  &--1 &__resizer {
+    width: 19px;
+    height: 19px;
+    position: absolute;
+    bottom: 4px;
+    right: 3px;
+    cursor: pointer;
+    background-image: url(@images/frames/resizer_1.png);
   }
 }
 </style>
