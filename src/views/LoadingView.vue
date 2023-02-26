@@ -105,9 +105,10 @@ export default defineComponent({
 
   &__text {
     font-size: 21.4pt;
-    font-family: UbuntuBold;
+    font-family: "Ubuntu Bold", sans-serif;
     color: #ffffff;
     margin-top: 48px;
+    text-align: center;
   }
 
   &__progress {
@@ -146,7 +147,7 @@ export default defineComponent({
   &__progress-indicator {
     font-size: 10.4pt;
     color: #8d8e8f;
-    font-family: UbuntuBold;
+    font-family: "Ubuntu Bold", sans-serif;
     margin-top: 5px;
     margin-bottom: 154px;
   }

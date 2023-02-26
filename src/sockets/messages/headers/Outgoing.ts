@@ -4,7 +4,7 @@ export const Outgoing = {
   NavigatorSearchMessageComposer: 946,
   InfoRetrieveMessageComposer: 2401,
   ConfirmUsernameMessageComposer: 1590,
-  InitializeNewNavigatorMessageComposer: 3231,
+  NewNavigatorInitMessageComposer: 3231,
   LoadCategoriesMessageComposer: 1761,
   EventCategoriesMessageComposer: 1735,
   DeleteNavigatorSavedSearchMessageComposer: 2235,
@@ -20,4 +20,5 @@ export const Outgoing = {
   ChangeFloorItemPositionMessageComposer: 2955,
   PickUpItemMessageComposer: 3064,
   OpenInventoryMessageComposer: 3750,
+  MessengerInitMessageComposer: 1186,
 };

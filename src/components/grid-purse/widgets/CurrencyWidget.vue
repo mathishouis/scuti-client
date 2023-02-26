@@ -35,7 +35,9 @@
         <div
           class="currency-widget__currency currency-widget__currency--diamonds"
         >
-          <div class="currency-widget__currency-amount">3000</div>
+          <div class="currency-widget__currency-amount">
+            {{ currencies.get(5) ?? 0 }}
+          </div>
           <div class="currency-widget__currency-icon"></div>
         </div>
       </tool-tip>
@@ -43,7 +45,9 @@
         <div
           class="currency-widget__currency currency-widget__currency--credits"
         >
-          <div class="currency-widget__currency-amount">49573</div>
+          <div class="currency-widget__currency-amount">
+            {{ currencies.get(1) ?? 0 }}
+          </div>
           <div class="currency-widget__currency-icon"></div>
         </div>
       </tool-tip>
@@ -51,7 +55,9 @@
         <div
           class="currency-widget__currency currency-widget__currency--duckets"
         >
-          <div class="currency-widget__currency-amount">780</div>
+          <div class="currency-widget__currency-amount">
+            {{ currencies.get(0) ?? 0 }}
+          </div>
           <div class="currency-widget__currency-icon"></div>
         </div>
       </tool-tip>
@@ -64,6 +70,7 @@ import { defineComponent } from "vue";
 import BorderCard from "@/components/common/BorderCard.vue";
 import PrimaryButton from "@/components/common/PrimaryButton.vue";
 import ToolTip from "@/components/common/ToolTip.vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "CurrencyWidget",
@@ -71,6 +78,9 @@ export default defineComponent({
     ToolTip,
     PrimaryButton,
     BorderCard,
+  },
+  computed: {
+    ...mapGetters("User", ["currencies"]),
   },
 });
 </script>

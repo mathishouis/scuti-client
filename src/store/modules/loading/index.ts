@@ -6,7 +6,7 @@ export interface LoadingState {
 export default {
   namespaced: true,
   state: {
-    visible: false,
+    visible: true,
     percentage: 0,
   },
   getters: {

@@ -1,7 +1,7 @@
 export const Incoming = {
   UniqueIDMessageEvent: 602,
   AuthentificationOKMessageEvent: 3054,
-  FuserightsMessageEvent: 1081,
+  UserRightsMessageEvent: 1081,
   FavouriteRoomsMessageEvent: 2753,
   AvailabilityStatusMessageEvent: 1769,
   PlayerSettingsMessageEvent: 1001,
@@ -11,8 +11,9 @@ export const Incoming = {
   AchievementProgressMessageEvent: 2167,
 
   UpdateInfoMessageEvent: 2098,
-  CurrenciesMessageEvent: 3304,
-  AchievementPointsMessageEvent: 896,
+  ActivityPointsMessageEvent: 3304,
+  CreditBalanceMessageEvent: 1556,
+  AchievementsScoreMessageEvent: 896,
   AchievementUnlockedMessageEvent: 684,
   BadgeInventoryMessageEvent: 2969,
   UnseenItemsMessageEvent: 1310,
@@ -55,4 +56,8 @@ export const Incoming = {
 
   RoomCategoriesMessageEvent: 2986,
   EventCategoriesMessageEvent: 3851,
+
+  /** FRIENDS **/
+  FriendListFragmentMessageEvent: 2891,
+  FriendRequestsMessageEvent: 1151,
 };
