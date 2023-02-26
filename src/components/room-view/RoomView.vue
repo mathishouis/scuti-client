@@ -7,8 +7,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import RoomToolsWidget from "@/components/room/widgets/RoomToolsWidget.vue";
-import ChatInputWidget from "@/components/room/widgets/ChatInputWidget.vue";
+import RoomToolsWidget from "@/components/room-view/widgets/RoomToolsWidget.vue";
+import ChatInputWidget from "@/components/room-view/widgets/ChatInputWidget.vue";
 
 export default defineComponent({
   name: "RoomView",

@@ -1,4 +1,4 @@
-import RoomTools from "@/store/modules/room/widgets/roomtools";
+import RoomTools from "@/store/modules/room/widgets/room-tools";
 
 export interface RoomState {
   visible: boolean;

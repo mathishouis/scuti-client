@@ -57,26 +57,26 @@ export default defineComponent({
   &__bubble-selector {
     width: 57px;
     height: 38px;
-    background-image: url(@images/room/widgets/chatinput/bubble_selector.png);
+    background-image: url(@images/room-view/widgets/chat-input/bubble_selector.png);
     position: absolute;
-    left: -6px;
-    top: -6px;
+    left: 0;
+    top: 0;
     cursor: pointer;
   }
 
   &__text-field {
     position: absolute;
-    top: -4px;
-    left: 51px;
-    height: calc(100% + 8px);
-    width: calc(100% - 47px);
+    background-color: transparent;
+    top: 2px;
+    left: 57px;
+    height: 34px;
+    width: calc(100% - 100px);
     font-family: "Ubuntu", sans-serif;
     font-size: 13pt;
     padding: 0 8px 1px;
     padding-right: 10px;
     border-radius: 8px;
     border: none;
-    background-color: transparent;
 
     &::placeholder {
       color: #8f8685;
@@ -95,8 +95,8 @@ export default defineComponent({
     background-image: url(@images/frame/buttons.png);
     background-position: -2px -20px;
     position: absolute;
-    right: -23px;
-    top: 3px;
+    right: -17px;
+    top: 9px;
 
     &:hover {
       background-position: -21px -20px;

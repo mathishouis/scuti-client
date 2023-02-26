@@ -8,7 +8,9 @@
       v-if="visible"
       ref="tool-tip"
     >
-      {{ label }}
+      <div class="tool-tip__label">
+        {{ label }}
+      </div>
     </border-card>
   </teleport>
   <div @mouseover="show($event)" @mouseout="hide" @mousemove="update($event)">
@@ -79,8 +81,13 @@ export default defineComponent({
   transform: translateY(50%);
   line-height: 10px;
   font-size: 8.5pt;
-  padding-left: 2px;
-  padding-right: 2px;
   white-space: nowrap;
+
+  &__label {
+    z-index: 1;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-top: 6px;
+  }
 }
 </style>

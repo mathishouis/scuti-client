@@ -83,7 +83,7 @@
       ]"
     >
       <div class="room-tools-widget__infos-name">Coffee House</div>
-      <div class="room-tools-widget__infos-owner">lieu public</div>
+      <div class="room-tools-widget__infos-owner">de Lieux Publics</div>
       <div class="room-tools-widget__infos-tags">
         <room-tag-widget label="tag1" />
         <room-tag-widget label="tag2" />
@@ -95,7 +95,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapMutations } from "vuex";
-import RoomTagWidget from "@/components/room/widgets/RoomTagWidget.vue";
+import RoomTagWidget from "@/components/room-view/widgets/RoomTagWidget.vue";
 
 export default defineComponent({
   name: "RoomToolsWidget",
@@ -143,7 +143,7 @@ export default defineComponent({
     z-index: 2;
 
     &:before {
-      background-image: url(@images/toolbar/arrow_left.png);
+      background-image: url(@images/tool-bar/arrow_left.png);
       content: "";
       position: absolute;
       width: 6px;
@@ -151,6 +151,7 @@ export default defineComponent({
       left: calc(50% + 3px);
       top: 50%;
       transform: translate(-50%, -50%) rotate(180deg);
+      z-index: 1;
     }
 
     &--active {
@@ -163,7 +164,7 @@ export default defineComponent({
   }
 
   &__actions {
-    width: 165px;
+    width: 156px;
     height: 172px;
     margin-left: -177px;
     transition: margin-left 200ms;
@@ -171,7 +172,7 @@ export default defineComponent({
     z-index: 1;
 
     &--active {
-      margin-left: -5px;
+      margin-left: -10px;
     }
   }
 
@@ -180,8 +181,8 @@ export default defineComponent({
     flex-direction: column;
     width: 135px;
     position: absolute;
-    top: 2px;
-    left: 25px;
+    top: 8px;
+    left: 21px;
     gap: 1px;
   }
 
@@ -210,23 +211,23 @@ export default defineComponent({
       //filter: drop-shadow(0px 2px 0px #151511);
 
       &--settings {
-        background-image: url(@images/room/widgets/roomtools/icons/settings.png);
+        background-image: url(@images/room-view/widgets/room-tools/icons/settings.png);
       }
 
       &--zoom {
-        background-image: url(@images/room/widgets/roomtools/icons/magnifying_glass_plus.png);
+        background-image: url(@images/room-view/widgets/room-tools/icons/magnifying_glass_plus.png);
       }
 
       &--history {
-        background-image: url(@images/room/widgets/roomtools/icons/chat_bubbles.png);
+        background-image: url(@images/room-view/widgets/room-tools/icons/chat_bubbles.png);
       }
 
       &--like {
-        background-image: url(@images/room/widgets/roomtools/icons/thumb_up.png);
+        background-image: url(@images/room-view/widgets/room-tools/icons/thumb_up.png);
       }
 
       &--link {
-        background-image: url(@images/room/widgets/roomtools/icons/arrows.png);
+        background-image: url(@images/room-view/widgets/room-tools/icons/arrows.png);
       }
     }
 
@@ -246,7 +247,7 @@ export default defineComponent({
     flex-direction: row;
     gap: 2px;
     position: absolute;
-    bottom: 0px;
+    top: 136px;
     right: 29px;
 
     &-button {
@@ -265,20 +266,20 @@ export default defineComponent({
     &-previous {
       width: 34px;
       height: 35px;
-      background-image: url(@images/room/widgets/roomtools/navigation.png);
+      background-image: url(@images/room-view/widgets/room-tools/navigation.png);
     }
 
     &-history {
       width: 33px;
       height: 35px;
-      background-image: url(@images/room/widgets/roomtools/navigation.png);
+      background-image: url(@images/room-view/widgets/room-tools/navigation.png);
       background-position-x: -34px;
     }
 
     &-next {
       width: 34px;
       height: 35px;
-      background-image: url(@images/room/widgets/roomtools/navigation.png);
+      background-image: url(@images/room-view/widgets/room-tools/navigation.png);
       background-position-x: 34px;
     }
   }
@@ -287,9 +288,8 @@ export default defineComponent({
     height: 77px;
     max-width: 310px;
     overflow: hidden;
-    left: 26px;
+    left: 33px;
     position: absolute;
-    padding: 1px 6px;
     display: flex;
     flex-direction: column;
     gap: 3px;
@@ -300,7 +300,7 @@ export default defineComponent({
     }
 
     &--active {
-      left: 171px;
+      left: 12px;
     }
 
     &-name {
@@ -308,14 +308,19 @@ export default defineComponent({
       white-space: nowrap;
       font-size: 15pt;
       color: #ffffff;
+      margin-left: 12px;
+      margin-right: 12px;
+      margin-top: 5px;
     }
 
     &-owner {
       font-family: "Ubuntu", sans-serif;
       white-space: nowrap;
-      font-size: 13pt;
+      font-size: 12pt;
       color: #989898;
       font-weight: 600;
+      margin-left: 12px;
+      margin-right: 12px;
     }
 
     &-tags {
@@ -323,8 +328,8 @@ export default defineComponent({
       flex-direction: row;
       gap: 4px;
       position: absolute;
-      left: 4px;
-      bottom: 1px;
+      left: 10px;
+      top: 56px;
     }
   }
 }

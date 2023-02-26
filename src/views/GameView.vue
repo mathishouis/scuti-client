@@ -1,5 +1,6 @@
 <template>
   <div class="game">
+    <info-bar />
     <tool-bar />
     <room-view />
     <landing-view v-if="landingViewVisible" />
@@ -9,11 +10,17 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters } from "vuex";
-import RoomView from "@/components/room/RoomView.vue";
+import RoomView from "@/components/room-view/RoomView.vue";
+import ToolBar from "@/components/tool-bar/ToolBar.vue";
+import LandingView from "@/components/landing-view/LandingView.vue";
+import InfoBar from "@/components/info-bar/InfoBar.vue";
 
 export default defineComponent({
   name: "GameView",
   components: {
+    InfoBar,
+    ToolBar,
+    LandingView,
     RoomView,
   },
   computed: {

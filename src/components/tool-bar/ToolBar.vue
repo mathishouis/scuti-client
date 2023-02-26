@@ -36,9 +36,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { mapGetters, mapMutations } from "vuex";
+import ToolBarIcon from "@/components/tool-bar/ToolBarIcon.vue";
 
 export default defineComponent({
   name: "ToolBar",
+  components: {
+    ToolBarIcon,
+  },
   methods: {
     ...mapMutations("ToolBar", ["toggleLeft"]),
   },
@@ -85,7 +89,7 @@ export default defineComponent({
     cursor: pointer;
 
     &:before {
-      background-image: url(@images/toolbar/arrow_left.png);
+      background-image: url(@images/tool-bar/arrow_left.png);
       content: "";
       position: absolute;
       width: 6px;
@@ -93,6 +97,7 @@ export default defineComponent({
       left: calc(50% + 3px);
       top: 50%;
       transform: translate(-50%, -50%);
+      z-index: 1;
     }
 
     &--active:before {

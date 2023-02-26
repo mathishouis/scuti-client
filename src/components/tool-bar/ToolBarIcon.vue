@@ -1,6 +1,6 @@
 <template>
   <div class="tool-bar-icon" :class="'tool-bar-icon--' + icon">
-    <tool-tip :label="'toolbar.tooltip.' + icon">
+    <tool-tip :label="'tool-bar.tooltip.' + icon">
       <div class="tool-bar-icon__icon"></div>
     </tool-tip>
   </div>
@@ -47,7 +47,7 @@ export default defineComponent({
       margin-top: -1px;
       width: 28px;
       height: 28px;
-      background-image: url(@images/toolbar/icons/hotel_view.png);
+      background-image: url(@images/tool-bar/icons/hotel_view.png);
     }
   }
 
@@ -56,7 +56,7 @@ export default defineComponent({
       margin-top: 3px;
       width: 32px;
       height: 30px;
-      background-image: url(@images/toolbar/icons/home_room.png);
+      background-image: url(@images/tool-bar/icons/home_room.png);
     }
   }
 
@@ -65,7 +65,7 @@ export default defineComponent({
       margin-top: 1px;
       width: 44px;
       height: 30px;
-      background-image: url(@images/toolbar/icons/navigator.png);
+      background-image: url(@images/tool-bar/icons/navigator.png);
     }
   }
 
@@ -74,7 +74,7 @@ export default defineComponent({
       margin-top: 0px;
       width: 37px;
       height: 37px;
-      background-image: url(@images/toolbar/icons/shop.png);
+      background-image: url(@images/tool-bar/icons/shop.png);
     }
   }
 
@@ -83,7 +83,7 @@ export default defineComponent({
       margin-top: 1px;
       width: 44px;
       height: 41px;
-      background-image: url(@images/toolbar/icons/inventory.png);
+      background-image: url(@images/tool-bar/icons/inventory.png);
     }
   }
 
@@ -92,7 +92,7 @@ export default defineComponent({
       margin-top: -1px;
       width: 32px;
       height: 35px;
-      background-image: url(@images/toolbar/icons/quest.png);
+      background-image: url(@images/tool-bar/icons/quest.png);
     }
   }
 
@@ -101,7 +101,7 @@ export default defineComponent({
       margin-top: 3px;
       width: 38px;
       height: 45px;
-      background-image: url(@images/toolbar/icons/camera.png);
+      background-image: url(@images/tool-bar/icons/camera.png);
     }
   }
 }
