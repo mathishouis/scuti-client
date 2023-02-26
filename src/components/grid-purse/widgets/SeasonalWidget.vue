@@ -53,7 +53,7 @@ export default defineComponent({
     color: #ba7cc2;
     position: absolute;
     left: 8px;
-    top: 5px;
+    top: 6px;
   }
 
   &__amount {
@@ -62,7 +62,7 @@ export default defineComponent({
     color: #ffffff;
     position: absolute;
     right: 45px;
-    top: 5px;
+    top: 6px;
 
     &--underlined {
       text-decoration: underline;

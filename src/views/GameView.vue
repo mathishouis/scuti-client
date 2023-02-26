@@ -4,6 +4,7 @@
     <tool-bar />
     <room-view />
     <landing-view v-if="landingViewVisible" />
+    <info-bar />
   </div>
 </template>
 

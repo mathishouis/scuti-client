@@ -5,7 +5,7 @@ export interface LandingViewState {
 export default {
   namespaced: true,
   state: {
-    visible: false,
+    visible: true,
   },
   getters: {
     isVisible: (state: LandingViewState): boolean => {
