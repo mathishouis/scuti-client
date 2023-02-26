@@ -1,5 +1,8 @@
 <template>
   <div class="game">
+    <window-frame type="1" color="#408caf">
+      ______________________________________________________
+    </window-frame>
     <info-bar />
     <tool-bar />
     <room-view />

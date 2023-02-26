@@ -92,7 +92,7 @@ export default defineComponent({
     width: 17px;
     height: 20px;
     cursor: pointer;
-    background-image: url(@images/frame/buttons.png);
+    background-image: url(@images/frames/buttons_1.png);
     background-position: -2px -20px;
     position: absolute;
     right: -17px;
