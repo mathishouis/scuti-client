@@ -22,7 +22,7 @@ export const Incoming = {
 
   /* NAVIGATOR */
   NavigatorSearchResultSetMessageEvent: 3984,
-  NavigatorPreferencesMessageEvent: 2123,
+  NewNavigatorPreferencesMessageEvent: 2123,
   NavigatorMetaDataMessageEvent: 2631,
   NavigatorLiftedRoomsMessageEvent: 3709, // ?
   NavigatorSavedSearchesMessageEvent: 2853,

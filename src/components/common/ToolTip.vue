@@ -39,7 +39,7 @@ export default defineComponent({
       if (event.clientY > window.innerHeight - 37) {
         this.y = window.innerHeight - 37;
       }
-      this.timeout = setTimeout(() => {
+      this.timeout = window.setTimeout(() => {
         this.visible = true;
         this.update(event);
       }, 1000);

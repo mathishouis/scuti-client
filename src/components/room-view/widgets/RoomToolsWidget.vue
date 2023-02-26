@@ -115,14 +115,14 @@ export default defineComponent({
       }
       this.infosVisible = true;
       clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => (this.infosVisible = false), 5000);
+      this.timeout = window.setTimeout(() => (this.infosVisible = false), 5000);
     },
   },
   computed: {
     ...mapGetters("Room/RoomTools", ["toggleState"]),
   },
   mounted(): void {
-    this.timeout = setTimeout(() => (this.infosVisible = false), 5000);
+    this.timeout = window.setTimeout(() => (this.infosVisible = false), 5000);
   },
 });
 </script>

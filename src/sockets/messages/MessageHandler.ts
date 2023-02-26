@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { OutgoingMessage } from "@/sockets/messages/outgoing/OutgoingMessage";
 import { Buffer } from "buffer";
@@ -13,6 +12,7 @@ import { UserObjectMessageEvent } from "@/sockets/messages/incoming/user/details
 import { AchievementsScoreMessageEvent } from "@/sockets/messages/incoming/user/achievements/AchievementsScoreMessageEvent";
 import { FriendListFragmentMessageEvent } from "@/sockets/messages/incoming/messenger/FriendListFragmentMessageEvent";
 import { FriendRequestsMessageEvent } from "@/sockets/messages/incoming/messenger/FriendRequestsMessageEvent";
+import { NewNavigatorPreferencesMessageEvent } from "@/sockets/messages/incoming/navigator/updated/NewNavigatorPreferencesMessageEvent";
 
 export class MessageHandler {
   private readonly _incomingMessages: Map<number, IncomingMessage> = new Map();
@@ -66,6 +66,7 @@ export class MessageHandler {
     // TODO: BadgeInventoryMessageEvent 2969
     // TODO: AchievementRequirementsMessageEvent 1924
     // TODO: ClubStatusMessageEvent 3459
+    /** Register messenger **/
     this._registerMessage(
       Incoming.FriendListFragmentMessageEvent,
       <IncomingMessage>(<unknown>FriendListFragmentMessageEvent)
@@ -73,6 +74,12 @@ export class MessageHandler {
     this._registerMessage(
       Incoming.FriendRequestsMessageEvent,
       <IncomingMessage>(<unknown>FriendRequestsMessageEvent)
+    );
+
+    /** Register navigator **/
+    this._registerMessage(
+      Incoming.NewNavigatorPreferencesMessageEvent,
+      <IncomingMessage>(<unknown>NewNavigatorPreferencesMessageEvent)
     );
   }
 
@@ -92,6 +99,7 @@ export class MessageHandler {
     const incomingPacket = new IncomingMessage(packet);
     if (this._incomingMessages.has(incomingPacket.header)) {
       const handlerClass = this._incomingMessages.get(incomingPacket.header);
+      // @ts-ignore
       const handler = new handlerClass(packet);
       handler.handle();
       return console.warn("Handled message [" + incomingPacket.header + "]");

@@ -39,7 +39,7 @@ export default defineComponent({
     },
     hideInfoButton(): void {
       clearTimeout(this.infoButtonTimeout);
-      this.infoButtonTimeout = setTimeout(
+      this.infoButtonTimeout = window.setTimeout(
         () => (this.infoButtonVisible = false),
         1000
       );

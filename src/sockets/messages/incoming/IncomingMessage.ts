@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { BufferWS } from "buffer.ws";
 import { Buffer } from "buffer";
 

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
