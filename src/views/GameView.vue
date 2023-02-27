@@ -1,19 +1,6 @@
 <template>
   <div class="game">
-    <window-frame type="1" color="#408caf">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      ________________________________________________________________<br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-    </window-frame>
+    <navigator-window />
     <info-bar />
     <tool-bar />
     <room-view />
@@ -29,10 +16,12 @@ import RoomView from "@/components/room-view/RoomView.vue";
 import ToolBar from "@/components/tool-bar/ToolBar.vue";
 import LandingView from "@/components/landing-view/LandingView.vue";
 import InfoBar from "@/components/info-bar/InfoBar.vue";
+import NavigatorWindow from "@/components/navigator/NavigatorWindow.vue";
 
 export default defineComponent({
   name: "GameView",
   components: {
+    NavigatorWindow,
     InfoBar,
     ToolBar,
     LandingView,
