@@ -28,6 +28,14 @@
         ]"
       />
     </div>
+    <div class="navigator-search-widget__input">
+      <text-field
+        placeholder="Filtrer les apparts par..."
+        clear-button
+        focus-button
+      />
+    </div>
+    <div class="navigator-search-widget__refresh-button"></div>
   </div>
 </template>
 
@@ -54,6 +62,25 @@ export default defineComponent({
 
   &__selector {
     width: 116px;
+  }
+
+  &__input {
+    width: 235px;
+  }
+
+  &__refresh-button {
+    width: 25px;
+    height: 23px;
+    background-image: url(@images/navigator/buttons/refresh.png);
+    margin-left: -6px;
+    cursor: pointer;
+
+    &:hover {
+      background-position: 0 -23px;
+    }
+    &:active {
+      background-position: 0 -46px;
+    }
   }
 }
 </style>

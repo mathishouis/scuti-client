@@ -23,6 +23,7 @@
       </div>
     </div>
     <navigator-search-widget />
+    <navigator-actions-widget />
   </window-frame>
 </template>
 
@@ -31,10 +32,12 @@ import { defineComponent } from "vue";
 import { mapGetters, mapMutations } from "vuex";
 import NavigatorTabsWidget from "@/components/navigator/widgets/NavigatorTabsWidget.vue";
 import NavigatorSearchWidget from "@/components/navigator/widgets/NavigatorSearchWidget.vue";
+import NavigatorActionsWidget from "@/components/navigator/widgets/NavigatorActionsWidget.vue";
 
 export default defineComponent({
   name: "NavigatorWindow",
   components: {
+    NavigatorActionsWidget,
     NavigatorTabsWidget,
     NavigatorSearchWidget,
   },

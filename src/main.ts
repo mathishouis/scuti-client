@@ -8,6 +8,7 @@ import PrimaryButton from "@/components/common/PrimaryButton.vue";
 import WindowFrame from "@/components/common/WindowFrame.vue";
 import Tabs from "@/components/common/Tabs.vue";
 import SelectionList from "@/components/common/SelectionList.vue";
+import TextField from "@/components/common/TextField.vue";
 
 createApp(App)
   .use(store)
@@ -17,4 +18,5 @@ createApp(App)
   .component("window-frame", WindowFrame)
   .component("tabs", Tabs)
   .component("selection-list", SelectionList)
+  .component("text-field", TextField)
   .mount("#app");

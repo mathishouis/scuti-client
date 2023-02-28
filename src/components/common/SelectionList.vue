@@ -26,7 +26,7 @@
         v-bind:key="item.value"
         @click="select(item.value)"
       >
-        {{ item.label }} {{ toggled }} {{ isToggle }}
+        {{ item.label }}
       </div>
     </div>
   </div>
@@ -59,7 +59,6 @@ export default defineComponent({
       this.toggled = false;
     },
     select(value: string): void {
-      console.log("grimkuflop");
       this.close();
       this.$emit("update:modelValue", value);
     },
@@ -70,9 +69,6 @@ export default defineComponent({
       return this.items.find(
         (item: ListItem) => item.value === this.modelValue
       );
-    },
-    isToggle(): boolean {
-      return this.toggled;
     },
   },
 });
