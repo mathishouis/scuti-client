@@ -9,6 +9,7 @@ import WindowFrame from "@/components/common/WindowFrame.vue";
 import Tabs from "@/components/common/Tabs.vue";
 import SelectionList from "@/components/common/SelectionList.vue";
 import TextField from "@/components/common/TextField.vue";
+import ScrollBox from "@/components/common/ScrollBox.vue";
 
 createApp(App)
   .use(store)
@@ -19,4 +20,5 @@ createApp(App)
   .component("tabs", Tabs)
   .component("selection-list", SelectionList)
   .component("text-field", TextField)
+  .component("scroll-box", ScrollBox)
   .mount("#app");

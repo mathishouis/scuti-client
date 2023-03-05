@@ -24,6 +24,40 @@
     </div>
     <navigator-search-widget />
     <navigator-actions-widget />
+    <scroll-box width="100%" height="330px">
+      cc1<br />cc2<br />
+      cc4<br />cc3<br />
+      cc5<br />cc6<br />
+      czadc<br />cc3<br />
+      cezfc<br />cezfc<br />
+      chgnc<br />ccyt<br />
+      cwxcc<br />l:l=cc<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+      ca&c<br />ccpo<br />
+    </scroll-box>
   </window-frame>
 </template>
 
@@ -33,10 +67,12 @@ import { mapGetters, mapMutations } from "vuex";
 import NavigatorTabsWidget from "@/components/navigator/widgets/NavigatorTabsWidget.vue";
 import NavigatorSearchWidget from "@/components/navigator/widgets/NavigatorSearchWidget.vue";
 import NavigatorActionsWidget from "@/components/navigator/widgets/NavigatorActionsWidget.vue";
+import ScrollBox from "@/components/common/ScrollBox.vue";
 
 export default defineComponent({
   name: "NavigatorWindow",
   components: {
+    ScrollBox,
     NavigatorActionsWidget,
     NavigatorTabsWidget,
     NavigatorSearchWidget,
