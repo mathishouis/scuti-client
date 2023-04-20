@@ -30,14 +30,69 @@
     <div class="navigator-category__room-list-thumbnail" v-if="false">
       <!--<navigator-layout-room-thumbnail-widget :id="room.id" :name="room.name" :owner-name="room.ownerName" :description="room.description" :trade="room.trade" :tags="room.tags" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="room in category.rooms" :key="room.id"/>-->
     </div>
-    <div class="navigator-category__room-list-line" v-if="false">
+    <div class="navigator-category__room-list-line">
       <!--<navigator-layout-room-list-widget :id="room.id" :index="index" :name="room.name" :owner-name="room.ownerName" :description="room.description" :trade="room.trade" :tags="room.tags" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="(room, index) in category.rooms" :key="room.id"/>-->
+      <navigator-room-list-layout-widget
+        name="Réception"
+        :user-count="99"
+        :max-users="100"
+        :state="1"
+      />
+      <navigator-room-list-layout-widget
+        name="HC Lounge"
+        :user-count="59"
+        :max-users="100"
+        :state="2"
+      />
+      <navigator-room-list-layout-widget
+        name="Pavillon des Jeux"
+        :user-count="48"
+        :max-users="100"
+        :state="3"
+      />
+      <navigator-room-list-layout-widget
+        name="Club NX"
+        :user-count="24"
+        :max-users="100"
+        :state="0"
+      />
+      <navigator-room-list-layout-widget
+        name="Big Pic-Nic"
+        :user-count="21"
+        :max-users="100"
+        :state="0"
+      />
+      <navigator-room-list-layout-widget
+        name="Théâtre"
+        :user-count="16"
+        :max-users="100"
+        :state="1"
+      />
+      <navigator-room-list-layout-widget
+        name="Coffee House"
+        :user-count="1"
+        :max-users="100"
+        :state="3"
+      />
+      <navigator-room-list-layout-widget
+        name="Hall of Habbo"
+        :user-count="0"
+        :max-users="100"
+        :state="0"
+      />
+      <navigator-room-list-layout-widget
+        name="Parc Infobus"
+        :user-count="0"
+        :max-users="100"
+        :state="2"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+import NavigatorRoomListLayoutWidget from "@/components/navigator/widgets/NavigatorRoomListLayoutWidget.vue";
 
 export enum View {
   ROWS,
@@ -46,6 +101,9 @@ export enum View {
 
 export default defineComponent({
   name: "NavigatorCategoryWidget",
+  components: {
+    NavigatorRoomListLayoutWidget,
+  },
   props: {
     title: String,
     minimised: {
