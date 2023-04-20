@@ -8,12 +8,13 @@
     <div
       class="scroll-box__rail"
       :class="[disabled ? 'scroll-box__rail--disabled' : '']"
-      @click="toggle($event)"
+      @click.self="toggle($event)"
     >
       <div
         class="scroll-box__thumb"
         style="height: 0px; top: 0px"
         ref="thumb"
+        @mousedown="onPointerDown"
       ></div>
     </div>
     <div
@@ -27,6 +28,7 @@
       ref="scrollbox"
     >
       <div style="margin-top: 0px" ref="content">
+        {{ handled }}
         <slot />
       </div>
     </div>
@@ -45,6 +47,7 @@ export default defineComponent({
   data: () => ({
     disabled: false,
     observer: null,
+    handled: false,
   }),
   methods: {
     up(): void {
@@ -92,6 +95,42 @@ export default defineComponent({
           parseInt(this.height ?? "0px", 10) +
           "px";
         //(this.$refs.scrollbox as any).scrollEl.scrollTo({ top: 10000 });
+      }
+    },
+    onPointerUp(event: any): void {
+      this.handled = false;
+    },
+    onPointerDown(event: any): void {
+      this.handled = true;
+    },
+    onPointerMove(event: any): void {
+      if (this.handled) {
+        // Check if we are above the top
+        if (
+          parseInt((this.$refs.content as any).style.marginTop, 10) -
+            event.movementY * 5 >
+          0
+        ) {
+          (this.$refs.content as any).style.marginTop = "0px";
+          return;
+        }
+        // Check if we are after the bottom
+        if (
+          parseInt((this.$refs.content as any).style.marginTop, 10) -
+            event.movementY * 5 <
+          -(this.$refs.content as any).clientHeight +
+            parseInt(this.height ?? "0px", 10)
+        ) {
+          (this.$refs.content as any).style.marginTop =
+            -(this.$refs.content as any).clientHeight +
+            parseInt(this.height ?? "0px", 10) +
+            "px";
+          return;
+        }
+        (this.$refs.content as any).style.marginTop =
+          parseInt((this.$refs.content as any).style.marginTop, 10) +
+          -(event.movementY * 5) +
+          "px";
       }
     },
   },
@@ -163,6 +202,12 @@ export default defineComponent({
       characterData: true,
       subtree: true,
     });
+    document.body.addEventListener("pointermove", (event) =>
+      this.onPointerMove(event)
+    );
+    document.body.addEventListener("pointerup", (event) =>
+      this.onPointerUp(event)
+    );
   },
 });
 </script>
