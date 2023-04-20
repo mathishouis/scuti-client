@@ -2,6 +2,7 @@
   <scroll-box width="405px" height="295px" class="navigator-results-widget">
     <div class="navigator-results-widget__content">
       <navigator-category-widget
+        :id="category.id"
         :title="category.name"
         :minimised="category.minimised"
         :view="category.view"

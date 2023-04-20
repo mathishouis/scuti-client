@@ -7,6 +7,7 @@
           :class="[
             minimised ? '' : 'navigator-category__minimise-button--active',
           ]"
+          @click="toggleMinimised"
         ></div>
       </tool-tip>
       <div class="navigator-category__title">{{ title }}</div>
@@ -23,15 +24,22 @@
             :class="[
               view === 0 ? 'navigator-category__view-mode-button--active' : '',
             ]"
+            @click="toggleView"
           ></div>
         </tool-tip>
       </div>
     </div>
-    <div class="navigator-category__room-list-thumbnail" v-if="false">
+    <div
+      class="navigator-category__room-list-thumbnail"
+      v-if="category.view === 0 && !category.minimised"
+    >
       <!--<navigator-layout-room-thumbnail-widget :id="room.id" :name="room.name" :owner-name="room.ownerName" :description="room.description" :trade="room.trade" :tags="room.tags" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="room in category.rooms" :key="room.id"/>-->
       <slot name="thumbnail" />
     </div>
-    <div class="navigator-category__room-list-line">
+    <div
+      class="navigator-category__room-list-line"
+      v-else-if="!category.minimised"
+    >
       <!--<navigator-layout-room-list-widget :id="room.id" :index="index" :name="room.name" :owner-name="room.ownerName" :description="room.description" :trade="room.trade" :tags="room.tags" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="(room, index) in category.rooms" :key="room.id"/>-->
       <slot name="list" />
     </div>
@@ -39,7 +47,11 @@
 </template>
 
 <script lang="ts">
+import store from "@/store";
 import { defineComponent, PropType } from "vue";
+import { mapGetters, mapMutations } from "vuex";
+import { Category } from "@/interfaces/Navigator.interface";
+import { NavigatorSetSearchCodeViewModeMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NavigatorSetSearchCodeViewModeMessageComposer";
 
 export enum View {
   ROWS,
@@ -49,6 +61,7 @@ export enum View {
 export default defineComponent({
   name: "NavigatorCategoryWidget",
   props: {
+    id: String,
     title: String,
     minimised: {
       type: Boolean,
@@ -57,6 +70,27 @@ export default defineComponent({
     view: {
       type: Object as PropType<View>,
       default: View.ROWS,
+    },
+  },
+  methods: {
+    ...mapMutations("Navigator/Categories", ["minimise"]),
+    toggleMinimised(): void {
+      store.commit("Navigator/Categories/toggleMinimised", this.id);
+    },
+    toggleView(): void {
+      store.commit("Navigator/Categories/toggleView", this.id);
+      store.getters["Socket/socket"].send(
+        new NavigatorSetSearchCodeViewModeMessageComposer(
+          this.category.id,
+          this.category.view
+        )
+      );
+    },
+  },
+  computed: {
+    ...mapGetters("Navigator/Categories", ["get"]),
+    category(): Category {
+      return this.get(this.id);
     },
   },
 });

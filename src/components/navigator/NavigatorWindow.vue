@@ -7,6 +7,7 @@
     height="500px"
     max-height="635px"
     class="navigator-window"
+    :title="isLoading ? 'Navigateur - Chargement...' : 'Navigateur'"
   >
     <div class="navigator-window__top">
       <tool-tip label="navigator.tooltip.left.show.hide">
@@ -24,7 +25,7 @@
     </div>
     <navigator-search-widget />
     <navigator-actions-widget />
-    <navigator-results-widget />
+    <navigator-results-widget :style="{ opacity: isLoading ? '.5' : '1' }" />
   </window-frame>
 </template>
 
@@ -48,7 +49,7 @@ export default defineComponent({
     ...mapMutations("Navigator", ["toggleSavedSearches"]),
   },
   computed: {
-    ...mapGetters("Navigator", ["savedSearchesToggleState"]),
+    ...mapGetters("Navigator", ["savedSearchesToggleState", "isLoading"]),
   },
 });
 </script>

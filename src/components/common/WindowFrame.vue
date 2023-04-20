@@ -12,7 +12,7 @@
         :style="{ backgroundColor: color }"
       ></div>
     </div>
-    <div class="window-frame__title">Navigateur</div>
+    <div class="window-frame__title">{{ title }}</div>
     <div
       class="window-frame__handler"
       @mousedown="onDragStart"
@@ -35,6 +35,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "WindowFrame",
   props: {
+    title: String,
     type: String,
     color: String,
     x: {

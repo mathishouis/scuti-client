@@ -9,7 +9,7 @@ export const Outgoing = {
   DeleteNavigatorSavedSearchMessageComposer: 2235,
   SaveNavigatorSearchMessageComposer: 3301,
   NewNavigatorSearchMessageComposer: 946,
-  NavigatorSaveViewModeMessageComposer: 597,
+  NavigatorSetSearchCodeViewModeMessageComposer: 597,
   FollowRoomInfoMessageComposer: 3646,
   InitializeRoomMessageComposer: 2450,
   ExitRoomMessageComposer: 2644,
