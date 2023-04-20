@@ -25,9 +25,9 @@ export default defineComponent({
 .navigator-actions-widget {
   width: 394px;
   height: 60px;
-  position: absolute;
-  right: 15px;
-  bottom: 12px;
+  position: absolute !important;
+  right: 21px;
+  bottom: 19px;
   display: flex;
   flex-direction: row;
   gap: 16px;

@@ -23,7 +23,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   background-color: #aae0f0;
-  background-image: url(https://images.habbo.com/c_images/reception/background_gradient_Feb23.png);
+  background-image: url(https://images.habbo.com/c_images/reception/background_gradient_Mar23.png);
 
   &:after {
     content: "";
@@ -52,7 +52,7 @@ export default defineComponent({
     background-repeat: no-repeat;
     background-position: bottom left;
     pointer-events: none;
-    background-image: url(https://images.habbo.com/c_images/reception/background_left_Feb23.png);
+    background-image: url(https://images.habbo.com/c_images/reception/background_left_Mar23.png);
   }
 
   &__right {

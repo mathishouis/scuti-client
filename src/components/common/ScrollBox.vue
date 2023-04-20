@@ -14,6 +14,7 @@
         class="scroll-box__thumb"
         style="height: 0px; top: 0px"
         ref="thumb"
+        v-if="!disabled"
         @mousedown="onPointerDown"
       ></div>
     </div>
@@ -27,8 +28,7 @@
       class="scroll-box__scroll-area"
       ref="scrollbox"
     >
-      <div style="margin-top: 0px" ref="content">
-        {{ handled }}
+      <div style="margin-top: 0px; padding-right: 17px" ref="content">
         <slot />
       </div>
     </div>

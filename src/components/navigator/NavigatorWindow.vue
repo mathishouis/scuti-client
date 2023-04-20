@@ -4,7 +4,7 @@
     color="#408caf"
     :width="savedSearchesToggleState ? '578px' : '425px'"
     :max-width="savedSearchesToggleState ? '578px' : '425px'"
-    height="535px"
+    height="500px"
     max-height="635px"
     class="navigator-window"
   >
@@ -24,40 +24,7 @@
     </div>
     <navigator-search-widget />
     <navigator-actions-widget />
-    <scroll-box width="100%" height="330px">
-      cc1<br />cc2<br />
-      cc4<br />cc3<br />
-      cc5<br />cc6<br />
-      czadc<br />cc3<br />
-      cezfc<br />cezfc<br />
-      chgnc<br />ccyt<br />
-      cwxcc<br />l:l=cc<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-      ca&c<br />ccpo<br />
-    </scroll-box>
+    <navigator-results-widget />
   </window-frame>
 </template>
 
@@ -67,15 +34,15 @@ import { mapGetters, mapMutations } from "vuex";
 import NavigatorTabsWidget from "@/components/navigator/widgets/NavigatorTabsWidget.vue";
 import NavigatorSearchWidget from "@/components/navigator/widgets/NavigatorSearchWidget.vue";
 import NavigatorActionsWidget from "@/components/navigator/widgets/NavigatorActionsWidget.vue";
-import ScrollBox from "@/components/common/ScrollBox.vue";
+import NavigatorResultsWidget from "@/components/navigator/widgets/NavigatorResultsWidget.vue";
 
 export default defineComponent({
   name: "NavigatorWindow",
   components: {
-    ScrollBox,
     NavigatorActionsWidget,
     NavigatorTabsWidget,
     NavigatorSearchWidget,
+    NavigatorResultsWidget,
   },
   methods: {
     ...mapMutations("Navigator", ["toggleSavedSearches"]),

@@ -200,6 +200,7 @@ export default defineComponent({
     z-index: 1;
     width: 100%;
     position: relative;
+    height: calc(100% - 33px);
   }
 
   &__color {
@@ -297,6 +298,7 @@ export default defineComponent({
     right: 3px;
     cursor: pointer;
     background-image: url(@images/frames/resizer_1.png);
+    z-index: 2;
   }
 }
 </style>
