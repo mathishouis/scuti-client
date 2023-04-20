@@ -18,11 +18,20 @@
       </tool-tip>
       <div class="navigator-category__title">{{ title }}</div>
       <div class="navigator-category__button-group">
-        <tool-tip :label="__locale('navigator.tooltip.add.saved.search')">
+        <tool-tip
+          :label="__locale('navigator.tooltip.add.saved.search')"
+          v-if="currentTab !== 'official_view'"
+        >
           <div class="navigator-category__saved-search-button"></div>
         </tool-tip>
-        <tool-tip :label="__locale('navigator.tooltip.category.show.more')">
-          <div class="navigator-category__more-results-button"></div>
+        <tool-tip
+          :label="__locale('navigator.tooltip.category.show.more')"
+          v-if="category.id !== 'query' && currentTab !== 'official_view'"
+        >
+          <div
+            class="navigator-category__more-results-button"
+            @click="showMoreResults"
+          ></div>
         </tool-tip>
         <tool-tip
           :label="
@@ -34,7 +43,7 @@
           <div
             class="navigator-category__view-mode-button"
             :class="[
-              view === 0 ? 'navigator-category__view-mode-button--active' : '',
+              view === 1 ? 'navigator-category__view-mode-button--active' : '',
             ]"
             @click="toggleView"
           ></div>
@@ -43,7 +52,7 @@
     </div>
     <div
       class="navigator-category__room-list-thumbnail"
-      v-if="category.view === 0 && !category.minimised"
+      v-if="category.view === 1 && !category.minimised"
     >
       <!--<navigator-layout-room-thumbnail-widget :id="room.id" :name="room.name" :owner-name="room.ownerName" :description="room.description" :trade="room.trade" :tags="room.tags" :user-count="room.userCount" :max-users="room.maxUsers" :skip-auth="room.skipAuth" v-for="room in category.rooms" :key="room.id"/>-->
       <slot name="thumbnail" />
@@ -64,6 +73,7 @@ import { defineComponent, PropType } from "vue";
 import { mapGetters, mapMutations } from "vuex";
 import { Category } from "@/interfaces/Navigator.interface";
 import { NavigatorSetSearchCodeViewModeMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NavigatorSetSearchCodeViewModeMessageComposer";
+import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
 
 export enum View {
   ROWS,
@@ -98,9 +108,15 @@ export default defineComponent({
         )
       );
     },
+    showMoreResults(): void {
+      store.getters["Socket/socket"].send(
+        new NewNavigatorSearchMessageComposer(this.category.id, "")
+      );
+    },
   },
   computed: {
     ...mapGetters("Navigator/Categories", ["get"]),
+    ...mapGetters("Navigator/Tabs", ["currentTab"]),
     category(): Category {
       return this.get(this.id);
     },

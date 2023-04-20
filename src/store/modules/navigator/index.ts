@@ -8,6 +8,9 @@ export interface NavigatorState {
   maxFavouritesRooms: number;
   favouritesRooms: number[];
   currentTab: string;
+  searchCategory: string;
+  searchQuery: string;
+  searching: boolean;
 }
 
 export default {
@@ -18,7 +21,10 @@ export default {
     savedSearchesToggled: false,
     maxFavouritesRooms: -1,
     favouritesRooms: [],
-    currentTab: null,
+    currentTab: 0,
+    searchCategory: "all",
+    searchQuery: "",
+    searching: false,
   },
   getters: {
     isVisible: (state: NavigatorState): boolean => {
@@ -27,8 +33,17 @@ export default {
     isLoading: (state: NavigatorState): boolean => {
       return state.loading;
     },
+    isSearching: (state: NavigatorState): boolean => {
+      return state.searching;
+    },
     savedSearchesToggleState: (state: NavigatorState): boolean => {
       return state.savedSearchesToggled;
+    },
+    searchCategory: (state: NavigatorState): string => {
+      return state.searchCategory;
+    },
+    searchQuery: (state: NavigatorState): string => {
+      return state.searchQuery;
     },
   },
   mutations: {
@@ -37,6 +52,9 @@ export default {
     },
     setLoading: (state: NavigatorState, loading: boolean): void => {
       state.loading = loading;
+    },
+    setSearching: (state: NavigatorState, searching: boolean): void => {
+      state.searching = searching;
     },
     updateMaxFavouriteRooms: (
       state: NavigatorState,
@@ -52,6 +70,12 @@ export default {
     },
     toggleSavedSearches: (state: NavigatorState): void => {
       state.savedSearchesToggled = !state.savedSearchesToggled;
+    },
+    setSearchCategory: (state: NavigatorState, category: string): void => {
+      state.searchCategory = category;
+    },
+    setSearchQuery: (state: NavigatorState, query: string): void => {
+      state.searchQuery = query;
     },
   },
   actions: {},

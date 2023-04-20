@@ -40,6 +40,16 @@ export default defineComponent({
   mounted() {
     this.selectedIndex = this.selectedTab;
   },
+  watch: {
+    selectedTab: {
+      immediate: true,
+      handler(index, oldVal) {
+        //this.$emit("change", index);
+        this.selectedIndex = index;
+        console.log("Prop changed: ", index, " | was: ", oldVal);
+      },
+    },
+  },
 });
 </script>
 

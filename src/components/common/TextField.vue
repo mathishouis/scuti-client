@@ -12,6 +12,7 @@
     ></div>
     <input
       class="text-field__input"
+      :class="[focused ? '' : 'text-field__input--unfocused']"
       :placeholder="placeholder"
       @input="input"
       type="text"
@@ -32,6 +33,7 @@ export default defineComponent({
     focusButton: Boolean,
     placeholder: String,
     modelValue: String,
+    focused: Boolean,
   },
   methods: {
     focus(): void {
@@ -39,11 +41,11 @@ export default defineComponent({
     },
     input(event: InputEvent): void {
       this.$emit("update:modelValue", (event.target as any).value);
-      this.$emit("change");
+      this.$emit("change", (event.target as any).value);
     },
     clear(): void {
       this.$emit("update:modelValue", "");
-      this.$emit("change");
+      this.$emit("change", "");
       (this.$refs["input"] as any).value = "";
     },
   },
@@ -102,6 +104,12 @@ export default defineComponent({
     background-color: transparent;
     font-family: "Ubuntu Light", sans-serif;
     padding: 5px 0px 7px 9px;
+
+    &--unfocused {
+      color: #a5a5a5;
+      opacity: 1;
+      font-style: italic;
+    }
 
     &::placeholder {
       color: #a5a5a5;

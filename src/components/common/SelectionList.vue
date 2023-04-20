@@ -61,6 +61,7 @@ export default defineComponent({
     select(value: string): void {
       this.close();
       this.$emit("update:modelValue", value);
+      this.$emit("change", value);
     },
   },
   computed: {

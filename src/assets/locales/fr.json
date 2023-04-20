@@ -47,5 +47,7 @@
   "navigator.tooltip.go.to.lifted.room": "Visiter cet appart",
   "navigator.tooltip.random.room": "Emmenez-moi dans un appart au hasard !",
   "navigator.tooltip.remove.saved.search": "Supprimer les recherches sauvegardées",
-  "navigator.tooltip.room.info": "Ouvrir info d'appart"
+  "navigator.tooltip.room.info": "Ouvrir info d'appart",
+
+  "navigator.searchcode.title.query": "Recherche de texte"
 }

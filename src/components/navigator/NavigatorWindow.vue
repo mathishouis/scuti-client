@@ -12,6 +12,7 @@
         ? __locale('navigator.title.is.busy')
         : __locale('navigator.title')
     "
+    @close="close"
   >
     <div class="navigator-window__top">
       <tool-tip :label="__locale('navigator.tooltip.left.show.hide')">
@@ -50,7 +51,10 @@ export default defineComponent({
     NavigatorResultsWidget,
   },
   methods: {
-    ...mapMutations("Navigator", ["toggleSavedSearches"]),
+    ...mapMutations("Navigator", ["toggleSavedSearches", "setVisible"]),
+    close(): void {
+      this.setVisible(false);
+    },
   },
   computed: {
     ...mapGetters("Navigator", ["savedSearchesToggleState", "isLoading"]),

@@ -47,5 +47,7 @@
   "navigator.tooltip.go.to.lifted.room": "Go visit this room",
   "navigator.tooltip.random.room": "Take me to a random room in Habbo!",
   "navigator.tooltip.remove.saved.search": "Remove saved search",
-  "navigator.tooltip.room.info": "Open room info"
+  "navigator.tooltip.room.info": "Open room info",
+
+  "navigator.searchcode.title.query": "Recommanded For You"
 }

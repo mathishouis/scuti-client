@@ -3,7 +3,7 @@
     <tabs
       type="1"
       :tabs="getProcessedTabs"
-      :selected-tab="0"
+      :selected-tab="tabs.indexOf(currentTab)"
       @change="updateTab"
       large
     />
@@ -13,27 +13,34 @@
 <script lang="ts">
 import store from "@/store";
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
 
 export default defineComponent({
   name: "NavigatorTabsWidget",
   methods: {
+    ...mapMutations("Navigator", [
+      "setSearchCategory",
+      "setSearchQuery",
+      "setSearching",
+    ]),
     updateTab(tab: string): void {
-      console.log(store.getters["Navigator/Tabs/tabs"][tab]);
+      this.setSearching(false);
+      this.setSearchCategory("all");
       store.commit(
         "Navigator/Tabs/updateCurrentTab",
         store.getters["Navigator/Tabs/tabs"][tab]
       );
       store.getters["Socket/socket"].send(
         new NewNavigatorSearchMessageComposer(
-          store.getters["Navigator/Tabs/tabs"][tab]
+          store.getters["Navigator/Tabs/currentTab"],
+          ""
         )
       );
     },
   },
   computed: {
-    ...mapGetters("Navigator/Tabs", ["tabs"]),
+    ...mapGetters("Navigator/Tabs", ["tabs", "currentTab"]),
     getProcessedTabs(): any[] {
       let tabs: any[] = [];
       this.tabs.forEach((tab: string) => {

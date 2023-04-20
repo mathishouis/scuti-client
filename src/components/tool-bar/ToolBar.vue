@@ -56,7 +56,7 @@ export default defineComponent({
       this.setNavigatorVisible(!this.navigatorVisible);
       if (this.navigatorVisible)
         store.getters["Socket/socket"].send(
-          new NewNavigatorSearchMessageComposer(this.navigatorCurrentTab)
+          new NewNavigatorSearchMessageComposer(this.navigatorCurrentTab, "")
         );
     },
   },

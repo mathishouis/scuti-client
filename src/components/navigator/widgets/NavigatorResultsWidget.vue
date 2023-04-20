@@ -3,7 +3,11 @@
     <div class="navigator-results-widget__content">
       <navigator-category-widget
         :id="category.id"
-        :title="category.name"
+        :title="
+          category.id !== 'query'
+            ? category.name
+            : __locale('navigator.searchcode.title.query')
+        "
         :minimised="category.minimised"
         :view="category.view"
         v-for="category in categories"
