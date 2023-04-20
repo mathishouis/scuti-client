@@ -1,6 +1,6 @@
 <template>
   <div class="game">
-    <navigator-window />
+    <navigator-window v-if="navigatorVisible" />
     <info-bar />
     <tool-bar />
     <room-view />
@@ -29,6 +29,7 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters("LandingView", { landingViewVisible: "isVisible" }),
+    ...mapGetters("Navigator", { navigatorVisible: "isVisible" }),
   },
 });
 </script>

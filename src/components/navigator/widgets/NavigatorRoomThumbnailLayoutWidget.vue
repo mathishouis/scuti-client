@@ -23,7 +23,7 @@ import NavigatorUserCountWidget from "@/components/navigator/widgets/NavigatorUs
 import NavigatorStateIconWidget from "@/components/navigator/widgets/NavigatorStateIconWidget.vue";
 
 export default defineComponent({
-  name: "NavigatorRoomListLayoutWidget",
+  name: "NavigatorRoomThumbnailLayoutWidget",
   components: {
     NavigatorUserCountWidget,
     NavigatorStateIconWidget,

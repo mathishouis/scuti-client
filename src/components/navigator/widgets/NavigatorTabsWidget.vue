@@ -2,35 +2,49 @@
   <div class="navigator-tabs-widget">
     <tabs
       type="1"
-      :tabs="[
-        {
-          label: 'Public',
-          tooltip: 'Une vue des différents apparts de Habbo Hôtel',
-        },
-        {
-          label: 'Tous les apparts',
-          tooltip: 'Une vue des différents apparts de Habbo Hôtel',
-        },
-        {
-          label: 'Catégories',
-          tooltip: 'Une vue des différents apparts de Habbo Hôtel',
-        },
-        {
-          label: 'Mon monde',
-          tooltip: 'Une vue des différents apparts de Habbo Hôtel',
-        },
-      ]"
+      :tabs="getProcessedTabs"
       :selected-tab="0"
+      @change="updateTab"
       large
     />
   </div>
 </template>
 
 <script lang="ts">
+import store from "@/store";
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
+import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
 
 export default defineComponent({
   name: "NavigatorTabsWidget",
+  methods: {
+    updateTab(tab: string): void {
+      console.log(store.getters["Navigator/Tabs/tabs"][tab]);
+      store.commit(
+        "Navigator/Tabs/updateCurrentTab",
+        store.getters["Navigator/Tabs/tabs"][tab]
+      );
+      store.getters["Socket/socket"].send(
+        new NewNavigatorSearchMessageComposer(
+          store.getters["Navigator/Tabs/tabs"][tab]
+        )
+      );
+    },
+  },
+  computed: {
+    ...mapGetters("Navigator/Tabs", ["tabs"]),
+    getProcessedTabs(): any[] {
+      let tabs: any[] = [];
+      this.tabs.forEach((tab: string) => {
+        tabs.push({
+          label: "navigator.toplevelview." + tab,
+          tooltip: "navigator.tooltip.select.tab",
+        });
+      });
+      return tabs;
+    },
+  },
 });
 </script>
 

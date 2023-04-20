@@ -2,7 +2,7 @@
   <div class="tabs" :class="['tabs--' + type, large ? 'tabs--large' : '']">
     <div
       class="tabs__tab"
-      :class="selectedTab === index ? 'tabs__tab--active' : ''"
+      :class="selectedIndex === index ? 'tabs__tab--active' : ''"
       v-for="(tab, index) in tabs"
       :key="tab"
       @click="select(index)"
@@ -22,13 +22,23 @@ export default defineComponent({
   props: {
     type: String,
     tabs: Object,
-    selectedTab: Number,
+    selectedTab: {
+      type: Number,
+      default: 0,
+    },
     large: Boolean,
   },
+  data: () => ({
+    selectedIndex: 0,
+  }),
   methods: {
     select(index: number): void {
-      this.$emit("update:selectedTab", index);
+      this.$emit("change", index);
+      this.selectedIndex = index;
     },
+  },
+  mounted() {
+    this.selectedIndex = this.selectedTab;
   },
 });
 </script>

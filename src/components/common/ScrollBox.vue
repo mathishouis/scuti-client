@@ -350,7 +350,7 @@ export default defineComponent({
   }
 
   &__scroll-area {
-    overflow-y: scroll;
+    overflow-y: hidden;
   }
 }
 </style>

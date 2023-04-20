@@ -1,18 +1,25 @@
 <template>
   <scroll-box width="405px" height="295px" class="navigator-results-widget">
     <div class="navigator-results-widget__content">
-      <navigator-category-widget title="Fête" :minimised="false" :view="0" />
-      <navigator-category-widget title="Jeux" :minimised="false" :view="1" />
       <navigator-category-widget
-        title="Évènements"
-        :minimised="true"
-        :view="0"
-      />
-      <navigator-category-widget
-        title="Tchat & Discussions"
-        :minimised="true"
-        :view="1"
-      />
+        :title="category.name"
+        :minimised="category.minimised"
+        :view="category.view"
+        v-for="category in categories"
+        :key="category.id"
+      >
+        <template #list>
+          <navigator-room-list-layout-widget
+            :name="room.name"
+            :user-count="room.userCount"
+            :max-users="room.maxUsers"
+            :state="room.skipAuth"
+            v-for="room in category.rooms"
+            :key="room.id"
+          />
+        </template>
+        <template #thumbnail></template>
+      </navigator-category-widget>
     </div>
     <div v-if="false">
       cc1<br />cc2<br />
@@ -54,11 +61,17 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import NavigatorCategoryWidget from "@/components/navigator/widgets/NavigatorCategoryWidget.vue";
+import NavigatorRoomListLayoutWidget from "@/components/navigator/widgets/NavigatorRoomListLayoutWidget.vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "NavigatorResultsWidget",
   components: {
     NavigatorCategoryWidget,
+    NavigatorRoomListLayoutWidget,
+  },
+  computed: {
+    ...mapGetters("Navigator/Categories", ["categories"]),
   },
 });
 </script>

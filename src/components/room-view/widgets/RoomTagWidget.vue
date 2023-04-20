@@ -4,7 +4,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapMutations } from "vuex";
 
 export default defineComponent({
   name: "RoomTagWidget",

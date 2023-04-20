@@ -16,7 +16,11 @@
           icon="home-room"
           v-if="!leftToggleState && landingViewVisible"
         />
-        <tool-bar-icon icon="navigator" v-if="!leftToggleState" />
+        <tool-bar-icon
+          icon="navigator"
+          v-if="!leftToggleState"
+          @click="toggleNavigator"
+        />
         <tool-bar-icon
           icon="quest"
           v-if="!leftToggleState && !landingViewVisible"
@@ -37,6 +41,8 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapMutations } from "vuex";
 import ToolBarIcon from "@/components/tool-bar/ToolBarIcon.vue";
+import store from "@/store";
+import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
 
 export default defineComponent({
   name: "ToolBar",
@@ -45,10 +51,20 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations("ToolBar", ["toggleLeft"]),
+    ...mapMutations("Navigator", { setNavigatorVisible: "setVisible" }),
+    toggleNavigator(): void {
+      this.setNavigatorVisible(!this.navigatorVisible);
+      if (this.navigatorVisible)
+        store.getters["Socket/socket"].send(
+          new NewNavigatorSearchMessageComposer(this.navigatorCurrentTab)
+        );
+    },
   },
   computed: {
     ...mapGetters("ToolBar", ["leftToggleState"]),
     ...mapGetters("LandingView", ["isVisible"]),
+    ...mapGetters("Navigator", { navigatorVisible: "isVisible" }),
+    ...mapGetters("Navigator/Tabs", { navigatorCurrentTab: "currentTab" }),
   },
 });
 </script>

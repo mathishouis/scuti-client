@@ -13,6 +13,13 @@ import { AchievementsScoreMessageEvent } from "@/sockets/messages/incoming/user/
 import { FriendListFragmentMessageEvent } from "@/sockets/messages/incoming/messenger/FriendListFragmentMessageEvent";
 import { FriendRequestsMessageEvent } from "@/sockets/messages/incoming/messenger/FriendRequestsMessageEvent";
 import { NewNavigatorPreferencesMessageEvent } from "@/sockets/messages/incoming/navigator/updated/NewNavigatorPreferencesMessageEvent";
+import { NavigatorMetaDataMessageEvent } from "@/sockets/messages/incoming/navigator/NavigatorMetaDataMessageEvent";
+import { NavigatorLiftedRoomsMessageEvent } from "@/sockets/messages/incoming/navigator/updated/NavigatorLiftedRoomsMessageEvent";
+import { NavigatorSavedSearchesMessageEvent } from "@/sockets/messages/incoming/navigator/updated/NavigatorSavedSearchesMessageEvent";
+import { NavigatorCollapsedCategoriesMessageEvent } from "@/sockets/messages/incoming/navigator/updated/NavigatorCollapsedCategoriesMessageEvent";
+import { UserFlatCatsMessageEvent } from "@/sockets/messages/incoming/navigator/UserFlatCatsMessageEvent";
+import { UserEventCatsMessageEvent } from "@/sockets/messages/incoming/navigator/UserEventCatsMessageEvent";
+import { NavigatorSearchResultBlocksMessageEvent } from "@/sockets/messages/incoming/navigator/updated/NavigatorSearchResultBlocksMessageEvent";
 
 export class MessageHandler {
   private readonly _incomingMessages: Map<number, IncomingMessage> = new Map();
@@ -80,6 +87,34 @@ export class MessageHandler {
     this._registerMessage(
       Incoming.NewNavigatorPreferencesMessageEvent,
       <IncomingMessage>(<unknown>NewNavigatorPreferencesMessageEvent)
+    );
+    this._registerMessage(
+      Incoming.NavigatorMetaDataMessageEvent,
+      <IncomingMessage>(<unknown>NavigatorMetaDataMessageEvent)
+    );
+    this._registerMessage(
+      Incoming.NavigatorLiftedRoomsMessageEvent,
+      <IncomingMessage>(<unknown>NavigatorLiftedRoomsMessageEvent)
+    );
+    this._registerMessage(
+      Incoming.NavigatorSavedSearchesMessageEvent,
+      <IncomingMessage>(<unknown>NavigatorSavedSearchesMessageEvent)
+    );
+    this._registerMessage(
+      Incoming.NavigatorCollapsedCategoriesMessageEvent,
+      <IncomingMessage>(<unknown>NavigatorCollapsedCategoriesMessageEvent)
+    );
+    this._registerMessage(
+      Incoming.UserFlatCatsMessageEvent,
+      <IncomingMessage>(<unknown>UserFlatCatsMessageEvent)
+    );
+    this._registerMessage(
+      Incoming.UserEventCatsMessageEvent,
+      <IncomingMessage>(<unknown>UserEventCatsMessageEvent)
+    );
+    this._registerMessage(
+      Incoming.NavigatorSearchResultBlocksMessageEvent,
+      <IncomingMessage>(<unknown>NavigatorSearchResultBlocksMessageEvent)
     );
   }
 

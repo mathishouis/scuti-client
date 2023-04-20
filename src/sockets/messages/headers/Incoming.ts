@@ -21,12 +21,14 @@ export const Incoming = {
   UserObjectMessageEvent: 1513,
 
   /* NAVIGATOR */
-  NavigatorSearchResultSetMessageEvent: 3984,
+  NavigatorSearchResultBlocksMessageEvent: 3984,
   NewNavigatorPreferencesMessageEvent: 2123,
   NavigatorMetaDataMessageEvent: 2631,
   NavigatorLiftedRoomsMessageEvent: 3709, // ?
   NavigatorSavedSearchesMessageEvent: 2853,
   NavigatorCollapsedCategoriesMessageEvent: 1146, // ?
+  UserFlatCatsMessageEvent: 2986,
+  UserEventCatsMessageEvent: 3851,
 
   /* ROOM */
   FollowRoomDataMessageEvent: 1826,
@@ -53,10 +55,6 @@ export const Incoming = {
   SlideObjectBundleMessageEvent: 352,
 
   InventoryMessageEvent: 1669,
-
-  RoomCategoriesMessageEvent: 2986,
-  EventCategoriesMessageEvent: 3851,
-
   /** FRIENDS **/
   FriendListFragmentMessageEvent: 2891,
   FriendRequestsMessageEvent: 1151,
