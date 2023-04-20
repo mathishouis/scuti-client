@@ -10,9 +10,13 @@ import Tabs from "@/components/common/Tabs.vue";
 import SelectionList from "@/components/common/SelectionList.vue";
 import TextField from "@/components/common/TextField.vue";
 import ScrollBox from "@/components/common/ScrollBox.vue";
+import Config from "@/mixins/Config";
+import Locale from "@/mixins/Locale";
 
 createApp(App)
   .use(store)
+  .mixin(Config)
+  .mixin(Locale)
   .component("tool-tip", ToolTip)
   .component("border-card", BorderCard)
   .component("primary-button", PrimaryButton)

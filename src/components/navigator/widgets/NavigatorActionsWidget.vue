@@ -1,13 +1,13 @@
 <template>
   <div class="navigator-actions-widget">
-    <tool-tip label="Créer un nouvel appart !">
+    <tool-tip :label="__locale('navigator.tooltip.create.room')">
       <div class="navigator-actions-widget__create-room-button">
-        Créer un appart
+        {{ __locale("navigator.create.room") }}
       </div>
     </tool-tip>
-    <tool-tip label="Fais la promo de ton appart">
+    <tool-tip :label="__locale('navigator.tooltip.promote.room')">
       <div class="navigator-actions-widget__create-event-button">
-        Créer un évènement
+        {{ __locale("navigator.create.event") }}
       </div>
     </tool-tip>
   </div>

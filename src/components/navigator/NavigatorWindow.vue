@@ -7,10 +7,14 @@
     height="500px"
     max-height="635px"
     class="navigator-window"
-    :title="isLoading ? 'Navigateur - Chargement...' : 'Navigateur'"
+    :title="
+      isLoading
+        ? __locale('navigator.title.is.busy')
+        : __locale('navigator.title')
+    "
   >
     <div class="navigator-window__top">
-      <tool-tip label="navigator.tooltip.left.show.hide">
+      <tool-tip :label="__locale('navigator.tooltip.left.show.hide')">
         <div
           class="navigator-window__saved-search-button"
           @click="toggleSavedSearches"

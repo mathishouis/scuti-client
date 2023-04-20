@@ -1,0 +1,31 @@
+{
+  "name": "Scuti",
+  "locale": "en",
+  "socket": {
+    "secure": true,
+    "ip": "127.0.0.1",
+    "port": 30001
+  },
+  "resources": {
+    "url": "http://localhost:8081"
+  },
+  "game": {
+    "landing_view": {
+      "widgets": {},
+      "images": {
+        "background_gradient": {
+          "url": "${resources.url}/images/reception/background_gradient.png"
+        },
+        "background_left": {
+          "url": "${resources.url}/images/reception/background_left.png"
+        },
+        "background_right": {
+          "url": "${resources.url}/images/reception/background_right.png"
+        },
+        "background_drape": {
+          "url": "${resources.url}/images/reception/background_drape.png"
+        }
+      }
+    }
+  }
+}

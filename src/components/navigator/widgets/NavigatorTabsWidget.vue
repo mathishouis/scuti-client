@@ -38,8 +38,10 @@ export default defineComponent({
       let tabs: any[] = [];
       this.tabs.forEach((tab: string) => {
         tabs.push({
-          label: "navigator.toplevelview." + tab,
-          tooltip: "navigator.tooltip.select.tab",
+          // @ts-ignore
+          label: this.__locale("navigator.toplevelview." + tab),
+          // @ts-ignore
+          tooltip: this.__locale("navigator.tooltip.select.tab"),
         });
       });
       return tabs;

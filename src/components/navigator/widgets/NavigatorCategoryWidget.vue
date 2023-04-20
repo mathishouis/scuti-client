@@ -1,7 +1,13 @@
 <template>
   <div class="navigator-category">
     <div class="navigator-category__header">
-      <tool-tip label="navigator.tooltip.category.expand - collapse">
+      <tool-tip
+        :label="
+          category.minimised
+            ? __locale('navigator.tooltip.category.expand')
+            : __locale('navigator.tooltip.category.collapse')
+        "
+      >
         <div
           class="navigator-category__minimise-button"
           :class="[
@@ -12,13 +18,19 @@
       </tool-tip>
       <div class="navigator-category__title">{{ title }}</div>
       <div class="navigator-category__button-group">
-        <tool-tip label="navigator.tooltip.add.saved.search">
+        <tool-tip :label="__locale('navigator.tooltip.add.saved.search')">
           <div class="navigator-category__saved-search-button"></div>
         </tool-tip>
-        <tool-tip label="navigator.tooltip.category.show.more">
+        <tool-tip :label="__locale('navigator.tooltip.category.show.more')">
           <div class="navigator-category__more-results-button"></div>
         </tool-tip>
-        <tool-tip label="navigator.tooltip.rows - tiles">
+        <tool-tip
+          :label="
+            category.view === 1
+              ? __locale('navigator.tooltip.rows')
+              : __locale('navigator.tooltip.tiles')
+          "
+        >
           <div
             class="navigator-category__view-mode-button"
             :class="[
