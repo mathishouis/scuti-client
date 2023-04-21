@@ -108,21 +108,24 @@ export default defineComponent({
       store.commit("Navigator/Categories/toggleView", this.id);
       store.getters["Socket/socket"].send(
         new NavigatorSetSearchCodeViewModeMessageComposer(
-          this.category.id,
+          this.category.id ?? "",
           this.category.view
         )
       );
     },
     showMoreResults(): void {
       store.getters["Socket/socket"].send(
-        new NewNavigatorSearchMessageComposer(this.category.id, "")
+        new NewNavigatorSearchMessageComposer(this.category.id ?? "", "")
       );
     },
     save(): void {
       let query = "";
       if (this.category.id === "query") query = this.searchQuery;
       store.getters["Socket/socket"].send(
-        new NavigatorAddSavedSearchMessageComposer(this.category.id, query)
+        new NavigatorAddSavedSearchMessageComposer(
+          this.category.id ?? "",
+          query
+        )
       );
       this.setSavedSearchesState(true);
     },

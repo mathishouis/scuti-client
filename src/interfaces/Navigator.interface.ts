@@ -1,21 +1,23 @@
+import {RoomDataParser} from "@/sockets/messages/parser/rooms/data/RoomDataParser";
+
 export interface Category {
-    id: string;
-    name: string;
+    id: string | null;
+    name: string | null;
     minRank: number;
     minimised: boolean;
     view: number;
-    rooms: Room[];
+    rooms: RoomDataParser[];
 }
 
 export interface Room {
     id: number;
-    name: string;
+    name: string | null;
     ownerId: number;
-    ownerName: string;
+    ownerName: string | null;
     skipAuth: number;
     userCount: number;
     maxUsers: number;
-    description: string;
+    description: string | null;
     trade: number;
     score: number;
     categoryId: number;

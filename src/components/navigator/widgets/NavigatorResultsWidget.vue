@@ -15,13 +15,13 @@
       >
         <template #list>
           <navigator-room-list-layout-widget
-            :id="room.id"
-            :name="room.name"
+            :id="room.roomId"
+            :name="room.roomName"
             :description="room.description"
             :owner-id="room.ownerId"
             :owner-name="room.ownerName"
             :user-count="room.userCount"
-            :max-users="room.maxUsers"
+            :max-users="room.maxUserCount"
             :state="room.skipAuth"
             :trade="room.trade"
             :thumbnail="room.thumbnail"
@@ -37,13 +37,13 @@
         </template>
         <template #thumbnail>
           <navigator-room-thumbnail-layout-widget
-            :id="room.id"
-            :name="room.name"
+            :id="room.roomId"
+            :name="room.roomName"
             :description="room.description"
             :owner-id="room.ownerId"
             :owner-name="room.ownerName"
             :user-count="room.userCount"
-            :max-users="room.maxUsers"
+            :max-users="room.maxUserCount"
             :state="room.skipAuth"
             :trade="room.trade"
             :thumbnail="room.thumbnail"
