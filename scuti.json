@@ -9,6 +9,18 @@
   "resources": {
     "url": "http://localhost:8081"
   },
+  "image": {
+    "library": {
+      "url": {
+        "server": "${resources.url}/images/"
+      }
+    }
+  },
+  "navigator": {
+    "thumbnail": {
+      "url_base": "${resources.url}/camera/thumbnails/"
+    }
+  },
   "game": {
     "landing_view": {
       "widgets": {},

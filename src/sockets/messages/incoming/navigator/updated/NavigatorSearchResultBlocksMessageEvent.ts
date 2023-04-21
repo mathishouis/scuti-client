@@ -50,6 +50,20 @@ export class NavigatorSearchResultBlocksMessageEvent extends IncomingMessage {
           this.readInt();
           const categoryId: number = this.readInt();
 
+          const tagSize: number = this.readInt();
+
+          for (let k = 0; k < tagSize; k++) {
+            const tag: string = this.readString();
+            // TODO: Add tags
+          }
+
+          // TODO: Thumbnails
+          const thumbnail: number = this.readInt();
+          let thumbnailUrl: string = "";
+          if (thumbnail === 1) {
+            thumbnailUrl = this.readString();
+          }
+
           category.rooms.push({
             id: roomId,
             name: roomName,
@@ -63,20 +77,8 @@ export class NavigatorSearchResultBlocksMessageEvent extends IncomingMessage {
             score: score,
             categoryId: categoryId,
             tags: [],
+            thumbnail: thumbnailUrl,
           });
-
-          const tagSize: number = this.readInt();
-
-          for (let k = 0; k < tagSize; k++) {
-            const tag: string = this.readString();
-            // TODO: Add tags
-          }
-
-          // TODO: Thumbnails
-          const thumbnail: number = this.readInt();
-          if (thumbnail === 1) {
-            const thumbnailUrl: string = this.readString();
-          }
         }
         store.commit("Navigator/Categories/add", category);
       }

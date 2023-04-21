@@ -1,35 +1,49 @@
 <template>
-  <div class="navigator-room-list-layout-widget">
-    <navigator-user-count-widget
-      class="navigator-room-list-layout-widget__user-count"
-      :user-count="userCount"
-      :max-user="maxUsers"
-    />
-    <div class="navigator-room-list-layout-widget__info-button"></div>
-    <div class="navigator-room-list-layout-widget__group-icon"></div>
-    <navigator-state-icon-widget
-      class="navigator-room-list-layout-widget__state-icon"
-      :state="state"
-    ></navigator-state-icon-widget>
-    <div class="navigator-room-list-layout-widget__title">
-      {{ name }}
-    </div>
-  </div>
+  <tool-tip :label="__locale('navigator.tooltip.go.to.room')">
+    <border-card
+      class="navigator-room-thumbnail-layout-widget"
+      type="6"
+      color="#ffffff"
+    >
+      <navigator-room-thumbnail-widget
+        width="108px"
+        height="109px"
+        class="navigator-room-thumbnail-layout-widget__thumbnail"
+        :thumbnail="thumbnail"
+      />
+      <div class="navigator-room-thumbnail-layout-widget__title">
+        {{ name }}
+      </div>
+      <navigator-user-count-widget
+        class="navigator-room-thumbnail-layout-widget__user-count"
+        :user-count="userCount"
+        :max-user="maxUsers"
+      />
+      <navigator-state-icon-widget
+        class="navigator-room-thumbnail-layout-widget__state-icon"
+        :state="state"
+      />
+      <div class="navigator-room-thumbnail-layout-widget__info-button"></div>
+    </border-card>
+  </tool-tip>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import NavigatorUserCountWidget from "@/components/navigator/widgets/NavigatorUserCountWidget.vue";
 import NavigatorStateIconWidget from "@/components/navigator/widgets/NavigatorStateIconWidget.vue";
+import NavigatorRoomThumbnailWidget from "@/components/navigator/widgets/NavigatorRoomThumbnailWidget.vue";
 
 export default defineComponent({
   name: "NavigatorRoomThumbnailLayoutWidget",
   components: {
     NavigatorUserCountWidget,
     NavigatorStateIconWidget,
+    NavigatorRoomThumbnailWidget,
   },
   props: {
     name: String,
+    thumbnail: String,
     userCount: Number,
     maxUsers: Number,
     state: Number,
@@ -38,19 +52,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.navigator-room-list-layout-widget {
-  width: 100%;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  height: 20px;
-  border-radius: 4px;
+.navigator-room-thumbnail-layout-widget {
+  width: 122px;
+  height: 146px;
   position: relative;
   cursor: pointer;
-  background-color: #ffffff;
-
-  &:nth-child(odd) {
-    background: #d5edff;
-  }
 
   &__info-button {
     height: 18px;
@@ -58,38 +64,39 @@ export default defineComponent({
     background-image: url(@images/navigator/icons/info.png);
     position: absolute;
     right: 6px;
+    top: 120px;
     cursor: pointer;
-  }
-
-  &__group-icon {
-    height: 11px;
-    width: 13px;
-    background-image: url(@images/navigator/icons/room_group.png);
-    position: absolute;
-    right: 28px;
-    top: 4px;
-    cursor: pointer;
-  }
-
-  &__user-count {
-    position: absolute;
-    left: 0;
   }
 
   &__title {
     position: absolute;
-    left: 47px;
+    top: 119px;
+    left: 9px;
+    font-size: 8pt;
     color: #000000;
-    font-size: 9.4pt;
     font-family: "Ubuntu Light", sans-serif;
-    top: 1px;
-    line-height: 16px;
+    line-height: 12px;
+    max-width: calc(100% - 24px);
+    max-height: 24px;
+    overflow: hidden;
+  }
+
+  &__user-count {
+    left: 40px;
+    top: 93px;
+    position: absolute;
   }
 
   &__state-icon {
     position: absolute;
-    right: 45px;
-    top: 2px;
+    right: 16px;
+    top: 95px;
+  }
+
+  &__thumbnail {
+    position: absolute;
+    top: 6px;
+    left: 7px;
   }
 }
 </style>

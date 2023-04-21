@@ -74,6 +74,14 @@ export default defineComponent({
       border-bottom: 7px solid transparent;
       border-right: 6px solid transparent;
     }
+
+    &--6 {
+      border-image: url(@images/borders/6.png) 6 6 8 6 fill;
+      border-top: 6px solid transparent;
+      border-left: 6px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 6px solid transparent;
+    }
   }
 
   &__content {

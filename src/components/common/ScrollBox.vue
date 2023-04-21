@@ -14,7 +14,7 @@
         class="scroll-box__thumb"
         style="height: 0px; top: 0px"
         ref="thumb"
-        v-if="!disabled"
+        v-show="!disabled"
         @mousedown="onPointerDown"
       ></div>
     </div>
@@ -169,6 +169,14 @@ export default defineComponent({
     this.observer = new MutationObserver(
       // @ts-ignore
       function (mutations) {
+        // @ts-ignore
+        (this.$refs.thumb as any).style.height =
+          // @ts-ignore
+          (parseInt(this.height ?? "0px", 10) /
+            // @ts-ignore
+            (this.$refs.content as any).clientHeight) *
+            100 +
+          "%";
         // @ts-ignore
         (this.$refs.thumb as any).style.top =
           "calc(" +

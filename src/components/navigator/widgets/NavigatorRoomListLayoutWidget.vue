@@ -10,7 +10,7 @@
     <navigator-state-icon-widget
       class="navigator-room-list-layout-widget__state-icon"
       :state="state"
-    ></navigator-state-icon-widget>
+    />
     <div class="navigator-room-list-layout-widget__title">
       {{ name }}
     </div>

@@ -20,6 +20,7 @@ export interface Room {
     score: number;
     categoryId: number;
     tags: string[];
+    thumbnail: string;
 }
 
 export interface SavedSearch {

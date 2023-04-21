@@ -23,7 +23,17 @@
             :key="room.id"
           />
         </template>
-        <template #thumbnail></template>
+        <template #thumbnail>
+          <navigator-room-thumbnail-layout-widget
+            :name="room.name"
+            :user-count="room.userCount"
+            :max-users="room.maxUsers"
+            :state="room.skipAuth"
+            :thumbnail="room.thumbnail"
+            v-for="room in category.rooms"
+            :key="room.id"
+          />
+        </template>
       </navigator-category-widget>
     </div>
     <div v-if="false">
@@ -67,6 +77,7 @@
 import { defineComponent } from "vue";
 import NavigatorCategoryWidget from "@/components/navigator/widgets/NavigatorCategoryWidget.vue";
 import NavigatorRoomListLayoutWidget from "@/components/navigator/widgets/NavigatorRoomListLayoutWidget.vue";
+import NavigatorRoomThumbnailLayoutWidget from "@/components/navigator/widgets/NavigatorRoomThumbnailLayoutWidget.vue";
 import { mapGetters } from "vuex";
 
 export default defineComponent({
@@ -74,6 +85,7 @@ export default defineComponent({
   components: {
     NavigatorCategoryWidget,
     NavigatorRoomListLayoutWidget,
+    NavigatorRoomThumbnailLayoutWidget,
   },
   computed: {
     ...mapGetters("Navigator/Categories", ["categories"]),
