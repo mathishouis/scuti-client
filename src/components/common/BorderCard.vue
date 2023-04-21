@@ -82,6 +82,33 @@ export default defineComponent({
       border-bottom: 8px solid transparent;
       border-right: 6px solid transparent;
     }
+
+    &--7 {
+      border-image: url(@images/borders/7.png) 8 8 8 8 fill;
+      border-top: 8px solid transparent;
+      border-left: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 8px solid transparent;
+
+      &:before {
+        content: "";
+        position: absolute;
+        width: 11px;
+        height: 18px;
+        background-image: url(@images/borders/7_arrow.png);
+        left: -16px;
+        transform: translateY(-50%);
+        top: 50%;
+      }
+    }
+
+    &--8 {
+      border-image: url(@images/borders/8.png) 6 6 6 6 fill;
+      border-top: 6px solid transparent;
+      border-left: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
   }
 
   &__content {

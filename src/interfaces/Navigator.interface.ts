@@ -20,7 +20,13 @@ export interface Room {
     score: number;
     categoryId: number;
     tags: string[];
-    thumbnail: string;
+    thumbnail: string | null;
+    groupId: number | null;
+    groupName: string | null;
+    groupBadge: string | null;
+    eventName: string | null;
+    eventDescription: string | null;
+    eventExpiresIn: number | null;
 }
 
 export interface SavedSearch {

@@ -18,7 +18,7 @@ export default {
   namespaced: true,
   state: {
     loading: false,
-    visible: true,
+    visible: false,
     savedSearchesToggled: false,
     maxFavouritesRooms: -1,
     favouritesRooms: [],
@@ -46,6 +46,11 @@ export default {
     searchQuery: (state: NavigatorState): string => {
       return state.searchQuery;
     },
+    isFavouriteRoom:
+      (state: NavigatorState) =>
+      (roomId: number): boolean => {
+        return state.favouritesRooms.includes(roomId);
+      },
   },
   mutations: {
     setVisible: (state: NavigatorState, visible: boolean): void => {

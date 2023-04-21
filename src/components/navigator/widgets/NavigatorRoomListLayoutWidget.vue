@@ -1,12 +1,19 @@
 <template>
-  <div class="navigator-room-list-layout-widget" @click="test">
+  <div class="navigator-room-list-layout-widget" @click="visit">
     <navigator-user-count-widget
       class="navigator-room-list-layout-widget__user-count"
       :user-count="userCount"
       :max-user="maxUsers"
     />
-    <div class="navigator-room-list-layout-widget__info-button"></div>
-    <div class="navigator-room-list-layout-widget__group-icon"></div>
+    <div
+      class="navigator-room-list-layout-widget__info-button"
+      @mouseout="hideInfo"
+      @mouseover="showInfo($event)"
+    ></div>
+    <div
+      class="navigator-room-list-layout-widget__group-icon"
+      v-if="groupId"
+    ></div>
     <navigator-state-icon-widget
       class="navigator-room-list-layout-widget__state-icon"
       :state="state"
@@ -14,6 +21,27 @@
     <div class="navigator-room-list-layout-widget__title">
       {{ name }}
     </div>
+    <navigator-room-info-widget
+      :id="id"
+      :name="name"
+      :owner-id="ownerId"
+      :owner-name="ownerName"
+      :max-users="maxUsers"
+      :description="description"
+      :trade="trade"
+      :tags="['cc', 'cc2']"
+      :thumbnail="thumbnail"
+      :x="x"
+      :y="y"
+      :group-id="groupId"
+      :group-name="groupName"
+      :group-badge="groupBadge"
+      :event-name="eventName"
+      :event-description="eventDescription"
+      :event-expires-in="eventExpiresIn"
+      class="navigator-room-list-layout-widget__info"
+      v-if="toggleInfo"
+    />
   </div>
 </template>
 
@@ -21,26 +49,61 @@
 import { defineComponent } from "vue";
 import NavigatorUserCountWidget from "@/components/navigator/widgets/NavigatorUserCountWidget.vue";
 import NavigatorStateIconWidget from "@/components/navigator/widgets/NavigatorStateIconWidget.vue";
+import NavigatorRoomInfoWidget from "@/components/navigator/widgets/NavigatorRoomInfoWidget.vue";
 import { mapMutations } from "vuex";
+import store from "@/store";
+import { GetGuestRoomMessageComposer } from "@/sockets/messages/outgoing/rooms/engine/GetGuestRoomMessageComposer";
 
 export default defineComponent({
   name: "NavigatorRoomListLayoutWidget",
   components: {
     NavigatorUserCountWidget,
     NavigatorStateIconWidget,
+    NavigatorRoomInfoWidget,
   },
   props: {
+    id: {
+      type: Number,
+      required: true,
+    },
     name: String,
+    description: String,
+    ownerId: Number,
+    ownerName: String,
     userCount: Number,
     maxUsers: Number,
     state: Number,
+    trade: Number,
+    groupId: Number,
+    groupName: String,
+    groupBadge: String,
+    eventName: String,
+    eventDescription: String,
+    eventExpiresIn: Number,
+    thumbnail: String,
   },
+  data: () => ({
+    toggleInfo: false,
+    x: 0,
+    y: 0,
+  }),
   methods: {
     ...mapMutations("LandingView", ["setVisible"]),
     ...mapMutations("Navigator", { setNavigatorVisible: "setVisible" }),
-    test(): void {
-      this.setVisible(false);
+    visit(): void {
       this.setNavigatorVisible(false);
+      store.getters["Socket/socket"].send(
+        new GetGuestRoomMessageComposer(this.id, 0, 1)
+      );
+    },
+    showInfo(event: any): void {
+      const offsets: DOMRect = event.target.getBoundingClientRect();
+      this.y = offsets.top;
+      this.x = offsets.left;
+      this.toggleInfo = true;
+    },
+    hideInfo(): void {
+      this.toggleInfo = false;
     },
   },
 });

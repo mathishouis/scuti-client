@@ -15,21 +15,44 @@
       >
         <template #list>
           <navigator-room-list-layout-widget
+            :id="room.id"
             :name="room.name"
+            :description="room.description"
+            :owner-id="room.ownerId"
+            :owner-name="room.ownerName"
             :user-count="room.userCount"
             :max-users="room.maxUsers"
             :state="room.skipAuth"
+            :trade="room.trade"
+            :thumbnail="room.thumbnail"
+            :group-id="room.groupId"
+            :group-name="room.groupName"
+            :group-badge="room.groupBadge"
+            :event-name="room.eventName"
+            :event-description="room.eventDescription"
+            :event-expires-in="room.eventExpiresIn"
             v-for="room in category.rooms"
             :key="room.id"
           />
         </template>
         <template #thumbnail>
           <navigator-room-thumbnail-layout-widget
+            :id="room.id"
             :name="room.name"
+            :description="room.description"
+            :owner-id="room.ownerId"
+            :owner-name="room.ownerName"
             :user-count="room.userCount"
             :max-users="room.maxUsers"
             :state="room.skipAuth"
+            :trade="room.trade"
             :thumbnail="room.thumbnail"
+            :group-id="room.groupId"
+            :group-name="room.groupName"
+            :group-badge="room.groupBadge"
+            :event-name="room.eventName"
+            :event-description="room.eventDescription"
+            :event-expires-in="room.eventExpiresIn"
             v-for="room in category.rooms"
             :key="room.id"
           />

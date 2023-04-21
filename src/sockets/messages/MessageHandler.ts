@@ -20,6 +20,7 @@ import { NavigatorCollapsedCategoriesMessageEvent } from "@/sockets/messages/inc
 import { UserFlatCatsMessageEvent } from "@/sockets/messages/incoming/navigator/UserFlatCatsMessageEvent";
 import { UserEventCatsMessageEvent } from "@/sockets/messages/incoming/navigator/UserEventCatsMessageEvent";
 import { NavigatorSearchResultBlocksMessageEvent } from "@/sockets/messages/incoming/navigator/updated/NavigatorSearchResultBlocksMessageEvent";
+import { GetGuestRoomResultMessageEvent } from "@/sockets/messages/incoming/rooms/engine/GetGuestRoomResultMessageEvent";
 
 export class MessageHandler {
   private readonly _incomingMessages: Map<number, IncomingMessage> = new Map();
@@ -115,6 +116,12 @@ export class MessageHandler {
     this._registerMessage(
       Incoming.NavigatorSearchResultBlocksMessageEvent,
       <IncomingMessage>(<unknown>NavigatorSearchResultBlocksMessageEvent)
+    );
+
+    /** Room loading **/
+    this._registerMessage(
+      Incoming.GetGuestRoomResultMessageEvent,
+      <IncomingMessage>(<unknown>GetGuestRoomResultMessageEvent)
     );
   }
 

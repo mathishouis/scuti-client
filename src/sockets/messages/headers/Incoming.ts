@@ -31,7 +31,7 @@ export const Incoming = {
   UserEventCatsMessageEvent: 3851,
 
   /* ROOM */
-  FollowRoomDataMessageEvent: 1826,
+  GetGuestRoomResultMessageEvent: 1826,
   LeaveRoomMessageEvent: 2848,
   OpenConnectionMessageEvent: 3450,
   RoomReadyMessageEvent: 3334,

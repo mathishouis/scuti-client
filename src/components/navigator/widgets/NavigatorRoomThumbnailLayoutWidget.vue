@@ -14,6 +14,16 @@
       <div class="navigator-room-thumbnail-layout-widget__title">
         {{ name }}
       </div>
+      <div
+        class="navigator-room-thumbnail-layout-widget__group-icon"
+        :style="{
+          backgroundImage:
+            'url(' +
+            __config('group.badge.url').replace('%imagerdata%', groupBadge) +
+            ')',
+        }"
+        v-if="groupId"
+      ></div>
       <navigator-user-count-widget
         class="navigator-room-thumbnail-layout-widget__user-count"
         :user-count="userCount"
@@ -23,9 +33,34 @@
         class="navigator-room-thumbnail-layout-widget__state-icon"
         :state="state"
       />
-      <div class="navigator-room-thumbnail-layout-widget__info-button"></div>
+      <div
+        class="navigator-room-thumbnail-layout-widget__info-button"
+        @mouseout="hideInfo"
+        @mouseover="showInfo($event)"
+      ></div>
     </border-card>
   </tool-tip>
+  <navigator-room-info-widget
+    :id="id"
+    :name="name"
+    :owner-id="ownerId"
+    :owner-name="ownerName"
+    :max-users="maxUsers"
+    :description="description"
+    :trade="trade"
+    :tags="['cc', 'cc2']"
+    :thumbnail="thumbnail"
+    :x="x"
+    :y="y"
+    :group-id="groupId"
+    :group-name="groupName"
+    :group-badge="groupBadge"
+    :event-name="eventName"
+    :event-description="eventDescription"
+    :event-expires-in="eventExpiresIn"
+    class="navigator-room-list-layout-widget__info"
+    v-if="toggleInfo"
+  />
 </template>
 
 <script lang="ts">
@@ -33,6 +68,7 @@ import { defineComponent } from "vue";
 import NavigatorUserCountWidget from "@/components/navigator/widgets/NavigatorUserCountWidget.vue";
 import NavigatorStateIconWidget from "@/components/navigator/widgets/NavigatorStateIconWidget.vue";
 import NavigatorRoomThumbnailWidget from "@/components/navigator/widgets/NavigatorRoomThumbnailWidget.vue";
+import NavigatorRoomInfoWidget from "@/components/navigator/widgets/NavigatorRoomInfoWidget.vue";
 
 export default defineComponent({
   name: "NavigatorRoomThumbnailLayoutWidget",
@@ -40,13 +76,41 @@ export default defineComponent({
     NavigatorUserCountWidget,
     NavigatorStateIconWidget,
     NavigatorRoomThumbnailWidget,
+    NavigatorRoomInfoWidget,
   },
   props: {
+    id: Number,
     name: String,
-    thumbnail: String,
+    description: String,
+    ownerId: Number,
+    ownerName: String,
     userCount: Number,
     maxUsers: Number,
     state: Number,
+    trade: Number,
+    groupId: Number,
+    groupName: String,
+    groupBadge: String,
+    eventName: String,
+    eventDescription: String,
+    eventExpiresIn: Number,
+    thumbnail: String,
+  },
+  data: () => ({
+    toggleInfo: false,
+    x: 0,
+    y: 0,
+  }),
+  methods: {
+    showInfo(event: any): void {
+      const offsets: DOMRect = event.target.getBoundingClientRect();
+      this.y = offsets.top;
+      this.x = offsets.left;
+      this.toggleInfo = true;
+    },
+    hideInfo(): void {
+      this.toggleInfo = false;
+    },
   },
 });
 </script>
@@ -97,6 +161,14 @@ export default defineComponent({
     position: absolute;
     top: 6px;
     left: 7px;
+  }
+
+  &__group-icon {
+    width: 39px;
+    height: 39px;
+    top: 8px;
+    left: 9px;
+    position: absolute;
   }
 }
 </style>

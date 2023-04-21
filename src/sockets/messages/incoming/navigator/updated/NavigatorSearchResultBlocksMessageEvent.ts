@@ -49,20 +49,53 @@ export class NavigatorSearchResultBlocksMessageEvent extends IncomingMessage {
           const score: number = this.readInt();
           this.readInt();
           const categoryId: number = this.readInt();
+          let thumbnailUrl = "";
+          let groupId = null;
+          let groupName = null;
+          let groupBadge = null;
+          let eventName = null;
+          let eventDescription = null;
+          let eventExpiresIn = null;
 
           const tagSize: number = this.readInt();
+          const tags: string[] = [];
 
           for (let k = 0; k < tagSize; k++) {
             const tag: string = this.readString();
-            // TODO: Add tags
+            tags.push(tag);
           }
 
           // TODO: Thumbnails
-          const thumbnail: number = this.readInt();
-          let thumbnailUrl: string = "";
-          if (thumbnail === 1) {
-            thumbnailUrl = this.readString();
+          const THUMBNAIL_BITMASK = 1;
+          const GROUPDATA_BITMASK = 2;
+          const ROOMEVENT_BITMASK = 4;
+          const SHOWOWNER_BITMASK = 8;
+          const ALLOW_PETS_BITMASK = 16;
+          const DISPLAY_ROOMAD_BITMASK = 32;
+
+          const bitMask: number = this.readInt();
+
+          if (bitMask & THUMBNAIL_BITMASK) thumbnailUrl = this.readString();
+
+          if (bitMask & GROUPDATA_BITMASK) {
+            groupId = this.readInt();
+            groupName = this.readString();
+            groupBadge = this.readString();
           }
+
+          if (bitMask & ROOMEVENT_BITMASK) {
+            eventName = this.readString();
+            eventDescription = this.readString();
+            eventExpiresIn = this.readInt();
+          }
+          //this._showOwner = (this._bitMask & RoomDataParser.SHOWOWNER_BITMASK) > 0;
+          //this._allowPets = (this._bitMask & RoomDataParser.ALLOW_PETS_BITMASK) > 0;
+          //this._displayAd = (this._bitMask & RoomDataParser.DISPLAY_ROOMAD_BITMASK) > 0;
+          //console.log("thumbnail", specialType, roomName);
+          /*let thumbnailUrl = "";
+          if (specialType === 1) {
+            thumbnailUrl = this.readString();
+          }*/
 
           category.rooms.push({
             id: roomId,
@@ -76,8 +109,14 @@ export class NavigatorSearchResultBlocksMessageEvent extends IncomingMessage {
             trade: trade,
             score: score,
             categoryId: categoryId,
-            tags: [],
+            tags: tags,
             thumbnail: thumbnailUrl,
+            groupId: groupId,
+            groupName: groupName,
+            groupBadge: groupBadge,
+            eventName: eventName,
+            eventDescription: eventDescription,
+            eventExpiresIn: eventExpiresIn,
           });
         }
         store.commit("Navigator/Categories/add", category);

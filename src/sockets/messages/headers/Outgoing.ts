@@ -10,7 +10,7 @@ export const Outgoing = {
   NavigatorAddSavedSearchMessageComposer: 3301,
   NewNavigatorSearchMessageComposer: 946,
   NavigatorSetSearchCodeViewModeMessageComposer: 597,
-  FollowRoomInfoMessageComposer: 3646,
+  GetGuestRoomMessageComposer: 3646,
   InitializeRoomMessageComposer: 2450,
   ExitRoomMessageComposer: 2644,
   AddUserToRoomMessageComposer: 2195,
@@ -20,4 +20,7 @@ export const Outgoing = {
   PickUpItemMessageComposer: 3064,
   OpenInventoryMessageComposer: 3750,
   MessengerInitMessageComposer: 1186,
+  AddFavouriteRoomMessageComposer: 3523,
+  GetExtendedProfileMessageComposer: 3455,
+  GetHabboGroupDetailsMessageComposer: 1415,
 };

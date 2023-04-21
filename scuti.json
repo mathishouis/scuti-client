@@ -11,14 +11,17 @@
   },
   "image": {
     "library": {
-      "url": {
-        "server": "${resources.url}/images/"
-      }
+      "url": "http://localhost:8081/images/"
     }
   },
   "navigator": {
     "thumbnail": {
       "url_base": "${resources.url}/camera/thumbnails/"
+    }
+  },
+  "group": {
+    "badge": {
+      "url": "${image.library.url}/badgeparts/generated/%imagerdata%.gif"
     }
   },
   "game": {
