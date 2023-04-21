@@ -1,5 +1,6 @@
 import Categories from "./categories";
 import Tabs from "./tabs";
+import Searches from "./searches";
 
 export interface NavigatorState {
   loading: boolean;
@@ -71,6 +72,9 @@ export default {
     toggleSavedSearches: (state: NavigatorState): void => {
       state.savedSearchesToggled = !state.savedSearchesToggled;
     },
+    setSavedSearchesState: (state: NavigatorState, visible: boolean): void => {
+      state.savedSearchesToggled = visible;
+    },
     setSearchCategory: (state: NavigatorState, category: string): void => {
       state.searchCategory = category;
     },
@@ -82,5 +86,6 @@ export default {
   modules: {
     Categories,
     Tabs,
+    Searches,
   },
 };

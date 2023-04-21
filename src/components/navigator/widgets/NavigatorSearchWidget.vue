@@ -71,8 +71,8 @@ export default defineComponent({
       this.setSearchCategory(category);
       this.search();
     },
-    updateQuery(query: string): void {
-      this.setSearchQuery(query);
+    updateQuery(): void {
+      this.setSearchQuery(this.query);
       this.search();
     },
     search(): void {

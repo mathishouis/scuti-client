@@ -21,3 +21,9 @@ export interface Room {
     categoryId: number;
     tags: string[];
 }
+
+export interface SavedSearch {
+    id: number;
+    view: string;
+    query: string;
+}

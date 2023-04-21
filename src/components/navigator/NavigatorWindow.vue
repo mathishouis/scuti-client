@@ -31,6 +31,7 @@
     <navigator-search-widget />
     <navigator-actions-widget />
     <navigator-results-widget :style="{ opacity: isLoading ? '.5' : '1' }" />
+    <navigator-saved-searches-widget v-if="savedSearchesToggleState" />
   </window-frame>
 </template>
 
@@ -41,6 +42,7 @@ import NavigatorTabsWidget from "@/components/navigator/widgets/NavigatorTabsWid
 import NavigatorSearchWidget from "@/components/navigator/widgets/NavigatorSearchWidget.vue";
 import NavigatorActionsWidget from "@/components/navigator/widgets/NavigatorActionsWidget.vue";
 import NavigatorResultsWidget from "@/components/navigator/widgets/NavigatorResultsWidget.vue";
+import NavigatorSavedSearchesWidget from "@/components/navigator/widgets/NavigatorSavedSearchesWidget.vue";
 
 export default defineComponent({
   name: "NavigatorWindow",
@@ -49,6 +51,7 @@ export default defineComponent({
     NavigatorTabsWidget,
     NavigatorSearchWidget,
     NavigatorResultsWidget,
+    NavigatorSavedSearchesWidget,
   },
   methods: {
     ...mapMutations("Navigator", ["toggleSavedSearches", "setVisible"]),

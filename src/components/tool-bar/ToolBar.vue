@@ -51,19 +51,41 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations("ToolBar", ["toggleLeft"]),
-    ...mapMutations("Navigator", { setNavigatorVisible: "setVisible" }),
+    ...mapMutations("Navigator", {
+      setNavigatorVisible: "setVisible",
+      setNavigatorSearching: "setSearching",
+    }),
     toggleNavigator(): void {
       this.setNavigatorVisible(!this.navigatorVisible);
-      if (this.navigatorVisible)
+      if (this.navigatorVisible && !this.isNavigatorSearching) {
         store.getters["Socket/socket"].send(
           new NewNavigatorSearchMessageComposer(this.navigatorCurrentTab, "")
         );
+      } else {
+        console.log("AAAAAAAA", this.navigatorSearchQuery);
+        store.getters["Socket/socket"].send(
+          new NewNavigatorSearchMessageComposer(
+            store.getters["Navigator/Tabs/currentTab"],
+            (this.navigatorSearchCategory !== "all"
+              ? this.navigatorSearchCategory
+              : "") +
+              (this.navigatorSearchCategory !== "all" ? ":" : "") +
+              this.navigatorSearchQuery
+          )
+        );
+        //this.setNavigatorSearching(false);
+      }
     },
   },
   computed: {
     ...mapGetters("ToolBar", ["leftToggleState"]),
     ...mapGetters("LandingView", ["isVisible"]),
-    ...mapGetters("Navigator", { navigatorVisible: "isVisible" }),
+    ...mapGetters("Navigator", {
+      navigatorVisible: "isVisible",
+      navigatorSearchQuery: "searchQuery",
+      navigatorSearchCategory: "searchCategory",
+      isNavigatorSearching: "isSearching",
+    }),
     ...mapGetters("Navigator/Tabs", { navigatorCurrentTab: "currentTab" }),
   },
 });

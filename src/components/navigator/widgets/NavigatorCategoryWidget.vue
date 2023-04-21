@@ -22,7 +22,10 @@
           :label="__locale('navigator.tooltip.add.saved.search')"
           v-if="currentTab !== 'official_view'"
         >
-          <div class="navigator-category__saved-search-button"></div>
+          <div
+            class="navigator-category__saved-search-button"
+            @click="save"
+          ></div>
         </tool-tip>
         <tool-tip
           :label="__locale('navigator.tooltip.category.show.more')"
@@ -74,6 +77,7 @@ import { mapGetters, mapMutations } from "vuex";
 import { Category } from "@/interfaces/Navigator.interface";
 import { NavigatorSetSearchCodeViewModeMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NavigatorSetSearchCodeViewModeMessageComposer";
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
+import { NavigatorAddSavedSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NavigatorAddSavedSearchMessageComposer";
 
 export enum View {
   ROWS,
@@ -96,6 +100,7 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations("Navigator/Categories", ["minimise"]),
+    ...mapMutations("Navigator", ["setSavedSearchesState"]),
     toggleMinimised(): void {
       store.commit("Navigator/Categories/toggleMinimised", this.id);
     },
@@ -113,10 +118,19 @@ export default defineComponent({
         new NewNavigatorSearchMessageComposer(this.category.id, "")
       );
     },
+    save(): void {
+      let query = "";
+      if (this.category.id === "query") query = this.searchQuery;
+      store.getters["Socket/socket"].send(
+        new NavigatorAddSavedSearchMessageComposer(this.category.id, query)
+      );
+      this.setSavedSearchesState(true);
+    },
   },
   computed: {
     ...mapGetters("Navigator/Categories", ["get"]),
     ...mapGetters("Navigator/Tabs", ["currentTab"]),
+    ...mapGetters("Navigator", ["searchQuery"]),
     category(): Category {
       return this.get(this.id);
     },

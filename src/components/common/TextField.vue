@@ -3,7 +3,7 @@
     <div
       class="text-field__focus-button"
       @click="focus"
-      v-if="focusButton"
+      v-if="focusButton && inputLength === 0"
     ></div>
     <div
       class="text-field__clear-button"
@@ -14,6 +14,7 @@
       class="text-field__input"
       :class="[focused ? '' : 'text-field__input--unfocused']"
       :placeholder="placeholder"
+      v-model="text"
       @input="input"
       type="text"
       ref="input"
@@ -35,6 +36,9 @@ export default defineComponent({
     modelValue: String,
     focused: Boolean,
   },
+  data: () => ({
+    text: "",
+  }),
   methods: {
     focus(): void {
       (this.$refs["input"] as any).focus();
@@ -44,6 +48,7 @@ export default defineComponent({
       this.$emit("change", (event.target as any).value);
     },
     clear(): void {
+      this.text = "";
       this.$emit("update:modelValue", "");
       this.$emit("change", "");
       (this.$refs["input"] as any).value = "";
@@ -51,7 +56,7 @@ export default defineComponent({
   },
   computed: {
     inputLength(): number {
-      return 0;
+      return this.text.length;
     },
   },
 });
