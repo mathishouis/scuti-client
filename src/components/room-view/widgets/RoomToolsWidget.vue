@@ -81,6 +81,7 @@
         toggleState ? 'room-tools-widget__infos--active' : '',
         !infosVisible ? 'room-tools-widget__infos--hidden' : '',
       ]"
+      @click="hideInfosVisibility"
     >
       <div class="room-tools-widget__infos-name">Coffee House</div>
       <div class="room-tools-widget__infos-owner">de Lieux Publics</div>
@@ -103,7 +104,7 @@ export default defineComponent({
     RoomTagWidget,
   },
   data: () => ({
-    infosVisible: true,
+    infosVisible: false,
     timeout: 0,
   }),
   methods: {
@@ -117,12 +118,17 @@ export default defineComponent({
       clearTimeout(this.timeout);
       this.timeout = window.setTimeout(() => (this.infosVisible = false), 5000);
     },
+    hideInfosVisibility(): void {
+      this.infosVisible = false;
+      clearTimeout(this.timeout);
+    },
   },
   computed: {
     ...mapGetters("Room/RoomTools", ["toggleState"]),
   },
   mounted(): void {
-    this.timeout = window.setTimeout(() => (this.infosVisible = false), 5000);
+    this.timeout = window.setTimeout(() => (this.infosVisible = true), 100);
+    this.timeout = window.setTimeout(() => (this.infosVisible = false), 5100);
   },
 });
 </script>

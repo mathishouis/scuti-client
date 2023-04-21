@@ -5,9 +5,17 @@
         {{ __locale("navigator.create.room") }}
       </div>
     </tool-tip>
-    <tool-tip :label="__locale('navigator.tooltip.promote.room')">
+    <tool-tip
+      :label="__locale('navigator.tooltip.promote.room')"
+      v-if="currentTab === 'myworld_view'"
+    >
       <div class="navigator-actions-widget__create-event-button">
         {{ __locale("navigator.create.event") }}
+      </div>
+    </tool-tip>
+    <tool-tip :label="__locale('navigator.tooltip.random.room')" v-else>
+      <div class="navigator-actions-widget__random-room-button">
+        {{ __locale("navigator.random.room") }}
       </div>
     </tool-tip>
   </div>
@@ -15,9 +23,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "NavigatorActionsWidget",
+  computed: {
+    ...mapGetters("Navigator/Tabs", ["currentTab"]),
+  },
 });
 </script>
 
@@ -51,6 +63,21 @@ export default defineComponent({
     width: 189px;
     height: 60px;
     background-image: url(@images/navigator/buttons/create_event.png);
+    cursor: pointer;
+    font-family: "Ubuntu Bold", sans-serif;
+    color: #ffffff;
+    font-size: 9.4pt;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+    padding-top: 23px;
+    padding-left: 66px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  &__random-room-button {
+    width: 189px;
+    height: 60px;
+    background-image: url(@images/navigator/buttons/random_room.png);
     cursor: pointer;
     font-family: "Ubuntu Bold", sans-serif;
     color: #ffffff;

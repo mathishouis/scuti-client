@@ -1,5 +1,5 @@
 <template>
-  <div class="navigator-room-list-layout-widget">
+  <div class="navigator-room-list-layout-widget" @click="test">
     <navigator-user-count-widget
       class="navigator-room-list-layout-widget__user-count"
       :user-count="userCount"
@@ -21,6 +21,7 @@
 import { defineComponent } from "vue";
 import NavigatorUserCountWidget from "@/components/navigator/widgets/NavigatorUserCountWidget.vue";
 import NavigatorStateIconWidget from "@/components/navigator/widgets/NavigatorStateIconWidget.vue";
+import { mapMutations } from "vuex";
 
 export default defineComponent({
   name: "NavigatorRoomListLayoutWidget",
@@ -33,6 +34,14 @@ export default defineComponent({
     userCount: Number,
     maxUsers: Number,
     state: Number,
+  },
+  methods: {
+    ...mapMutations("LandingView", ["setVisible"]),
+    ...mapMutations("Navigator", { setNavigatorVisible: "setVisible" }),
+    test(): void {
+      this.setVisible(false);
+      this.setNavigatorVisible(false);
+    },
   },
 });
 </script>

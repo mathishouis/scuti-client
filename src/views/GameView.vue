@@ -3,8 +3,8 @@
     <navigator-window v-show="navigatorVisible" />
     <info-bar />
     <tool-bar />
-    <room-view />
     <landing-view v-if="landingViewVisible" />
+    <room-view v-else />
     <info-bar />
   </div>
 </template>
