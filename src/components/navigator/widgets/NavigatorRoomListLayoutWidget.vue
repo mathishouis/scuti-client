@@ -92,7 +92,6 @@ export default defineComponent({
     ...mapMutations("Navigator", { setNavigatorVisible: "setVisible" }),
     visit(): void {
       this.setNavigatorVisible(false);
-      this.setVisible(false);
       store.getters["Socket/socket"].send(
         new GetGuestRoomMessageComposer(this.id, 0, 1)
       );

@@ -8,11 +8,11 @@ export class NavigatorSearchResultParser implements MessageParser {
   private _categories!: NavigatorCategoryDataParser[];
 
   constructor(message: IncomingMessage) {
-    this.flush(message);
+    this.flush();
     this.parse(message);
   }
 
-  public flush(message: IncomingMessage): void {
+  public flush(): void {
     this._id = null;
     this._data = null;
     this._categories = [];

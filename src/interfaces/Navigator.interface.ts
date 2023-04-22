@@ -1,4 +1,4 @@
-import {RoomDataParser} from "@/sockets/messages/parser/rooms/data/RoomDataParser";
+import { RoomDataParser } from "@/sockets/messages/parser/rooms/data/RoomDataParser";
 
 export interface Category {
     id: string | null;
@@ -10,16 +10,18 @@ export interface Category {
 }
 
 export interface Room {
-    id: number;
-    name: string | null;
+    roomId: number;
+    roomName: string | null;
     ownerId: number;
     ownerName: string | null;
+    showOwner: boolean;
     skipAuth: number;
     userCount: number;
-    maxUsers: number;
+    maxUserCount: number;
     description: string | null;
     trade: number;
     score: number;
+    ranking: number;
     categoryId: number;
     tags: string[];
     thumbnail: string | null;
@@ -29,6 +31,9 @@ export interface Room {
     eventName: string | null;
     eventDescription: string | null;
     eventExpiresIn: number | null;
+    allowPets: boolean;
+    displayEvent: boolean;
+    bitMask: number;
 }
 
 export interface SavedSearch {

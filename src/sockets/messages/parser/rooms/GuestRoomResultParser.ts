@@ -20,11 +20,11 @@ export class GuestRoomResultParser implements MessageParser {
   private _antiFlood!: number;
 
   constructor(message: IncomingMessage) {
-    this.flush(message);
+    this.flush();
     this.parse(message);
   }
 
-  public flush(message: IncomingMessage): void {
+  public flush(): void {
     this._isLoading = false;
     this._room = null;
     this._checkEntry = false;

@@ -39,7 +39,7 @@ export const Incoming = {
   YouAreControllerMessageEvent: 3668,
   RoomRatingMessageEvent: 3267,
   HeightmapMessageEvent: 1010,
-  RelativeHeightmapMessageEvent: 3841,
+  FloorHeightMapMessageEvent: 3841,
   RoomPromotionMessageEvent: 1488,
   AvatarsMessageEvent: 2775,
   AvatarUpdateMessageEvent: 2694,

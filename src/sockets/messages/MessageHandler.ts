@@ -24,6 +24,13 @@ import { GetGuestRoomResultMessageEvent } from "@/sockets/messages/incoming/room
 import { MessageParser } from "@/interfaces/Socket.interface";
 import { NavigatorSearchResultParser } from "@/sockets/messages/parser/navigator/NavigatorSearchResultParser";
 import { GuestRoomResultParser } from "@/sockets/messages/parser/rooms/GuestRoomResultParser";
+import { OpenConnectionMessageEvent } from "@/sockets/messages/incoming/rooms/engine/OpenConnectionMessageEvent";
+import { RoomReadyMessageEvent } from "@/sockets/messages/incoming/rooms/access/RoomReadyMessageEvent";
+import { RoomReadyParser } from "@/sockets/messages/parser/rooms/access/RoomReadyParser";
+import { RoomPropertyMessageEvent } from "@/sockets/messages/incoming/rooms/engine/RoomPropertyMessageEvent";
+import { RoomPropertyParser } from "@/sockets/messages/parser/rooms/engine/RoomPropertyParser";
+import { FloorHeightMapMessageEvent } from "@/sockets/messages/incoming/rooms/engine/FloorHeightMapMessageEvent";
+import { FloorHeightMapParser } from "@/sockets/messages/parser/rooms/engine/FloorHeightMapParser";
 
 export class MessageHandler {
   private readonly _incomingMessages: Map<
@@ -130,6 +137,25 @@ export class MessageHandler {
       Incoming.GetGuestRoomResultMessageEvent,
       <IncomingMessage>(<unknown>GetGuestRoomResultMessageEvent),
       <MessageParser>(<unknown>GuestRoomResultParser)
+    );
+    this._registerMessage(
+      Incoming.OpenConnectionMessageEvent,
+      <IncomingMessage>(<unknown>OpenConnectionMessageEvent)
+    );
+    this._registerMessage(
+      Incoming.RoomReadyMessageEvent,
+      <IncomingMessage>(<unknown>RoomReadyMessageEvent),
+      <MessageParser>(<unknown>RoomReadyParser)
+    );
+    this._registerMessage(
+      Incoming.RoomPropertyMessageEvent,
+      <IncomingMessage>(<unknown>RoomPropertyMessageEvent),
+      <MessageParser>(<unknown>RoomPropertyParser)
+    );
+    this._registerMessage(
+      Incoming.FloorHeightMapMessageEvent,
+      <IncomingMessage>(<unknown>FloorHeightMapMessageEvent),
+      <MessageParser>(<unknown>FloorHeightMapParser)
     );
   }
 

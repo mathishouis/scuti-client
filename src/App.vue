@@ -49,14 +49,11 @@ export default defineComponent({
       "x0000000000000000x\n" +
       "x0000000000000000x\n" +
       "x0000000000000000x\n";
-    const room = new Room(this.renderer, {
+    /*const room = new Room(this.renderer, {
       tileMap: tileMap,
-      /*floorMaterial: new FloorMaterial(renderer, 110),
-      wallMaterial: new WallMaterial(renderer, 1501)*/
-      //floorMaterial: new FloorMaterial(renderer, 307),
       floorMaterial: new FloorMaterial(this.renderer, 110),
       wallMaterial: new WallMaterial(this.renderer, 1601),
-    });
+    });*/
     this.updateSocket(new Socket(false, "127.0.0.1", 30001));
     this.socket.onConnect = () => {
       const authTicket: string | null = new URLSearchParams(

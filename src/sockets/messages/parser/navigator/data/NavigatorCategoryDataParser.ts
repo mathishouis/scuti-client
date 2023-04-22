@@ -1,6 +1,7 @@
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { RoomDataParser } from "@/sockets/messages/parser/rooms/data/RoomDataParser";
 import { MessageParser } from "@/interfaces/Socket.interface";
+import { Category } from "@/interfaces/Navigator.interface";
 
 export class NavigatorCategoryDataParser implements MessageParser {
   private _id!: string | null;
@@ -60,5 +61,16 @@ export class NavigatorCategoryDataParser implements MessageParser {
 
   public get rooms(): RoomDataParser[] {
     return this._rooms;
+  }
+
+  public get category(): Category {
+    return {
+      id: this._id,
+      name: this._name,
+      minRank: this._minRank,
+      minimised: this._minimised,
+      view: this._view,
+      rooms: this._rooms,
+    };
   }
 }

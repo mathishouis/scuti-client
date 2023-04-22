@@ -1,6 +1,7 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
+import { ConfirmUsernameMessageComposer } from "@/sockets/messages/outgoing/handshake/GetIgnoredUsersMessageComposer";
 
 export class UserObjectMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -26,5 +27,8 @@ export class UserObjectMessageEvent extends IncomingMessage {
     store.commit("User/updateFigure", figure);
     store.commit("User/updateGender", gender);
     store.commit("User/updateUsername", username);
+    store.getters["Socket/socket"].send(
+      new ConfirmUsernameMessageComposer(username)
+    );
   }
 }

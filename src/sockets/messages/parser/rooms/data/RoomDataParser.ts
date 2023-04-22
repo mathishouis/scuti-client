@@ -1,5 +1,6 @@
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { MessageParser } from "@/interfaces/Socket.interface";
+import { Room } from "@/interfaces/Navigator.interface";
 
 export enum BitMask {
   THUMBNAIL = 1,
@@ -211,5 +212,34 @@ export class RoomDataParser implements MessageParser {
 
   public get thumbnail(): string | null {
     return this._thumbnail;
+  }
+
+  public get room(): Room {
+    return {
+      roomId: this._roomId,
+      roomName: this._roomName,
+      ownerId: this._ownerId,
+      ownerName: this._ownerName,
+      showOwner: this._showOwner,
+      skipAuth: this._skipAuth,
+      userCount: this._userCount,
+      maxUserCount: this._maxUserCount,
+      description: this._description,
+      trade: this._trade,
+      score: this._score,
+      ranking: this._ranking,
+      categoryId: this._categoryId,
+      tags: this._tags,
+      thumbnail: this._thumbnail,
+      groupId: this._groupId,
+      groupName: this._groupName,
+      groupBadge: this._groupBadge,
+      eventName: this._eventName,
+      eventDescription: this._eventDescription,
+      eventExpiresIn: this._eventExpiresIn,
+      allowPets: this._allowPets,
+      displayEvent: this._displayEvent,
+      bitMask: this._bitMask,
+    };
   }
 }
