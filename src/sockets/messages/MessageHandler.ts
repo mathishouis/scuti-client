@@ -21,9 +21,14 @@ import { UserFlatCatsMessageEvent } from "@/sockets/messages/incoming/navigator/
 import { UserEventCatsMessageEvent } from "@/sockets/messages/incoming/navigator/UserEventCatsMessageEvent";
 import { NavigatorSearchResultBlocksMessageEvent } from "@/sockets/messages/incoming/navigator/updated/NavigatorSearchResultBlocksMessageEvent";
 import { GetGuestRoomResultMessageEvent } from "@/sockets/messages/incoming/rooms/engine/GetGuestRoomResultMessageEvent";
+import { MessageParser } from "@/interfaces/Socket.interface";
+import { NavigatorSearchResultParser } from "@/sockets/messages/parser/navigator/NavigatorSearchResultParser";
 
 export class MessageHandler {
-  private readonly _incomingMessages: Map<number, IncomingMessage> = new Map();
+  private readonly _incomingMessages: Map<
+    number,
+    { handler: IncomingMessage; parser: MessageParser | undefined }
+  > = new Map();
   private readonly _outgoingMessages: Map<number, OutgoingMessage> = new Map();
 
   constructor() {
@@ -115,7 +120,8 @@ export class MessageHandler {
     );
     this._registerMessage(
       Incoming.NavigatorSearchResultBlocksMessageEvent,
-      <IncomingMessage>(<unknown>NavigatorSearchResultBlocksMessageEvent)
+      <IncomingMessage>(<unknown>NavigatorSearchResultBlocksMessageEvent),
+      <MessageParser>(<unknown>NavigatorSearchResultParser)
     );
 
     /** Room loading **/
@@ -125,7 +131,11 @@ export class MessageHandler {
     );
   }
 
-  private _registerMessage(header: number, handler: IncomingMessage): void {
+  private _registerMessage(
+    header: number,
+    handler: IncomingMessage,
+    parser?: MessageParser
+  ): void {
     if (this._incomingMessages.has(header))
       return console.warn(
         "Header is already registered. Failed to register " +
@@ -134,16 +144,27 @@ export class MessageHandler {
           header +
           "]."
       );
-    this._incomingMessages.set(header, handler);
+    this._incomingMessages.set(header, { handler: handler, parser: parser });
   }
 
   public handle(packet: Buffer) {
     const incomingPacket = new IncomingMessage(packet);
     if (this._incomingMessages.has(incomingPacket.header)) {
-      const handlerClass = this._incomingMessages.get(incomingPacket.header);
+      const handlerClass = this._incomingMessages.get(
+        incomingPacket.header
+      )?.handler;
+      const parserClass = this._incomingMessages.get(
+        incomingPacket.header
+      )?.parser;
       // @ts-ignore
       const handler = new handlerClass(packet);
-      handler.handle();
+      if (parserClass) {
+        // @ts-ignore
+        handler.parser = new parserClass(handler);
+        handler.handle();
+      } else {
+        handler.handle();
+      }
       return console.warn("Handled message [" + incomingPacket.header + "]");
     } else {
       return console.error("Unknown message [" + incomingPacket.header + "]");

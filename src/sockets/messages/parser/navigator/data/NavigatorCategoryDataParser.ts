@@ -1,7 +1,8 @@
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { RoomDataParser } from "@/sockets/messages/parser/rooms/data/RoomDataParser";
+import { MessageParser } from "@/interfaces/Socket.interface";
 
-export class NavigatorCategoryDataParser {
+export class NavigatorCategoryDataParser implements MessageParser {
   private _id!: string | null;
   private _name!: string | null;
   private _minRank!: number;
@@ -10,11 +11,11 @@ export class NavigatorCategoryDataParser {
   private _rooms!: RoomDataParser[];
 
   constructor(message: IncomingMessage) {
-    this._flush();
-    this._parse(message);
+    this.flush();
+    this.parse(message);
   }
 
-  private _flush(): void {
+  public flush(): void {
     this._id = null;
     this._name = null;
     this._minRank = 0;
@@ -23,7 +24,7 @@ export class NavigatorCategoryDataParser {
     this._rooms = [];
   }
 
-  private _parse(message: IncomingMessage): void {
+  public parse(message: IncomingMessage): void {
     this._id = message.readString();
     this._name = message.readString();
     this._minRank = message.readInt();

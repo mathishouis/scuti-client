@@ -1,4 +1,5 @@
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
+import { MessageParser } from "@/interfaces/Socket.interface";
 
 export enum BitMask {
   THUMBNAIL = 1,
@@ -9,7 +10,7 @@ export enum BitMask {
   DISPLAY_ROOMEVENT = 32,
 }
 
-export class RoomDataParser {
+export class RoomDataParser implements MessageParser {
   private _roomId!: number;
   private _roomName!: string | null;
   private _ownerId!: number;
@@ -36,11 +37,11 @@ export class RoomDataParser {
   private _thumbnail!: string | null;
 
   constructor(message: IncomingMessage) {
-    this._flush();
-    this._parse(message);
+    this.flush();
+    this.parse(message);
   }
 
-  private _flush(): void {
+  public flush(): void {
     this._roomId = 0;
     this._roomName = null;
     this._ownerId = 0;
@@ -67,7 +68,7 @@ export class RoomDataParser {
     this._thumbnail = null;
   }
 
-  private _parse(message: IncomingMessage): void {
+  public parse(message: IncomingMessage): void {
     this._roomId = message.readInt();
     this._roomName = message.readString();
     this._ownerId = message.readInt();
