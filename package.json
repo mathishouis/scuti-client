@@ -11,6 +11,7 @@
     "buffer.ws": "^1.0.10",
     "core-js": "^3.8.3",
     "register-service-worker": "^1.7.2",
+    "scuti-renderer": "file:../scuti-renderer/",
     "vue": "^3.2.13",
     "vuex": "^4.0.0"
   },

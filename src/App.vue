@@ -1,6 +1,6 @@
 <template>
   <loading-view v-if="loadingVisible" />
-  <game-view v-else />
+  <game-view v-show="!loadingVisible" />
 </template>
 
 <script lang="ts">
@@ -11,6 +11,7 @@ import GameView from "@/views/GameView.vue";
 import { Socket } from "./sockets/Socket";
 import { SSOTicketMessageComposer } from "./sockets/messages/outgoing/handshake/SSOTicketMessageComposer";
 import { UniqueIDMessageComposer } from "./sockets/messages/outgoing/handshake/UniqueIDMessageComposer";
+import { Scuti, Room, FloorMaterial, WallMaterial } from "scuti-renderer";
 
 export default defineComponent({
   name: "App",
@@ -21,11 +22,41 @@ export default defineComponent({
   computed: {
     ...mapGetters("Loading", { loadingVisible: "isVisible" }),
     ...mapGetters("Socket", ["socket"]),
+    ...mapGetters("Room/Renderer", ["renderer"]),
   },
   methods: {
     ...mapMutations("Socket", ["updateSocket"]),
+    ...mapMutations("Room/Renderer", ["updateRenderer"]),
   },
-  mounted(): void {
+  async mounted(): Promise<void> {
+    this.updateRenderer(
+      new Scuti({
+        canvas: document.getElementById("renderer") as HTMLElement,
+        width: window.innerWidth,
+        height: window.innerHeight,
+        resources: "http://localhost:8081/",
+      })
+    );
+    await this.renderer.loadResources();
+    const tileMap =
+      "x6543210000000000x\n" +
+      "x0000000000000000x\n" +
+      "x0000000000000000x\n" +
+      "00000000000000000x\n" +
+      "x0000000000000000x\n" +
+      "x0000000000000000x\n" +
+      "x0000000000000000x\n" +
+      "x0000000000000000x\n" +
+      "x0000000000000000x\n" +
+      "x0000000000000000x\n";
+    const room = new Room(this.renderer, {
+      tileMap: tileMap,
+      /*floorMaterial: new FloorMaterial(renderer, 110),
+      wallMaterial: new WallMaterial(renderer, 1501)*/
+      //floorMaterial: new FloorMaterial(renderer, 307),
+      floorMaterial: new FloorMaterial(this.renderer, 110),
+      wallMaterial: new WallMaterial(this.renderer, 1601),
+    });
     this.updateSocket(new Socket(false, "127.0.0.1", 30001));
     this.socket.onConnect = () => {
       const authTicket: string | null = new URLSearchParams(

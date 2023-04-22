@@ -1,4 +1,5 @@
 import RoomTools from "@/store/modules/room/widgets/room-tools";
+import Renderer from "./renderer/";
 
 export interface RoomState {
   visible: boolean;
@@ -22,5 +23,6 @@ export default {
   actions: {},
   modules: {
     RoomTools,
+    Renderer,
   },
 };

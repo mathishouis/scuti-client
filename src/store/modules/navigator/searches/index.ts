@@ -1,4 +1,4 @@
-import {SavedSearch} from "@/interfaces/Navigator.interface";
+import { SavedSearch } from "@/interfaces/Navigator.interface";
 
 export interface NavigatorSearchesState {
   searches: SavedSearch[];

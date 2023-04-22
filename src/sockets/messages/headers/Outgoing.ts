@@ -11,7 +11,7 @@ export const Outgoing = {
   NewNavigatorSearchMessageComposer: 946,
   NavigatorSetSearchCodeViewModeMessageComposer: 597,
   GetGuestRoomMessageComposer: 3646,
-  InitializeRoomMessageComposer: 2450,
+  OpenFlatConnectionMessageComposer: 2450,
   ExitRoomMessageComposer: 2644,
   AddUserToRoomMessageComposer: 2195,
   WalkMessageComposer: 3802,

@@ -5,6 +5,7 @@
     <tool-bar />
     <landing-view v-if="landingViewVisible" />
     <room-view v-else />
+    <renderer-view v-show="!landingViewVisible" />
     <info-bar />
   </div>
 </template>
@@ -17,10 +18,12 @@ import ToolBar from "@/components/tool-bar/ToolBar.vue";
 import LandingView from "@/components/landing-view/LandingView.vue";
 import InfoBar from "@/components/info-bar/InfoBar.vue";
 import NavigatorWindow from "@/components/navigator/NavigatorWindow.vue";
+import RendererView from "@/components/renderer-view/RendererView.vue";
 
 export default defineComponent({
   name: "GameView",
   components: {
+    RendererView,
     NavigatorWindow,
     InfoBar,
     ToolBar,
