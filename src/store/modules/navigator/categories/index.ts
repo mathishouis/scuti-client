@@ -16,6 +16,7 @@ export default {
     get:
       (state: NavigatorCategoriesState) =>
       (id: string): Category | undefined => {
+        console.log(state.categories);
         return state.categories.find(
           (category: Category) => category.id === id
         );
@@ -39,7 +40,7 @@ export default {
     },
     toggleView: (state: NavigatorCategoriesState, id: string): void => {
       const category: Category | undefined = state.categories.find(
-          (category: Category) => category.id === id
+        (category: Category) => category.id === id
       );
       if (category) category.view = category.view === 0 ? 1 : 0;
     },

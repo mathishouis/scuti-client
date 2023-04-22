@@ -14,7 +14,14 @@ export class NavigatorSearchResultBlocksMessageEvent extends IncomingMessage {
       .parser as NavigatorSearchResultParser;
     store.commit("Navigator/Categories/clear");
     parser.categories.forEach((category: NavigatorCategoryDataParser) => {
-      store.commit("Navigator/Categories/add", category);
+      store.commit("Navigator/Categories/add", {
+        id: category.id,
+        name: category.name,
+        minRank: category.minRank,
+        minimised: category.minimised,
+        view: category.view,
+        rooms: category.rooms,
+      });
     });
     store.commit("Navigator/setLoading", false);
   }

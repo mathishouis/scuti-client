@@ -23,6 +23,7 @@ import { NavigatorSearchResultBlocksMessageEvent } from "@/sockets/messages/inco
 import { GetGuestRoomResultMessageEvent } from "@/sockets/messages/incoming/rooms/engine/GetGuestRoomResultMessageEvent";
 import { MessageParser } from "@/interfaces/Socket.interface";
 import { NavigatorSearchResultParser } from "@/sockets/messages/parser/navigator/NavigatorSearchResultParser";
+import { GuestRoomResultParser } from "@/sockets/messages/parser/rooms/GuestRoomResultParser";
 
 export class MessageHandler {
   private readonly _incomingMessages: Map<
@@ -127,7 +128,8 @@ export class MessageHandler {
     /** Room loading **/
     this._registerMessage(
       Incoming.GetGuestRoomResultMessageEvent,
-      <IncomingMessage>(<unknown>GetGuestRoomResultMessageEvent)
+      <IncomingMessage>(<unknown>GetGuestRoomResultMessageEvent),
+      <MessageParser>(<unknown>GuestRoomResultParser)
     );
   }
 
