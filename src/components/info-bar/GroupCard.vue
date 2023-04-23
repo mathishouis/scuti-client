@@ -22,7 +22,7 @@
         type="2"
         color="#FFFFFF"
         class="group-card__manage-button"
-        v-if="roomStore.data.ownerId === userId"
+        v-if="roomStore.data.ownerId === playerStore.data.id"
         >Gérer</primary-button
       >
       <primary-button
@@ -39,9 +39,9 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import PrimaryButton from "@/components/common/PrimaryButton.vue";
-import { mapGetters } from "vuex";
 import { mapStores } from "pinia";
 import { useRoomStore } from "@/stores/Room";
+import { usePlayerStore } from "@/stores/Player";
 
 export default defineComponent({
   name: "GroupCard",
@@ -55,9 +55,7 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapStores(useRoomStore),
-    // TODO: Replace this
-    ...mapGetters("User", { userId: "id" }),
+    ...mapStores(useRoomStore, usePlayerStore),
   },
 });
 </script>

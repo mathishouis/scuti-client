@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
+import { usePlayerStore } from "@/stores/Player";
 
 export class AchievementsScoreMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -9,6 +9,6 @@ export class AchievementsScoreMessageEvent extends IncomingMessage {
 
   public handle(): void {
     const points: number = this.readInt();
-    store.commit("User/setAchievementPoints", points);
+    usePlayerStore().data.achievementPoints = points;
   }
 }

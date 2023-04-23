@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
+import { usePlayerStore } from "@/stores/Player";
 
 export class CreditBalanceMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -9,9 +9,9 @@ export class CreditBalanceMessageEvent extends IncomingMessage {
 
   public handle(): void {
     const credits: string = this.readString();
-    store.commit("User/setCurrency", {
-      type: 1,
-      amount: parseInt(credits.replace(".0", "")),
-    });
+    usePlayerStore().data.currencies.set(
+      1,
+      parseInt(credits.replace(".0", ""))
+    );
   }
 }

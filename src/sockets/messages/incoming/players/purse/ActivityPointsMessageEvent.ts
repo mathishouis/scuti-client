@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
+import { usePlayerStore } from "@/stores/Player";
 
 export class ActivityPointsMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -12,8 +12,7 @@ export class ActivityPointsMessageEvent extends IncomingMessage {
     for (let i = 0; i < currenciesSize; i++) {
       const type: number = this.readInt();
       const amount: number = this.readInt();
-      store.commit("User/updateCurrency", { type: type, amount: amount });
-      console.log(type, amount);
+      usePlayerStore().data.currencies.set(type, amount);
     }
   }
 }

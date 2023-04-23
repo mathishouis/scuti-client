@@ -36,7 +36,7 @@
           class="currency-widget__currency currency-widget__currency--diamonds"
         >
           <div class="currency-widget__currency-amount">
-            {{ currencies.get(5) ?? 0 }}
+            {{ diamonds }}
           </div>
           <div class="currency-widget__currency-icon"></div>
         </div>
@@ -46,7 +46,7 @@
           class="currency-widget__currency currency-widget__currency--credits"
         >
           <div class="currency-widget__currency-amount">
-            {{ currencies.get(1) ?? 0 }}
+            {{ credits }}
           </div>
           <div class="currency-widget__currency-icon"></div>
         </div>
@@ -56,7 +56,7 @@
           class="currency-widget__currency currency-widget__currency--duckets"
         >
           <div class="currency-widget__currency-amount">
-            {{ currencies.get(0) ?? 0 }}
+            {{ duckets }}
           </div>
           <div class="currency-widget__currency-icon"></div>
         </div>
@@ -70,7 +70,8 @@ import { defineComponent } from "vue";
 import BorderCard from "@/components/common/BorderCard.vue";
 import PrimaryButton from "@/components/common/PrimaryButton.vue";
 import ToolTip from "@/components/common/ToolTip.vue";
-import { mapGetters } from "vuex";
+import { mapStores } from "pinia";
+import { usePlayerStore } from "@/stores/Player";
 
 export default defineComponent({
   name: "CurrencyWidget",
@@ -80,7 +81,16 @@ export default defineComponent({
     BorderCard,
   },
   computed: {
-    ...mapGetters("User", ["currencies"]),
+    ...mapStores(usePlayerStore),
+    diamonds(): number {
+      return this.playerStore.data.currencies.get(5) ?? 0;
+    },
+    credits(): number {
+      return this.playerStore.data.currencies.get(1) ?? 0;
+    },
+    duckets(): number {
+      return this.playerStore.data.currencies.get(0) ?? 0;
+    },
   },
 });
 </script>

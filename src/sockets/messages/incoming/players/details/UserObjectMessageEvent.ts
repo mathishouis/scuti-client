@@ -1,8 +1,8 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
 import { ConfirmUsernameMessageComposer } from "@/sockets/messages/outgoing/handshake/GetIgnoredUsersMessageComposer";
 import { useSocketStore } from "@/stores/Socket";
+import { usePlayerStore } from "@/stores/Player";
 
 export class UserObjectMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -23,11 +23,10 @@ export class UserObjectMessageEvent extends IncomingMessage {
     const string1: string = this.readString(); // ?
     const bool3: boolean = this.readBool(); // ?
     const bool4: boolean = this.readBool(); // ?
-    store.commit("User/setId", id);
-    store.commit("User/setUsername", username);
-    store.commit("User/setFigure", figure);
-    store.commit("User/setGender", gender);
-    store.commit("User/setUsername", username);
+    usePlayerStore().data.id = id;
+    usePlayerStore().data.username = username;
+    usePlayerStore().data.figure = figure;
+    usePlayerStore().data.gender = gender;
     useSocketStore().socket?.send(new ConfirmUsernameMessageComposer(username));
   }
 }
