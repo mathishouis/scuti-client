@@ -1,5 +1,4 @@
 import { createStore } from "vuex";
-import ToolBar from "@/store/modules/tool-bar";
 import User from "@/store/modules/user";
 
 export default createStore({
@@ -8,7 +7,6 @@ export default createStore({
   mutations: {},
   actions: {},
   modules: {
-    ToolBar,
     User,
   },
 });

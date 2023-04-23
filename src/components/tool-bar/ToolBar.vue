@@ -4,33 +4,33 @@
       <border-card
         type="2"
         class="tool-bar__arrow-left"
-        :class="leftToggleState ? 'tool-bar__arrow-left--active' : ''"
+        :class="toolBarStore.leftVisible ? 'tool-bar__arrow-left--active' : ''"
         @click="toggleLeft"
       />
       <div class="tool-bar__icons">
         <tool-bar-icon
           icon="hotel-view"
-          v-if="!leftToggleState && !landingViewStore.visible"
+          v-if="!toolBarStore.leftVisible && !landingViewStore.visible"
         />
         <tool-bar-icon
           icon="home-room"
-          v-if="!leftToggleState && landingViewStore.visible"
+          v-if="!toolBarStore.leftVisible && landingViewStore.visible"
         />
         <tool-bar-icon
           icon="navigator"
-          v-if="!leftToggleState"
+          v-if="!toolBarStore.leftVisible"
           @click="toggleNavigator"
         />
         <tool-bar-icon
           icon="quest"
-          v-if="!leftToggleState && !landingViewStore.visible"
+          v-if="!toolBarStore.leftVisible && !landingViewStore.visible"
         />
         <tool-bar-icon icon="shop" />
         <tool-bar-icon
           icon="inventory"
           v-if="
             !landingViewStore.visible ||
-            (landingViewStore.visible && leftToggleState)
+            (landingViewStore.visible && toolBarStore.leftVisible)
           "
         />
         <tool-bar-icon icon="camera" v-if="!landingViewStore.visible" />
@@ -49,6 +49,7 @@ import { mapStores } from "pinia";
 import { useLandingViewStore } from "@/stores/LandingView";
 import { useNavigatorStore } from "@/stores/Navigator";
 import { useSocketStore } from "@/stores/Socket";
+import { useToolBarStore } from "@/stores/ToolBar";
 
 export default defineComponent({
   name: "ToolBar",
@@ -56,7 +57,9 @@ export default defineComponent({
     ToolBarIcon,
   },
   methods: {
-    ...mapMutations("ToolBar", ["toggleLeft"]),
+    toggleLeft(): void {
+      this.toolBarStore.leftVisible = !this.toolBarStore.leftVisible;
+    },
     toggleNavigator(): void {
       this.navigatorStore.visible = !this.navigatorStore.visible;
       if (this.navigatorStore.visible && !this.navigatorStore.searching) {
@@ -82,8 +85,12 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapStores(useLandingViewStore, useNavigatorStore, useSocketStore),
-    ...mapGetters("ToolBar", ["leftToggleState"]),
+    ...mapStores(
+      useLandingViewStore,
+      useNavigatorStore,
+      useSocketStore,
+      useToolBarStore
+    ),
   },
 });
 </script>
