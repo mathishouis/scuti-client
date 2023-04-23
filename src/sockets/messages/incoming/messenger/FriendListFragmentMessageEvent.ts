@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
+import { useMessengerStore } from "@/stores/Messenger";
 
 export class FriendListFragmentMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -8,7 +8,7 @@ export class FriendListFragmentMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    store.commit("Messenger/clearFriends");
+    useMessengerStore().friends = [];
     this.readInt(); // ?
     this.readInt(); // ?
     const friendsSize: number = this.readInt();
@@ -26,7 +26,7 @@ export class FriendListFragmentMessageEvent extends IncomingMessage {
       this.readBool();
       this.readBool();
       this.readBool();
-      store.commit("Messenger/addFriend", {
+      useMessengerStore().friends.push({
         id: id,
         username: username,
         figure: figure,
