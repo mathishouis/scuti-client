@@ -1,7 +1,7 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
-import { InfoRetrieveMessageComposer } from "@/sockets/messages/outgoing/user/details/InfoRetrieveMessageComposer";
+import { InfoRetrieveMessageComposer } from "@/sockets/messages/outgoing/players/details/InfoRetrieveMessageComposer";
 import { MessengerInitMessageComposer } from "@/sockets/messages/outgoing/messenger/MessengerInitMessageComposer";
 import { NewNavigatorInitMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorInitMessageComposer";
 

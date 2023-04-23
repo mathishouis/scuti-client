@@ -1,4 +1,4 @@
-import { NavigatorCategoryDataParser } from "@/sockets/messages/parser/navigator/data/NavigatorCategoryDataParser";
+import { NavigatorCategoryDataParser } from "@/sockets/messages/parsers/navigator/utils/NavigatorCategoryDataParser";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { MessageParser } from "@/interfaces/Socket.interface";
 

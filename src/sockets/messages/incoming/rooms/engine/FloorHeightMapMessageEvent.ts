@@ -1,7 +1,7 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
-import { FloorHeightMapParser } from "@/sockets/messages/parser/rooms/engine/FloorHeightMapParser";
+import { FloorHeightMapParser } from "@/sockets/messages/parsers/rooms/engine/FloorHeightMapParser";
 
 export class FloorHeightMapMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {

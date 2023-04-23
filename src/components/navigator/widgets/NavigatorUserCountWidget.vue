@@ -6,9 +6,9 @@
         ? ''
         : userCount > maxUser / 2
         ? userCount > maxUser - 2
-          ? 'navigator-user-count-widget--red'
-          : 'navigator-user-count-widget--orange'
-        : 'navigator-user-count-widget--green',
+          ? 'navigator-players-count-widget--red'
+          : 'navigator-players-count-widget--orange'
+        : 'navigator-players-count-widget--green',
     ]"
   >
     <div

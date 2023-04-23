@@ -9,3 +9,19 @@ export interface Avatar {
   favouriteGroupId: number;
   favouriteGroupTitle?: string | null;
 }
+
+export interface RoomSettings {
+  isLoading: boolean;
+  checkEntry: boolean;
+  staffPicked: boolean;
+  muted: boolean;
+  muteState: number;
+  kickState: number;
+  banState: number;
+  canMute: boolean;
+  bubbleMode: number;
+  bubbleType: number;
+  bubbleScroll: number;
+  chatDistance: number;
+  antiFlood: number;
+}

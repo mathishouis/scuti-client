@@ -1,8 +1,8 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
-import { AvatarUpdateParser } from "@/sockets/messages/parser/rooms/avatar/AvatarUpdateParser";
-import { AvatarUpdateDataParser } from "@/sockets/messages/parser/rooms/data/AvatarUpdateDataParser";
+import { AvatarUpdateParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarUpdateParser";
+import { AvatarUpdateDataParser } from "@/sockets/messages/parsers/rooms/utils/AvatarUpdateDataParser";
 import { Avatar, AvatarAction } from "scuti-renderer";
 
 export class AvatarUpdateMessageEvent extends IncomingMessage {
@@ -37,7 +37,7 @@ export class AvatarUpdateMessageEvent extends IncomingMessage {
             const z = parseFloat(value.split(",")[2]);
             console.log(x, y, z);
             rendererAvatar.addAction(AvatarAction.Walk);
-            //store.getters["Room/Renderer/avatars"].get(avatar.avatarId).addA
+            //store.getters["Room/Renderer/avatars"].get(avatars.avatarId).addA
             rendererAvatar.pos = {
               x: x,
               y: y,

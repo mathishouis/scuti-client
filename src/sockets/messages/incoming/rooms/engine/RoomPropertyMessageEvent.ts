@@ -1,7 +1,7 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
-import { RoomPropertyParser } from "@/sockets/messages/parser/rooms/engine/RoomPropertyParser";
+import { RoomPropertyParser } from "@/sockets/messages/parsers/rooms/engine/RoomPropertyParser";
 import { FloorMaterial, WallMaterial } from "scuti-renderer";
 
 export class RoomPropertyMessageEvent extends IncomingMessage {

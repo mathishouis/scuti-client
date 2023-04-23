@@ -38,7 +38,7 @@ export const Incoming = {
   RoomPropertyMessageEvent: 424,
   YouAreControllerMessageEvent: 3668,
   RoomRatingMessageEvent: 3267,
-  HeightmapMessageEvent: 1010,
+  HeightMapMessageEvent: 1010,
   FloorHeightMapMessageEvent: 3841,
   RoomPromotionMessageEvent: 1488,
   AvatarsMessageEvent: 2775,

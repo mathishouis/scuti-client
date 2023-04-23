@@ -1,8 +1,8 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
-import { NavigatorCategoryDataParser } from "@/sockets/messages/parser/navigator/data/NavigatorCategoryDataParser";
-import { NavigatorSearchResultParser } from "@/sockets/messages/parser/navigator/NavigatorSearchResultParser";
+import { NavigatorCategoryDataParser } from "@/sockets/messages/parsers/navigator/utils/NavigatorCategoryDataParser";
+import { NavigatorSearchResultParser } from "@/sockets/messages/parsers/navigator/NavigatorSearchResultParser";
 
 export class NavigatorSearchResultBlocksMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {

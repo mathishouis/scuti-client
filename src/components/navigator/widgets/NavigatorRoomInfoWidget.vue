@@ -149,7 +149,7 @@ import BorderCard from "@/components/common/BorderCard.vue";
 import store from "@/store";
 import { AddFavouriteRoomMessageComposer } from "@/sockets/messages/outgoing/navigator/AddFavouriteRoomMessageComposer";
 import { mapGetters } from "vuex";
-import { GetExtendedProfileMessageComposer } from "@/sockets/messages/outgoing/user/profile/GetExtendedProfileMessageComposer";
+import { GetExtendedProfileMessageComposer } from "@/sockets/messages/outgoing/players/profile/GetExtendedProfileMessageComposer";
 import { GetHabboGroupDetailsMessageComposer } from "@/sockets/messages/outgoing/groups/GetHabboGroupDetailsMessageComposer";
 
 export default defineComponent({

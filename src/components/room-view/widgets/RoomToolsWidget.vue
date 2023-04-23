@@ -83,11 +83,10 @@
       ]"
       @click="hideInfosVisibility"
     >
-      <div class="room-tools-widget__infos-name">Coffee House</div>
-      <div class="room-tools-widget__infos-owner">de Lieux Publics</div>
+      <div class="room-tools-widget__infos-name">{{ data.roomName }}</div>
+      <div class="room-tools-widget__infos-owner">de {{ data.ownerName }}</div>
       <div class="room-tools-widget__infos-tags">
-        <room-tag-widget label="tag1" />
-        <room-tag-widget label="tag2" />
+        <room-tag-widget :label="tag" v-for="tag in data.tags" :key="tag" />
       </div>
     </border-card>
   </div>
@@ -125,6 +124,7 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters("Room/RoomTools", ["toggleState"]),
+    ...mapGetters("Room", ["data"]),
   },
   mounted(): void {
     this.timeout = window.setTimeout(() => (this.infosVisible = true), 100);

@@ -5,10 +5,32 @@
       <div class="group-card__title">QG de Groupe</div>
     </div>
     <div class="group-card__content" v-if="!contracted">
-      <div class="group-card__badge"></div>
-      <div class="group-card__group-title">Habbo Hôtel</div>
-      <primary-button type="2" color="#FFFFFF" class="group-card__manage-button"
+      <div
+        class="group-card__badge"
+        :style="{
+          backgroundImage:
+            'url(' +
+            __config('group.badge.url').replace(
+              '%imagerdata%',
+              data.groupBadge
+            ) +
+            ')',
+        }"
+      ></div>
+      <div class="group-card__group-title">{{ data.groupName }}</div>
+      <primary-button
+        type="2"
+        color="#FFFFFF"
+        class="group-card__manage-button"
+        v-if="data.ownerId === userId"
         >Gérer</primary-button
+      >
+      <primary-button
+        type="2"
+        color="#FFFFFF"
+        class="group-card__manage-button"
+        v-else
+        >Adhérer au groupe</primary-button
       >
     </div>
   </div>
@@ -17,6 +39,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import PrimaryButton from "@/components/common/PrimaryButton.vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
   name: "GroupCard",
@@ -28,6 +51,11 @@ export default defineComponent({
     toggleContracted(): void {
       this.contracted = !this.contracted;
     },
+  },
+  computed: {
+    ...mapGetters("Room", ["data"]),
+    // TODO: Replace this
+    ...mapGetters("User", { userId: "id" }),
   },
 });
 </script>
@@ -94,9 +122,10 @@ export default defineComponent({
     position: absolute;
     width: 39px;
     height: 39px;
-    background-color: red;
     left: 12px;
     top: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
   }
 
   &__group-title {

@@ -1,8 +1,9 @@
 import { MessageParser } from "@/interfaces/Socket.interface";
-import { RoomDataParser } from "@/sockets/messages/parser/rooms/data/RoomDataParser";
+import { RoomDataParser } from "@/sockets/messages/parsers/rooms/utils/RoomDataParser";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
+import { RoomSettings } from "@/interfaces/Room.interface";
 
-export class GuestRoomResultParser implements MessageParser {
+export class GetGuestRoomResultParser implements MessageParser {
   private _isLoading!: boolean;
   private _room!: RoomDataParser | null;
   private _checkEntry!: boolean;
@@ -114,5 +115,23 @@ export class GuestRoomResultParser implements MessageParser {
 
   public get antiFlood(): number {
     return this._antiFlood;
+  }
+
+  public get settings(): RoomSettings {
+    return {
+      isLoading: this._isLoading,
+      checkEntry: this._checkEntry,
+      staffPicked: this._staffPicked,
+      muted: this._muted,
+      muteState: this._muteState,
+      kickState: this._kickState,
+      banState: this._banState,
+      canMute: this._canMute,
+      bubbleMode: this._bubbleMode,
+      bubbleType: this._bubbleType,
+      bubbleScroll: this._bubbleScroll,
+      chatDistance: this._chatDistance,
+      antiFlood: this._antiFlood,
+    };
   }
 }

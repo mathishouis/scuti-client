@@ -1,7 +1,7 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
-import { RoomReadyParser } from "@/sockets/messages/parser/rooms/access/RoomReadyParser";
+import { RoomReadyParser } from "@/sockets/messages/parsers/rooms/access/RoomReadyParser";
 import { FloorMaterial, Room, WallMaterial } from "scuti-renderer";
 import { AddUserToRoomMessageComposer } from "@/sockets/messages/outgoing/navigator/AddUserToRoomMessageComposer";
 import { WalkMessageComposer } from "@/sockets/messages/outgoing/rooms/actions/WalkMessageComposer";

@@ -1,4 +1,4 @@
-import { RoomDataParser } from "@/sockets/messages/parser/rooms/data/RoomDataParser";
+import { RoomDataParser } from "@/sockets/messages/parsers/rooms/utils/RoomDataParser";
 
 export interface Category {
     id: string | null;

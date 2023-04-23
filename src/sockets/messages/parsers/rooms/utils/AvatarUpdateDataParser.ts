@@ -1,6 +1,5 @@
 import { MessageParser } from "@/interfaces/Socket.interface";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { AvatarDataParser } from "@/sockets/messages/parser/rooms/data/AvatarDataParser";
 
 export class AvatarUpdateDataParser implements MessageParser {
   private _avatarId!: number;

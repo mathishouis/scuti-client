@@ -2,8 +2,8 @@ import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
 import { Avatar, AvatarAction } from "scuti-renderer";
-import { AvatarsParser } from "@/sockets/messages/parser/rooms/avatar/AvatarsParser";
-import { AvatarDataParser } from "@/sockets/messages/parser/rooms/data/AvatarDataParser";
+import { AvatarsParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarsParser";
+import { AvatarDataParser } from "@/sockets/messages/parsers/rooms/utils/AvatarDataParser";
 
 export class AvatarsMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {

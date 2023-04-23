@@ -1,7 +1,7 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
-import { GuestRoomResultParser } from "@/sockets/messages/parser/rooms/GuestRoomResultParser";
+import { GetGuestRoomResultParser } from "@/sockets/messages/parsers/rooms/engine/GetGuestRoomResultParser";
 import { OpenFlatConnectionMessageComposer } from "@/sockets/messages/outgoing/rooms/engine/OpenFlatConnectionMessageComposer";
 
 export class OpenConnectionMessageEvent extends IncomingMessage {

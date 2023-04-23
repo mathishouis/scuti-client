@@ -1,5 +1,5 @@
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { RoomDataParser } from "@/sockets/messages/parser/rooms/data/RoomDataParser";
+import { RoomDataParser } from "@/sockets/messages/parsers/rooms/utils/RoomDataParser";
 import { MessageParser } from "@/interfaces/Socket.interface";
 import { Category } from "@/interfaces/Navigator.interface";
 

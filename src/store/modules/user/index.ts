@@ -33,6 +33,9 @@ export default {
     currencies: (state: UserState): Map<number, number> => {
       return state.currencies;
     },
+    id: (state: UserState): number => {
+      return state.id;
+    },
   },
   mutations: {
     updateId: (state: UserState, id: number): void => {
