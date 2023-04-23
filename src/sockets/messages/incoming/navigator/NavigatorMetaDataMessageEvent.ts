@@ -1,9 +1,9 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
 import { GetUserFlatCatsMessageComposer } from "@/sockets/messages/outgoing/navigator/GetUserFlatCatsMessageComposer";
 import { GetUserEventCatsMessageComposer } from "@/sockets/messages/outgoing/navigator/GetUserEventCatsMessageComposer";
 import { useNavigatorStore } from "@/stores/Navigator";
+import { useSocketStore } from "@/stores/Socket";
 
 export class NavigatorMetaDataMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -20,7 +20,7 @@ export class NavigatorMetaDataMessageEvent extends IncomingMessage {
       if (i === 0) useNavigatorStore().selectedTab = name;
     }
     // Load the categories
-    store.getters["Socket/socket"].send(new GetUserFlatCatsMessageComposer());
-    store.getters["Socket/socket"].send(new GetUserEventCatsMessageComposer());
+    useSocketStore().socket?.send(new GetUserFlatCatsMessageComposer());
+    useSocketStore().socket?.send(new GetUserEventCatsMessageComposer());
   }
 }

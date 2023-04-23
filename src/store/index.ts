@@ -1,6 +1,5 @@
 import { createStore } from "vuex";
 import ToolBar from "@/store/modules/tool-bar";
-import Socket from "@/store/modules/socket";
 import User from "@/store/modules/user";
 
 export default createStore({
@@ -10,7 +9,6 @@ export default createStore({
   actions: {},
   modules: {
     ToolBar,
-    Socket,
     User,
   },
 });

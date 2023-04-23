@@ -16,10 +16,10 @@
 <script lang="ts">
 import { NavigatorDeleteSavedSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NavigatorDeleteSavedSearchMessageComposer";
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
-import store from "@/store";
 import { defineComponent } from "vue";
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
+import { useSocketStore } from "@/stores/Socket";
 
 export default defineComponent({
   name: "NavigatorSavedSearchWidget",
@@ -39,20 +39,20 @@ export default defineComponent({
   },
   methods: {
     remove(): void {
-      store.getters["Socket/socket"].send(
+      this.socketStore.socket?.send(
         new NavigatorDeleteSavedSearchMessageComposer(this.id)
       );
     },
     search(): void {
       this.navigatorStore.searching = true;
       this.navigatorStore.selectedTab = "hotel_view";
-      store.getters["Socket/socket"].send(
+      this.socketStore.socket?.send(
         new NewNavigatorSearchMessageComposer(this.view, this.query)
       );
     },
   },
   computed: {
-    ...mapStores(useNavigatorStore),
+    ...mapStores(useNavigatorStore, useSocketStore),
   },
 });
 </script>

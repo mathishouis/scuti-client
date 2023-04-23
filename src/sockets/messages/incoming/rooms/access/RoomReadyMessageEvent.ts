@@ -1,12 +1,12 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
 import { RoomReadyParser } from "@/sockets/messages/parsers/rooms/access/RoomReadyParser";
 import { FloorMaterial, Room, Scuti, WallMaterial } from "scuti-renderer";
 import { AddUserToRoomMessageComposer } from "@/sockets/messages/outgoing/navigator/AddUserToRoomMessageComposer";
 import { WalkMessageComposer } from "@/sockets/messages/outgoing/rooms/actions/WalkMessageComposer";
 import { useRoomStore } from "@/stores/Room";
 import { useRendererStore } from "@/stores/Renderer";
+import { useSocketStore } from "@/stores/Socket";
 
 export class RoomReadyMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -26,11 +26,11 @@ export class RoomReadyMessageEvent extends IncomingMessage {
     });
     room.tiles.onPointerUp = (event: any) => {
       console.log(event.position.x, event.position.y);
-      store.getters["Socket/socket"].send(
+      useSocketStore().socket?.send(
         new WalkMessageComposer(event.position.x, event.position.y)
       );
     };
     useRendererStore().room = room;
-    store.getters["Socket/socket"].send(new AddUserToRoomMessageComposer());
+    useSocketStore().socket?.send(new AddUserToRoomMessageComposer());
   }
 }

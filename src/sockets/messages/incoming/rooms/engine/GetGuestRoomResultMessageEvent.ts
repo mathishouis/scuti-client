@@ -1,9 +1,9 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
 import { GetGuestRoomResultParser } from "@/sockets/messages/parsers/rooms/engine/GetGuestRoomResultParser";
 import { OpenFlatConnectionMessageComposer } from "@/sockets/messages/outgoing/rooms/engine/OpenFlatConnectionMessageComposer";
 import { useRoomStore } from "@/stores/Room";
+import { useSocketStore } from "@/stores/Socket";
 
 export class GetGuestRoomResultMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -18,7 +18,7 @@ export class GetGuestRoomResultMessageEvent extends IncomingMessage {
     useRoomStore().data = parser.room;
     useRoomStore().settings = parser.settings;
     if (!parser.room) return;
-    store.getters["Socket/socket"].send(
+    useSocketStore().socket?.send(
       new OpenFlatConnectionMessageComposer(parser.room?.roomId, "")
     );
   }

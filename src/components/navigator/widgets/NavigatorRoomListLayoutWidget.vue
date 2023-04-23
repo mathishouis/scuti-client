@@ -50,10 +50,10 @@ import { defineComponent } from "vue";
 import NavigatorUserCountWidget from "@/components/navigator/widgets/NavigatorUserCountWidget.vue";
 import NavigatorStateIconWidget from "@/components/navigator/widgets/NavigatorStateIconWidget.vue";
 import NavigatorRoomInfoWidget from "@/components/navigator/widgets/NavigatorRoomInfoWidget.vue";
-import store from "@/store";
 import { GetGuestRoomMessageComposer } from "@/sockets/messages/outgoing/rooms/engine/GetGuestRoomMessageComposer";
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
+import { useSocketStore } from "@/stores/Socket";
 
 export default defineComponent({
   name: "NavigatorRoomListLayoutWidget",
@@ -91,7 +91,7 @@ export default defineComponent({
   methods: {
     visit(): void {
       this.navigatorStore.visible = false;
-      store.getters["Socket/socket"].send(
+      this.socketStore.socket?.send(
         new GetGuestRoomMessageComposer(this.id, 0, 1)
       );
     },
@@ -106,7 +106,7 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapStores(useNavigatorStore),
+    ...mapStores(useNavigatorStore, useSocketStore),
   },
 });
 </script>

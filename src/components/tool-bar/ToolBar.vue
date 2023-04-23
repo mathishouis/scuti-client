@@ -44,11 +44,11 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapMutations } from "vuex";
 import ToolBarIcon from "@/components/tool-bar/ToolBarIcon.vue";
-import store from "@/store";
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
 import { mapStores } from "pinia";
 import { useLandingViewStore } from "@/stores/LandingView";
 import { useNavigatorStore } from "@/stores/Navigator";
+import { useSocketStore } from "@/stores/Socket";
 
 export default defineComponent({
   name: "ToolBar",
@@ -60,14 +60,14 @@ export default defineComponent({
     toggleNavigator(): void {
       this.navigatorStore.visible = !this.navigatorStore.visible;
       if (this.navigatorStore.visible && !this.navigatorStore.searching) {
-        store.getters["Socket/socket"].send(
+        this.socketStore.socket?.send(
           new NewNavigatorSearchMessageComposer(
             this.navigatorStore.selectedTab,
             ""
           )
         );
       } else {
-        store.getters["Socket/socket"].send(
+        this.socketStore.socket?.send(
           new NewNavigatorSearchMessageComposer(
             this.navigatorStore.selectedTab,
             (this.navigatorStore.searchCategory !== "all"
@@ -82,8 +82,7 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapStores(useLandingViewStore),
-    ...mapStores(useNavigatorStore),
+    ...mapStores(useLandingViewStore, useNavigatorStore, useSocketStore),
     ...mapGetters("ToolBar", ["leftToggleState"]),
   },
 });

@@ -11,11 +11,11 @@
 </template>
 
 <script lang="ts">
-import store from "@/store";
 import { defineComponent } from "vue";
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
+import { useSocketStore } from "@/stores/Socket";
 
 export default defineComponent({
   name: "NavigatorTabsWidget",
@@ -24,7 +24,7 @@ export default defineComponent({
       this.navigatorStore.searching = false;
       this.navigatorStore.searchCategory = "all";
       this.navigatorStore.selectedTab = this.navigatorStore.tabs[tab];
-      store.getters["Socket/socket"].send(
+      this.socketStore.socket?.send(
         new NewNavigatorSearchMessageComposer(
           this.navigatorStore.selectedTab,
           ""
@@ -33,7 +33,7 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapStores(useNavigatorStore),
+    ...mapStores(useNavigatorStore, useSocketStore),
     getProcessedTabs(): any[] {
       let tabs: any[] = [];
       this.navigatorStore.tabs.forEach((tab: string) => {

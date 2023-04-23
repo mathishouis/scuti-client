@@ -1,10 +1,10 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
 import { InfoRetrieveMessageComposer } from "@/sockets/messages/outgoing/players/details/InfoRetrieveMessageComposer";
 import { MessengerInitMessageComposer } from "@/sockets/messages/outgoing/messenger/MessengerInitMessageComposer";
 import { NewNavigatorInitMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorInitMessageComposer";
 import { useLoadingViewStore } from "@/stores/LoadingView";
+import { useSocketStore } from "@/stores/Socket";
 
 export class AuthenticationOKMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -12,11 +12,11 @@ export class AuthenticationOKMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    store.commit("Socket/setAuthenticated", true);
+    useSocketStore().authenticated = true;
     useLoadingViewStore().percentage = 84;
     useLoadingViewStore().visible = false;
-    store.getters["Socket/socket"].send(new InfoRetrieveMessageComposer());
-    store.getters["Socket/socket"].send(new MessengerInitMessageComposer());
-    store.getters["Socket/socket"].send(new NewNavigatorInitMessageComposer());
+    useSocketStore().socket?.send(new InfoRetrieveMessageComposer());
+    useSocketStore().socket?.send(new MessengerInitMessageComposer());
+    useSocketStore().socket?.send(new NewNavigatorInitMessageComposer());
   }
 }

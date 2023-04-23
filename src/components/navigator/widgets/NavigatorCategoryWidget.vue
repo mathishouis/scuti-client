@@ -74,7 +74,6 @@
 </template>
 
 <script lang="ts">
-import store from "@/store";
 import { defineComponent, PropType } from "vue";
 import { NavigatorSetSearchCodeViewModeMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NavigatorSetSearchCodeViewModeMessageComposer";
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
@@ -82,6 +81,7 @@ import { NavigatorAddSavedSearchMessageComposer } from "@/sockets/messages/outgo
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
 import { NavigatorCategoryDataParser } from "@/sockets/messages/parsers/navigator/utils/NavigatorCategoryDataParser";
+import { useSocketStore } from "@/stores/Socket";
 
 export enum View {
   ROWS,
@@ -110,7 +110,7 @@ export default defineComponent({
     toggleView(): void {
       if (!this.category) return;
       //store.commit("Navigator/Categories/toggleView", this.id);
-      store.getters["Socket/socket"].send(
+      this.socketStore.socket?.send(
         new NavigatorSetSearchCodeViewModeMessageComposer(
           this.category.id ?? "",
           this.category.view
@@ -119,7 +119,7 @@ export default defineComponent({
     },
     showMoreResults(): void {
       if (!this.category) return;
-      store.getters["Socket/socket"].send(
+      this.socketStore.socket?.send(
         new NewNavigatorSearchMessageComposer(this.category.id ?? "", "")
       );
     },
@@ -127,7 +127,7 @@ export default defineComponent({
       let query = "";
       if (!this.category) return;
       if (this.category.id === "query") query = this.navigatorStore.searchQuery;
-      store.getters["Socket/socket"].send(
+      this.socketStore.socket?.send(
         new NavigatorAddSavedSearchMessageComposer(
           this.category.id ?? "",
           query
@@ -137,7 +137,7 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapStores(useNavigatorStore),
+    ...mapStores(useNavigatorStore, useSocketStore),
     category(): NavigatorCategoryDataParser | undefined {
       // TODO: CHECK THE ERROR /!\
       return this.navigatorStore.categories.find(

@@ -146,12 +146,12 @@ import { defineComponent } from "vue";
 
 import NavigatorRoomThumbnailWidget from "./NavigatorRoomThumbnailWidget.vue";
 import BorderCard from "@/components/common/BorderCard.vue";
-import store from "@/store";
 import { AddFavouriteRoomMessageComposer } from "@/sockets/messages/outgoing/navigator/AddFavouriteRoomMessageComposer";
 import { GetExtendedProfileMessageComposer } from "@/sockets/messages/outgoing/players/profile/GetExtendedProfileMessageComposer";
 import { GetHabboGroupDetailsMessageComposer } from "@/sockets/messages/outgoing/groups/GetHabboGroupDetailsMessageComposer";
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
+import { useSocketStore } from "@/stores/Socket";
 
 export default defineComponent({
   name: "NavigatorRoomInfoWidget",
@@ -189,23 +189,23 @@ export default defineComponent({
   },
   methods: {
     toggleFavourite(): void {
-      store.getters["Socket/socket"].send(
+      this.socketStore.socket?.send(
         new AddFavouriteRoomMessageComposer(this.id)
       );
     },
     openOwnerProfile(): void {
-      store.getters["Socket/socket"].send(
+      this.socketStore.socket?.send(
         new GetExtendedProfileMessageComposer(this.ownerId)
       );
     },
     openGroupProfile(): void {
-      store.getters["Socket/socket"].send(
+      this.socketStore.socket?.send(
         new GetHabboGroupDetailsMessageComposer(this.groupId, true)
       );
     },
   },
   computed: {
-    ...mapStores(useNavigatorStore),
+    ...mapStores(useNavigatorStore, useSocketStore),
     favourite(): boolean {
       return this.navigatorStore.isFavouriteRoom(this.id);
     },
