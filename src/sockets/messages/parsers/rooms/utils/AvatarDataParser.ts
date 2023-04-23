@@ -1,6 +1,6 @@
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { MessageParser } from "@/interfaces/Socket.interface";
-import { Avatar } from "@/interfaces/Room.interface";
+import { MessageParser } from "@/types/Socket";
+import { Player } from "@/types/Room";
 
 export enum AvatarType {
   USER = 1,
@@ -177,7 +177,7 @@ export class AvatarDataParser implements MessageParser {
     return this._achievementPoints;
   }
 
-  public get avatar(): Avatar {
+  public get player(): Player {
     return {
       playerId: this._playerId,
       username: this._username,

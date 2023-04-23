@@ -1,7 +1,7 @@
-import { MessageParser } from "@/interfaces/Socket.interface";
+import { MessageParser } from "@/types/Socket";
 import { RoomDataParser } from "@/sockets/messages/parsers/rooms/utils/RoomDataParser";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { RoomSettings } from "@/interfaces/Room.interface";
+import { RoomSettings } from "@/types/Room";
 
 export class GetGuestRoomResultParser implements MessageParser {
   private _isLoading!: boolean;

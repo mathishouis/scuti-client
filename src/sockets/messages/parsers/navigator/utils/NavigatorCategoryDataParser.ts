@@ -1,7 +1,7 @@
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { RoomDataParser } from "@/sockets/messages/parsers/rooms/utils/RoomDataParser";
-import { MessageParser } from "@/interfaces/Socket.interface";
-import { Category } from "@/interfaces/Navigator.interface";
+import { MessageParser } from "@/types/Socket";
+import { Category } from "@/types/Navigator";
 
 export class NavigatorCategoryDataParser implements MessageParser {
   private _id!: string | null;

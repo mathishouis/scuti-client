@@ -28,7 +28,7 @@ export class AvatarsMessageEvent extends IncomingMessage {
       });
       useRendererStore().room?.objects.add(scutiAvatar);
       useRendererStore().avatars.set(avatar.avatarId, scutiAvatar);
-      useRoomStore().players.push(avatar.avatar);
+      useRoomStore().players.push(avatar.player);
     });
   }
 }

@@ -1,6 +1,6 @@
 import { BufferWS } from "buffer.ws";
 import { Buffer } from "buffer";
-import { MessageParser } from "@/interfaces/Socket.interface";
+import { MessageParser } from "@/types/Socket";
 
 export class IncomingMessage extends BufferWS {
   private readonly _length: number;

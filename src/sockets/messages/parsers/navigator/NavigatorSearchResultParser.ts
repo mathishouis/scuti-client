@@ -1,6 +1,6 @@
 import { NavigatorCategoryDataParser } from "@/sockets/messages/parsers/navigator/utils/NavigatorCategoryDataParser";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { MessageParser } from "@/interfaces/Socket.interface";
+import { MessageParser } from "@/types/Socket";
 
 export class NavigatorSearchResultParser implements MessageParser {
   private _id!: string | null;

@@ -1,6 +1,6 @@
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { MessageParser } from "@/interfaces/Socket.interface";
-import { Room } from "@/interfaces/Navigator.interface";
+import { MessageParser } from "@/types/Socket";
+import { Room } from "@/types/Room";
 
 export enum BitMask {
   THUMBNAIL = 1,

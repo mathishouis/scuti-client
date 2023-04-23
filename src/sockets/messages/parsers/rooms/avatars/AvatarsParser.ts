@@ -1,4 +1,4 @@
-import { MessageParser } from "@/interfaces/Socket.interface";
+import { MessageParser } from "@/types/Socket";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { AvatarDataParser } from "@/sockets/messages/parsers/rooms/utils/AvatarDataParser";
 
