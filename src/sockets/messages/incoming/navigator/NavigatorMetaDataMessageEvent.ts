@@ -3,6 +3,7 @@ import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
 import { GetUserFlatCatsMessageComposer } from "@/sockets/messages/outgoing/navigator/GetUserFlatCatsMessageComposer";
 import { GetUserEventCatsMessageComposer } from "@/sockets/messages/outgoing/navigator/GetUserEventCatsMessageComposer";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export class NavigatorMetaDataMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -10,12 +11,13 @@ export class NavigatorMetaDataMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
+    useNavigatorStore().tabs = [];
     const tabSize: number = this.readInt();
     for (let i = 0; i < tabSize; i++) {
       const name: string = this.readString();
       this.readInt(); // ?
-      store.commit("Navigator/Tabs/addTab", name);
-      if (i === 0) store.commit("Navigator/Tabs/setCurrentTab", name);
+      useNavigatorStore().tabs.push(name);
+      if (i === 0) useNavigatorStore().selectedTab = name;
     }
     // Load the categories
     store.getters["Socket/socket"].send(new GetUserFlatCatsMessageComposer());

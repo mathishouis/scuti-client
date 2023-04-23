@@ -72,7 +72,8 @@ import NavigatorRoomThumbnailWidget from "@/components/navigator/widgets/Navigat
 import NavigatorRoomInfoWidget from "@/components/navigator/widgets/NavigatorRoomInfoWidget.vue";
 import store from "@/store";
 import { GetGuestRoomMessageComposer } from "@/sockets/messages/outgoing/rooms/engine/GetGuestRoomMessageComposer";
-import { mapMutations } from "vuex";
+import { mapStores } from "pinia";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export default defineComponent({
   name: "NavigatorRoomThumbnailLayoutWidget",
@@ -109,9 +110,8 @@ export default defineComponent({
     y: 0,
   }),
   methods: {
-    ...mapMutations("Navigator", { setNavigatorVisible: "setVisible" }),
     visit(): void {
-      this.setNavigatorVisible(false);
+      this.navigatorStore.visible = false;
       store.getters["Socket/socket"].send(
         new GetGuestRoomMessageComposer(this.id, 0, 1)
       );
@@ -125,6 +125,9 @@ export default defineComponent({
     hideInfo(): void {
       this.toggleInfo = false;
     },
+  },
+  computed: {
+    ...mapStores(useNavigatorStore),
   },
 });
 </script>

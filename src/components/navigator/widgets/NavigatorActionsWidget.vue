@@ -7,7 +7,7 @@
     </tool-tip>
     <tool-tip
       :label="__locale('navigator.tooltip.promote.room')"
-      v-if="currentTab === 'myworld_view'"
+      v-if="navigatorStore.selectedTab === 'myworld_view'"
     >
       <div class="navigator-actions-widget__create-event-button">
         {{ __locale("navigator.create.event") }}
@@ -23,12 +23,13 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+import { mapStores } from "pinia";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export default defineComponent({
   name: "NavigatorActionsWidget",
   computed: {
-    ...mapGetters("Navigator/Tabs", ["currentTab"]),
+    ...mapStores(useNavigatorStore),
   },
 });
 </script>

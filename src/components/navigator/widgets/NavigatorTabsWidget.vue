@@ -3,7 +3,7 @@
     <tabs
       type="1"
       :tabs="getProcessedTabs"
-      :selected-tab="tabs.indexOf(currentTab)"
+      :selected-tab="navigatorStore.tabs.indexOf(navigatorStore.selectedTab)"
       @change="updateTab"
       large
     />
@@ -13,37 +13,30 @@
 <script lang="ts">
 import store from "@/store";
 import { defineComponent } from "vue";
-import { mapGetters, mapMutations } from "vuex";
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
+import { mapStores } from "pinia";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export default defineComponent({
   name: "NavigatorTabsWidget",
   methods: {
-    ...mapMutations("Navigator", [
-      "setSearchCategory",
-      "setSearchQuery",
-      "setSearching",
-    ]),
-    updateTab(tab: string): void {
-      this.setSearching(false);
-      this.setSearchCategory("all");
-      store.commit(
-        "Navigator/Tabs/setCurrentTab",
-        store.getters["Navigator/Tabs/tabs"][tab]
-      );
+    updateTab(tab: number): void {
+      this.navigatorStore.searching = false;
+      this.navigatorStore.searchCategory = "all";
+      this.navigatorStore.selectedTab = this.navigatorStore.tabs[tab];
       store.getters["Socket/socket"].send(
         new NewNavigatorSearchMessageComposer(
-          store.getters["Navigator/Tabs/currentTab"],
+          this.navigatorStore.selectedTab,
           ""
         )
       );
     },
   },
   computed: {
-    ...mapGetters("Navigator/Tabs", ["tabs", "currentTab"]),
+    ...mapStores(useNavigatorStore),
     getProcessedTabs(): any[] {
       let tabs: any[] = [];
-      this.tabs.forEach((tab: string) => {
+      this.navigatorStore.tabs.forEach((tab: string) => {
         tabs.push({
           // @ts-ignore
           label: this.__locale("navigator.toplevelview." + tab),

@@ -1,6 +1,6 @@
 <template>
   <div class="game">
-    <navigator-window v-show="navigatorVisible" />
+    <navigator-window v-show="navigatorStore.visible" />
     <tool-bar />
     <landing-view v-if="landingViewStore.visible" />
     <room-view v-if="roomVisible" />
@@ -20,6 +20,7 @@ import NavigatorWindow from "@/components/navigator/NavigatorWindow.vue";
 import RendererView from "@/components/renderer-view/RendererView.vue";
 import { mapStores } from "pinia";
 import { useLandingViewStore } from "@/stores/LandingView";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export default defineComponent({
   name: "GameView",
@@ -32,8 +33,7 @@ export default defineComponent({
     RoomView,
   },
   computed: {
-    ...mapStores(useLandingViewStore),
-    ...mapGetters("Navigator", { navigatorVisible: "isVisible" }),
+    ...mapStores(useLandingViewStore, useNavigatorStore),
     ...mapGetters("Room", { roomVisible: "isVisible" }),
   },
 });

@@ -9,7 +9,7 @@
       :id="search.id"
       :view="search.view"
       :query="search.query"
-      v-for="search in searches"
+      v-for="search in navigatorStore.savedSearches"
       :key="search.id"
     />
   </div>
@@ -18,7 +18,8 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import NavigatorSavedSearchWidget from "@/components/navigator/widgets/NavigatorSavedSearchWidget.vue";
-import { mapGetters } from "vuex";
+import { mapStores } from "pinia";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export default defineComponent({
   name: "NavigatorSavedSearchesWidget",
@@ -26,7 +27,7 @@ export default defineComponent({
     NavigatorSavedSearchWidget,
   },
   computed: {
-    ...mapGetters("Navigator/Searches", ["searches"]),
+    ...mapStores(useNavigatorStore),
   },
 });
 </script>

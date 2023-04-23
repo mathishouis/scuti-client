@@ -48,6 +48,7 @@ import store from "@/store";
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
 import { mapStores } from "pinia";
 import { useLandingViewStore } from "@/stores/LandingView";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export default defineComponent({
   name: "ToolBar",
@@ -56,26 +57,24 @@ export default defineComponent({
   },
   methods: {
     ...mapMutations("ToolBar", ["toggleLeft"]),
-    ...mapMutations("Navigator", {
-      setNavigatorVisible: "setVisible",
-      setNavigatorSearching: "setSearching",
-    }),
     toggleNavigator(): void {
-      this.setNavigatorVisible(!this.navigatorVisible);
-      if (this.navigatorVisible && !this.isNavigatorSearching) {
-        store.getters["Socket/socket"].send(
-          new NewNavigatorSearchMessageComposer(this.navigatorCurrentTab, "")
-        );
-      } else {
-        console.log("AAAAAAAA", this.navigatorSearchQuery);
+      this.navigatorStore.visible = !this.navigatorStore.visible;
+      if (this.navigatorStore.visible && !this.navigatorStore.searching) {
         store.getters["Socket/socket"].send(
           new NewNavigatorSearchMessageComposer(
-            store.getters["Navigator/Tabs/currentTab"],
-            (this.navigatorSearchCategory !== "all"
-              ? this.navigatorSearchCategory
+            this.navigatorStore.selectedTab,
+            ""
+          )
+        );
+      } else {
+        store.getters["Socket/socket"].send(
+          new NewNavigatorSearchMessageComposer(
+            this.navigatorStore.selectedTab,
+            (this.navigatorStore.searchCategory !== "all"
+              ? this.navigatorStore.searchCategory
               : "") +
-              (this.navigatorSearchCategory !== "all" ? ":" : "") +
-              this.navigatorSearchQuery
+              (this.navigatorStore.searchCategory !== "all" ? ":" : "") +
+              this.navigatorStore.searchQuery
           )
         );
         //this.setNavigatorSearching(false);
@@ -84,14 +83,8 @@ export default defineComponent({
   },
   computed: {
     ...mapStores(useLandingViewStore),
+    ...mapStores(useNavigatorStore),
     ...mapGetters("ToolBar", ["leftToggleState"]),
-    ...mapGetters("Navigator", {
-      navigatorVisible: "isVisible",
-      navigatorSearchQuery: "searchQuery",
-      navigatorSearchCategory: "searchCategory",
-      isNavigatorSearching: "isSearching",
-    }),
-    ...mapGetters("Navigator/Tabs", { navigatorCurrentTab: "currentTab" }),
   },
 });
 </script>

@@ -10,7 +10,7 @@
         "
         :minimised="category.minimised"
         :view="category.view"
-        v-for="category in categories"
+        v-for="category in navigatorStore.categories"
         :key="category.id"
       >
         <template #list>
@@ -101,7 +101,8 @@ import { defineComponent } from "vue";
 import NavigatorCategoryWidget from "@/components/navigator/widgets/NavigatorCategoryWidget.vue";
 import NavigatorRoomListLayoutWidget from "@/components/navigator/widgets/NavigatorRoomListLayoutWidget.vue";
 import NavigatorRoomThumbnailLayoutWidget from "@/components/navigator/widgets/NavigatorRoomThumbnailLayoutWidget.vue";
-import { mapGetters } from "vuex";
+import { mapStores } from "pinia";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export default defineComponent({
   name: "NavigatorResultsWidget",
@@ -111,7 +112,7 @@ export default defineComponent({
     NavigatorRoomThumbnailLayoutWidget,
   },
   computed: {
-    ...mapGetters("Navigator/Categories", ["categories"]),
+    ...mapStores(useNavigatorStore),
   },
 });
 </script>

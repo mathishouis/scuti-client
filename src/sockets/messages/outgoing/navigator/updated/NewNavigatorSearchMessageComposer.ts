@@ -1,7 +1,7 @@
 import { Buffer } from "buffer";
 import { OutgoingMessage } from "@/sockets/messages/outgoing/OutgoingMessage";
 import { Outgoing } from "@/sockets/messages/headers/Outgoing";
-import store from "@/store";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export class NewNavigatorSearchMessageComposer extends OutgoingMessage {
   private readonly _category: string;
@@ -15,7 +15,7 @@ export class NewNavigatorSearchMessageComposer extends OutgoingMessage {
   }
 
   public compose(): Buffer {
-    store.commit("Navigator/setLoading", true);
+    useNavigatorStore().loading = true;
     this.writeString(this._category);
     this.writeString(this._query);
     return this.prepare();

@@ -18,7 +18,8 @@ import { NavigatorDeleteSavedSearchMessageComposer } from "@/sockets/messages/ou
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
 import store from "@/store";
 import { defineComponent } from "vue";
-import { mapMutations } from "vuex";
+import { mapStores } from "pinia";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export default defineComponent({
   name: "NavigatorSavedSearchWidget",
@@ -37,20 +38,21 @@ export default defineComponent({
     },
   },
   methods: {
-    ...mapMutations("Navigator/Tabs", ["setCurrentTab"]),
-    ...mapMutations("Navigator", ["setSearching"]),
     remove(): void {
       store.getters["Socket/socket"].send(
         new NavigatorDeleteSavedSearchMessageComposer(this.id)
       );
     },
     search(): void {
-      this.setSearching(true);
-      this.setCurrentTab("hotel_view");
+      this.navigatorStore.searching = true;
+      this.navigatorStore.selectedTab = "hotel_view";
       store.getters["Socket/socket"].send(
         new NewNavigatorSearchMessageComposer(this.view, this.query)
       );
     },
+  },
+  computed: {
+    ...mapStores(useNavigatorStore),
   },
 });
 </script>

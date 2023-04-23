@@ -3,7 +3,7 @@
     <div class="navigator-search-widget__selector">
       <selection-list
         type="1"
-        v-model="searchCategory"
+        v-model="navigatorStore.searchCategory"
         :items="[
           {
             label: __locale('navigator.filter.anything'),
@@ -36,7 +36,7 @@
         @change="updateQuery"
         clear-button
         focus-button
-        :focused="isSearching"
+        :focused="navigatorStore.searching"
         @click="focus"
       />
     </div>
@@ -52,7 +52,8 @@
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
 import store from "@/store";
 import { defineComponent } from "vue";
-import { mapGetters, mapMutations } from "vuex";
+import { mapStores } from "pinia";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export default defineComponent({
   name: "NavigatorSearchWidget",
@@ -61,42 +62,34 @@ export default defineComponent({
     query: "",
   }),
   methods: {
-    ...mapMutations("Navigator/Tabs", ["setCurrentTab"]),
-    ...mapMutations("Navigator", [
-      "setSearchCategory",
-      "setSearchQuery",
-      "setSearching",
-    ]),
     updateCategory(category: string): void {
-      this.setSearchCategory(category);
+      this.navigatorStore.searchCategory = category;
       this.search();
     },
     updateQuery(): void {
-      this.setSearchQuery(this.query);
+      this.navigatorStore.searchQuery = this.query;
       this.search();
     },
     search(): void {
-      this.setSearching(true);
-      this.setCurrentTab("hotel_view");
+      this.navigatorStore.searching = true;
+      this.navigatorStore.selectedTab = "hotel_view";
       store.getters["Socket/socket"].send(
         new NewNavigatorSearchMessageComposer(
-          store.getters["Navigator/Tabs/currentTab"],
-          (this.searchCategory !== "all" ? this.searchCategory : "") +
-            (this.searchCategory !== "all" ? ":" : "") +
-            this.searchQuery
+          this.navigatorStore.selectedTab,
+          (this.navigatorStore.searchCategory !== "all"
+            ? this.navigatorStore.searchCategory
+            : "") +
+            (this.navigatorStore.searchCategory !== "all" ? ":" : "") +
+            this.navigatorStore.searchQuery
         )
       );
     },
     focus(): void {
-      this.setSearching(true);
+      this.navigatorStore.searching = true;
     },
   },
   computed: {
-    ...mapGetters("Navigator", [
-      "searchCategory",
-      "searchQuery",
-      "isSearching",
-    ]),
+    ...mapStores(useNavigatorStore),
   },
 });
 </script>

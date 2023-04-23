@@ -148,9 +148,10 @@ import NavigatorRoomThumbnailWidget from "./NavigatorRoomThumbnailWidget.vue";
 import BorderCard from "@/components/common/BorderCard.vue";
 import store from "@/store";
 import { AddFavouriteRoomMessageComposer } from "@/sockets/messages/outgoing/navigator/AddFavouriteRoomMessageComposer";
-import { mapGetters } from "vuex";
 import { GetExtendedProfileMessageComposer } from "@/sockets/messages/outgoing/players/profile/GetExtendedProfileMessageComposer";
 import { GetHabboGroupDetailsMessageComposer } from "@/sockets/messages/outgoing/groups/GetHabboGroupDetailsMessageComposer";
+import { mapStores } from "pinia";
+import { useNavigatorStore } from "@/stores/Navigator";
 
 export default defineComponent({
   name: "NavigatorRoomInfoWidget",
@@ -204,9 +205,9 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapGetters("Navigator", ["isFavouriteRoom"]),
+    ...mapStores(useNavigatorStore),
     favourite(): boolean {
-      return this.isFavouriteRoom(this.id);
+      return this.navigatorStore.isFavouriteRoom(this.id);
     },
   },
 });
