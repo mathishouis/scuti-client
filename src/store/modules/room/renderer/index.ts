@@ -30,6 +30,15 @@ export default {
     room: (state: RoomRendererState): Room => {
       return state.room;
     },
+    avatars: (state: RoomRendererState): Map<number, Avatar> => {
+      return state.avatars;
+    },
+    floorItems: (state: RoomRendererState): Map<number, FloorFurniture> => {
+      return state.floorItems;
+    },
+    wallItems: (state: RoomRendererState): Map<number, WallFurniture> => {
+      return state.wallItems;
+    },
   },
   mutations: {
     updateRenderer: (state: RoomRendererState, renderer: Scuti): void => {
@@ -37,6 +46,24 @@ export default {
     },
     updateRoom: (state: RoomRendererState, room: Room): void => {
       state.room = room;
+    },
+    addAvatar: (
+      state: RoomRendererState,
+      payload: { id: number; avatar: Avatar }
+    ): void => {
+      state.avatars.set(payload.id, payload.avatar);
+    },
+    addFloorItem: (
+      state: RoomRendererState,
+      payload: { id: number; item: FloorFurniture }
+    ): void => {
+      state.floorItems.set(payload.id, payload.item);
+    },
+    addWallItem: (
+      state: RoomRendererState,
+      payload: { id: number; item: WallFurniture }
+    ): void => {
+      state.wallItems.set(payload.id, payload.item);
     },
   },
   actions: {},

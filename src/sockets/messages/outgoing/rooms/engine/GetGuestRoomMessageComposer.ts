@@ -1,6 +1,7 @@
 import { Buffer } from "buffer";
 import { OutgoingMessage } from "@/sockets/messages/outgoing/OutgoingMessage";
 import { Outgoing } from "@/sockets/messages/headers/Outgoing";
+import store from "@/store";
 
 export class GetGuestRoomMessageComposer extends OutgoingMessage {
   private readonly _roomId: number;
@@ -16,6 +17,7 @@ export class GetGuestRoomMessageComposer extends OutgoingMessage {
   }
 
   public compose(): Buffer {
+    store.commit("Room/setVisible", false); // TODO: Move to LeaveRoomMessageComposer
     this.writeInt(this._roomId);
     this.writeInt(this._isLoading);
     this.writeInt(this._checkEntry);

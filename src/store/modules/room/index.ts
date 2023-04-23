@@ -1,5 +1,6 @@
 import RoomTools from "@/store/modules/room/widgets/room-tools";
 import Renderer from "./renderer/";
+import Avatars from "./avatars/";
 import { Room } from "@/interfaces/Navigator.interface";
 
 export interface RoomState {
@@ -10,7 +11,7 @@ export interface RoomState {
 export default {
   namespaced: true,
   state: {
-    visible: true,
+    visible: false,
   },
   getters: {
     isVisible: (state: RoomState): boolean => {
@@ -29,5 +30,6 @@ export default {
   modules: {
     RoomTools,
     Renderer,
+    Avatars,
   },
 };

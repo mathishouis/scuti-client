@@ -31,6 +31,10 @@ import { RoomPropertyMessageEvent } from "@/sockets/messages/incoming/rooms/engi
 import { RoomPropertyParser } from "@/sockets/messages/parser/rooms/engine/RoomPropertyParser";
 import { FloorHeightMapMessageEvent } from "@/sockets/messages/incoming/rooms/engine/FloorHeightMapMessageEvent";
 import { FloorHeightMapParser } from "@/sockets/messages/parser/rooms/engine/FloorHeightMapParser";
+import { AvatarsMessageEvent } from "@/sockets/messages/incoming/rooms/avatar/AvatarsMessageEvent";
+import { AvatarsParser } from "@/sockets/messages/parser/rooms/avatar/AvatarsParser";
+import { AvatarUpdateMessageEvent } from "@/sockets/messages/incoming/rooms/avatar/AvatarUpdateMessageEvent";
+import { AvatarUpdateParser } from "@/sockets/messages/parser/rooms/avatar/AvatarUpdateParser";
 
 export class MessageHandler {
   private readonly _incomingMessages: Map<
@@ -156,6 +160,18 @@ export class MessageHandler {
       Incoming.FloorHeightMapMessageEvent,
       <IncomingMessage>(<unknown>FloorHeightMapMessageEvent),
       <MessageParser>(<unknown>FloorHeightMapParser)
+    );
+
+    /** Room avatars **/
+    this._registerMessage(
+      Incoming.AvatarsMessageEvent,
+      <IncomingMessage>(<unknown>AvatarsMessageEvent),
+      <MessageParser>(<unknown>AvatarsParser)
+    );
+    this._registerMessage(
+      Incoming.AvatarUpdateMessageEvent,
+      <IncomingMessage>(<unknown>AvatarUpdateMessageEvent),
+      <MessageParser>(<unknown>AvatarUpdateParser)
     );
   }
 

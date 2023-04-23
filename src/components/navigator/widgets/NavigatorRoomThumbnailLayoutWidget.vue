@@ -4,6 +4,7 @@
       class="navigator-room-thumbnail-layout-widget"
       type="6"
       color="#ffffff"
+      @click="visit"
     >
       <navigator-room-thumbnail-widget
         width="108px"
@@ -69,6 +70,9 @@ import NavigatorUserCountWidget from "@/components/navigator/widgets/NavigatorUs
 import NavigatorStateIconWidget from "@/components/navigator/widgets/NavigatorStateIconWidget.vue";
 import NavigatorRoomThumbnailWidget from "@/components/navigator/widgets/NavigatorRoomThumbnailWidget.vue";
 import NavigatorRoomInfoWidget from "@/components/navigator/widgets/NavigatorRoomInfoWidget.vue";
+import store from "@/store";
+import { GetGuestRoomMessageComposer } from "@/sockets/messages/outgoing/rooms/engine/GetGuestRoomMessageComposer";
+import { mapMutations } from "vuex";
 
 export default defineComponent({
   name: "NavigatorRoomThumbnailLayoutWidget",
@@ -79,7 +83,10 @@ export default defineComponent({
     NavigatorRoomInfoWidget,
   },
   props: {
-    id: Number,
+    id: {
+      type: Number,
+      required: true,
+    },
     name: String,
     description: String,
     ownerId: Number,
@@ -102,6 +109,13 @@ export default defineComponent({
     y: 0,
   }),
   methods: {
+    ...mapMutations("Navigator", { setNavigatorVisible: "setVisible" }),
+    visit(): void {
+      this.setNavigatorVisible(false);
+      store.getters["Socket/socket"].send(
+        new GetGuestRoomMessageComposer(this.id, 0, 1)
+      );
+    },
     showInfo(event: any): void {
       const offsets: DOMRect = event.target.getBoundingClientRect();
       this.y = offsets.top;

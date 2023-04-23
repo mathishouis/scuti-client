@@ -4,8 +4,8 @@
     <info-bar />
     <tool-bar />
     <landing-view v-if="landingViewVisible" />
-    <room-view v-else />
-    <renderer-view v-show="!landingViewVisible" />
+    <room-view v-if="roomVisible" />
+    <renderer-view v-show="roomVisible" />
     <info-bar />
   </div>
 </template>
@@ -33,6 +33,7 @@ export default defineComponent({
   computed: {
     ...mapGetters("LandingView", { landingViewVisible: "isVisible" }),
     ...mapGetters("Navigator", { navigatorVisible: "isVisible" }),
+    ...mapGetters("Room", { roomVisible: "isVisible" }),
   },
 });
 </script>

@@ -79,7 +79,7 @@ export default defineComponent({
   },
   computed: {
     ...mapGetters("ToolBar", ["leftToggleState"]),
-    ...mapGetters("LandingView", ["isVisible"]),
+    ...mapGetters("LandingView", { landingViewVisible: "isVisible" }),
     ...mapGetters("Navigator", {
       navigatorVisible: "isVisible",
       navigatorSearchQuery: "searchQuery",
