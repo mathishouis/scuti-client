@@ -2,10 +2,11 @@ import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
 import { RoomReadyParser } from "@/sockets/messages/parsers/rooms/access/RoomReadyParser";
-import { FloorMaterial, Room, WallMaterial } from "scuti-renderer";
+import { FloorMaterial, Room, Scuti, WallMaterial } from "scuti-renderer";
 import { AddUserToRoomMessageComposer } from "@/sockets/messages/outgoing/navigator/AddUserToRoomMessageComposer";
 import { WalkMessageComposer } from "@/sockets/messages/outgoing/rooms/actions/WalkMessageComposer";
 import { useRoomStore } from "@/stores/Room";
+import { useRendererStore } from "@/stores/Renderer";
 
 export class RoomReadyMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -16,28 +17,20 @@ export class RoomReadyMessageEvent extends IncomingMessage {
     const parser: RoomReadyParser = this.parser as RoomReadyParser;
     // TODO: Implement the packet
     useRoomStore().visible = true;
-    if (store.getters["Room/Renderer/room"] !== undefined)
-      store.getters["Room/Renderer/room"].destroy();
-    store.commit(
-      "Room/Renderer/updateRoom",
-      new Room(store.getters["Room/Renderer/renderer"], {
-        tileMap: "",
-        floorMaterial: new FloorMaterial(
-          store.getters["Room/Renderer/renderer"],
-          111
-        ),
-        wallMaterial: new WallMaterial(
-          store.getters["Room/Renderer/renderer"],
-          112
-        ),
-      })
-    );
-    store.getters["Room/Renderer/room"].tiles.onPointerUp = (event: any) => {
+    if (useRendererStore().room !== undefined)
+      useRendererStore().room?.destroy();
+    const room: Room = new Room(<Scuti>useRendererStore().engine, {
+      tileMap: "",
+      floorMaterial: new FloorMaterial(<Scuti>useRendererStore().engine, 111),
+      wallMaterial: new WallMaterial(<Scuti>useRendererStore().engine, 112),
+    });
+    room.tiles.onPointerUp = (event: any) => {
       console.log(event.position.x, event.position.y);
       store.getters["Socket/socket"].send(
         new WalkMessageComposer(event.position.x, event.position.y)
       );
     };
+    useRendererStore().room = room;
     store.getters["Socket/socket"].send(new AddUserToRoomMessageComposer());
   }
 }

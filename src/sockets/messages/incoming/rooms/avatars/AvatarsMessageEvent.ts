@@ -1,10 +1,10 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
 import { Avatar } from "scuti-renderer";
 import { AvatarsParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarsParser";
 import { AvatarDataParser } from "@/sockets/messages/parsers/rooms/utils/AvatarDataParser";
 import { useRoomStore } from "@/stores/Room";
+import { useRendererStore } from "@/stores/Renderer";
 
 export class AvatarsMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -13,9 +13,7 @@ export class AvatarsMessageEvent extends IncomingMessage {
 
   public handle(): void {
     const parser: AvatarsParser = this.parser as AvatarsParser;
-    console.log(parser.avatars);
     parser.avatars.forEach((avatar: AvatarDataParser) => {
-      console.log(avatar.figure, avatar.username);
       const scutiAvatar: Avatar = new Avatar({
         actions: [],
         figure:
@@ -28,12 +26,8 @@ export class AvatarsMessageEvent extends IncomingMessage {
         bodyDirection: avatar.bodyRotation,
         headDirection: avatar.bodyRotation,
       });
-      console.log(avatar.x, avatar.y, avatar.z);
-      store.getters["Room/Renderer/room"].objects.add(scutiAvatar);
-      store.commit("Room/Renderer/addAvatar", {
-        id: avatar.avatarId,
-        avatar: scutiAvatar,
-      });
+      useRendererStore().room?.objects.add(scutiAvatar);
+      useRendererStore().avatars.set(avatar.avatarId, scutiAvatar);
       useRoomStore().players.push(avatar.avatar);
     });
   }

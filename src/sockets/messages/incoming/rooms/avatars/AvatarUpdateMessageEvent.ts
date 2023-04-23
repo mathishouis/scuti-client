@@ -1,9 +1,9 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
 import { AvatarUpdateParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarUpdateParser";
 import { AvatarUpdateDataParser } from "@/sockets/messages/parsers/rooms/utils/AvatarUpdateDataParser";
 import { Avatar, AvatarAction } from "scuti-renderer";
+import { useRendererStore } from "@/stores/Renderer";
 
 export class AvatarUpdateMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -18,9 +18,10 @@ export class AvatarUpdateMessageEvent extends IncomingMessage {
   }
 
   private _handleAvatar(avatar: AvatarUpdateDataParser): void {
-    const rendererAvatar: Avatar = store.getters["Room/Renderer/avatars"].get(
+    const rendererAvatar: Avatar | undefined = useRendererStore().avatars.get(
       avatar.avatarId
     );
+    if (!rendererAvatar) return;
     rendererAvatar.headDirection = avatar.headRotation;
     rendererAvatar.bodyDirection = avatar.bodyRotation;
     avatar.status
