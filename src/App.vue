@@ -11,7 +11,9 @@ import GameView from "@/views/GameView.vue";
 import { Socket } from "./sockets/Socket";
 import { SSOTicketMessageComposer } from "./sockets/messages/outgoing/handshake/SSOTicketMessageComposer";
 import { UniqueIDMessageComposer } from "./sockets/messages/outgoing/handshake/UniqueIDMessageComposer";
-import { Scuti, Room, FloorMaterial, WallMaterial } from "scuti-renderer";
+import { Scuti } from "scuti-renderer";
+import { mapStores } from "pinia";
+import { useLandingViewStore } from "@/stores/LandingView";
 
 export default defineComponent({
   name: "App",
@@ -20,6 +22,7 @@ export default defineComponent({
     GameView,
   },
   computed: {
+    ...mapStores(useLandingViewStore),
     ...mapGetters("Loading", { loadingVisible: "isVisible" }),
     ...mapGetters("Socket", ["socket"]),
     ...mapGetters("Room/Renderer", ["renderer"]),
@@ -60,6 +63,7 @@ export default defineComponent({
         window.location.search
       ).get("sso");
       if (authTicket === null) return;
+      this.landingViewStore.visible = true;
       this.socket.send(new UniqueIDMessageComposer());
       this.socket.send(new SSOTicketMessageComposer(authTicket));
     };

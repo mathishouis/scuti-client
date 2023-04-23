@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import "./registerServiceWorker";
+import { createPinia, Pinia } from "pinia";
 import store from "./store";
 import ToolTip from "@/components/common/ToolTip.vue";
 import BorderCard from "@/components/common/BorderCard.vue";
@@ -13,7 +14,10 @@ import ScrollBox from "@/components/common/ScrollBox.vue";
 import Config from "@/mixins/Config";
 import Locale from "@/mixins/Locale";
 
+const pinia: Pinia = createPinia();
+
 createApp(App)
+  .use(pinia)
   .use(store)
   .mixin(Config)
   .mixin(Locale)

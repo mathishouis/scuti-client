@@ -88,7 +88,6 @@ export default defineComponent({
     y: 0,
   }),
   methods: {
-    ...mapMutations("LandingView", ["setVisible"]),
     ...mapMutations("Navigator", { setNavigatorVisible: "setVisible" }),
     visit(): void {
       this.setNavigatorVisible(false);

@@ -10,11 +10,11 @@
       <div class="tool-bar__icons">
         <tool-bar-icon
           icon="hotel-view"
-          v-if="!leftToggleState && !landingViewVisible"
+          v-if="!leftToggleState && !landingViewStore.visible"
         />
         <tool-bar-icon
           icon="home-room"
-          v-if="!leftToggleState && landingViewVisible"
+          v-if="!leftToggleState && landingViewStore.visible"
         />
         <tool-bar-icon
           icon="navigator"
@@ -23,14 +23,17 @@
         />
         <tool-bar-icon
           icon="quest"
-          v-if="!leftToggleState && !landingViewVisible"
+          v-if="!leftToggleState && !landingViewStore.visible"
         />
         <tool-bar-icon icon="shop" />
         <tool-bar-icon
           icon="inventory"
-          v-if="!landingViewVisible || (landingViewVisible && leftToggleState)"
+          v-if="
+            !landingViewStore.visible ||
+            (landingViewStore.visible && leftToggleState)
+          "
         />
-        <tool-bar-icon icon="camera" v-if="!landingViewVisible" />
+        <tool-bar-icon icon="camera" v-if="!landingViewStore.visible" />
       </div>
       <div class="tool-bar__separator"></div>
     </div>
@@ -43,6 +46,8 @@ import { mapGetters, mapMutations } from "vuex";
 import ToolBarIcon from "@/components/tool-bar/ToolBarIcon.vue";
 import store from "@/store";
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
+import { mapStores } from "pinia";
+import { useLandingViewStore } from "@/stores/LandingView";
 
 export default defineComponent({
   name: "ToolBar",
@@ -78,8 +83,8 @@ export default defineComponent({
     },
   },
   computed: {
+    ...mapStores(useLandingViewStore),
     ...mapGetters("ToolBar", ["leftToggleState"]),
-    ...mapGetters("LandingView", { landingViewVisible: "isVisible" }),
     ...mapGetters("Navigator", {
       navigatorVisible: "isVisible",
       navigatorSearchQuery: "searchQuery",
