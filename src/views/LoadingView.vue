@@ -15,13 +15,17 @@
         <div class="loading__bar" :style="{ width: progressWidth }"></div>
       </div>
     </div>
-    <div class="loading__progress-indicator">{{ percentage }}%</div>
+    <div class="loading__progress-indicator">
+      {{ loadingViewStore.percentage }}
+      %
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters } from "vuex";
+import { mapStores } from "pinia";
+import { useLoadingViewStore } from "@/stores/LoadingView";
 
 export default defineComponent({
   name: "LoadingView",
@@ -53,7 +57,7 @@ export default defineComponent({
     }, 1000);
   },
   computed: {
-    ...mapGetters("Loading", ["percentage"]),
+    ...mapStores(useLoadingViewStore),
     imagePosition(): string {
       return this.imageOffsetX + "px";
     },

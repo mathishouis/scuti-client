@@ -1,5 +1,4 @@
 import { createStore } from "vuex";
-import LoadingView from "@/store/modules/loading-view";
 import ToolBar from "@/store/modules/tool-bar";
 import Room from "@/store/modules/room";
 import Socket from "@/store/modules/socket";
@@ -13,7 +12,6 @@ export default createStore({
   mutations: {},
   actions: {},
   modules: {
-    LoadingView,
     ToolBar,
     Room,
     Socket,

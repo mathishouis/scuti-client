@@ -1,6 +1,6 @@
 <template>
-  <loading-view v-if="loadingVisible" />
-  <game-view v-show="!loadingVisible" />
+  <loading-view v-if="loadingViewStore.visible" />
+  <game-view v-show="!loadingViewStore.visible" />
 </template>
 
 <script lang="ts">
@@ -14,6 +14,7 @@ import { UniqueIDMessageComposer } from "./sockets/messages/outgoing/handshake/U
 import { Scuti } from "scuti-renderer";
 import { mapStores } from "pinia";
 import { useLandingViewStore } from "@/stores/LandingView";
+import { useLoadingViewStore } from "@/stores/LoadingView";
 
 export default defineComponent({
   name: "App",
@@ -23,7 +24,7 @@ export default defineComponent({
   },
   computed: {
     ...mapStores(useLandingViewStore),
-    ...mapGetters("Loading", { loadingVisible: "isVisible" }),
+    ...mapStores(useLoadingViewStore),
     ...mapGetters("Socket", ["socket"]),
     ...mapGetters("Room/Renderer", ["renderer"]),
   },
