@@ -62,7 +62,7 @@ export default {
     setSearching: (state: NavigatorState, searching: boolean): void => {
       state.searching = searching;
     },
-    updateMaxFavouriteRooms: (
+    setMaxFavouriteRooms: (
       state: NavigatorState,
       maxFavouriteRooms: number
     ): void => {

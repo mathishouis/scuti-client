@@ -15,7 +15,7 @@ export class NavigatorMetaDataMessageEvent extends IncomingMessage {
       const name: string = this.readString();
       this.readInt(); // ?
       store.commit("Navigator/Tabs/addTab", name);
-      if (i === 0) store.commit("Navigator/Tabs/updateCurrentTab", name);
+      if (i === 0) store.commit("Navigator/Tabs/setCurrentTab", name);
     }
     // Load the categories
     store.getters["Socket/socket"].send(new GetUserFlatCatsMessageComposer());

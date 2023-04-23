@@ -9,6 +9,6 @@ export class AchievementsScoreMessageEvent extends IncomingMessage {
 
   public handle(): void {
     const points: number = this.readInt();
-    store.commit("User/updateAchievementPoints", points);
+    store.commit("User/setAchievementPoints", points);
   }
 }

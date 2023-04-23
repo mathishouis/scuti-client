@@ -9,7 +9,7 @@ export class CreditBalanceMessageEvent extends IncomingMessage {
 
   public handle(): void {
     const credits: string = this.readString();
-    store.commit("User/updateCurrency", {
+    store.commit("User/setCurrency", {
       type: 1,
       amount: parseInt(credits.replace(".0", "")),
     });

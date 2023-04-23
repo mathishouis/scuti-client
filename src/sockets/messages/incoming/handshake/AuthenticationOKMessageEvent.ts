@@ -11,9 +11,9 @@ export class AuthenticationOKMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    store.commit("Socket/updateAuthenticated", true);
-    store.commit("Loading/setPercentage", 84);
-    store.commit("Loading/setVisible", false);
+    store.commit("Socket/setAuthenticated", true);
+    store.commit("LoadingView/setPercentage", 84);
+    store.commit("LoadingView/setVisible", false);
     store.getters["Socket/socket"].send(new InfoRetrieveMessageComposer());
     store.getters["Socket/socket"].send(new MessengerInitMessageComposer());
     store.getters["Socket/socket"].send(new NewNavigatorInitMessageComposer());

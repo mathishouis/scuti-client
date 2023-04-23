@@ -18,7 +18,7 @@ export default {
     },
   },
   mutations: {
-    updateCurrentTab: (state: NavigatorTabsState, tab: string): void => {
+    setCurrentTab: (state: NavigatorTabsState, tab: string): void => {
       state.currentTab = tab;
     },
     addTab: (state: NavigatorTabsState, tab: string): void => {

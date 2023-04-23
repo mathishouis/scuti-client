@@ -20,10 +20,10 @@ export default {
     },
   },
   mutations: {
-    updateSocket: (state: SocketState, socket: Socket): void => {
+    setSocket: (state: SocketState, socket: Socket): void => {
       state.socket = socket;
     },
-    updateAuthenticated: (state: SocketState, authenticated: boolean): void => {
+    setAuthenticated: (state: SocketState, authenticated: boolean): void => {
       state.authenticated = authenticated;
     },
   },

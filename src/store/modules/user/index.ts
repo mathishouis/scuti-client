@@ -33,51 +33,36 @@ export default {
     currencies: (state: UserState): Map<number, number> => {
       return state.currencies;
     },
-    id: (state: UserState): number => {
-      return state.id;
-    },
   },
   mutations: {
-    updateId: (state: UserState, id: number): void => {
+    setId: (state: UserState, id: number): void => {
       state.id = id;
     },
-    updateUsername: (state: UserState, username: string): void => {
+    setUsername: (state: UserState, username: string): void => {
       state.username = username;
     },
-    updateMotto: (state: UserState, motto: string): void => {
+    setMotto: (state: UserState, motto: string): void => {
       state.motto = motto;
     },
-    updateFigure: (state: UserState, figure: string): void => {
+    setFigure: (state: UserState, figure: string): void => {
       state.figure = figure;
     },
-    updateGender: (state: UserState, gender: string): void => {
+    setGender: (state: UserState, gender: string): void => {
       state.gender = gender;
     },
-    updateAchievementPoints: (state: UserState, amount: number): void => {
+    setAchievementPoints: (state: UserState, amount: number): void => {
       state.achievementPoints = amount;
     },
-    updateClub: (state: UserState, hasClub: boolean): void => {
+    setClub: (state: UserState, hasClub: boolean): void => {
       state.club = hasClub;
     },
-    updateRank: (state: UserState, rank: number): void => {
+    setRank: (state: UserState, rank: number): void => {
       state.rank = rank;
     },
-    updateAmbassador: (state: UserState, isAmbassador: boolean): void => {
+    setAmbassador: (state: UserState, isAmbassador: boolean): void => {
       state.ambassador = isAmbassador;
     },
-    updateMaxFavouriteRooms: (
-      state: UserState,
-      maxFavouriteRooms: number
-    ): void => {
-      state.maxFavouriteRooms = maxFavouriteRooms;
-    },
-    addFavouriteRoom: (state: UserState, roomId: number): void => {
-      state.favouriteRooms.push(roomId);
-    },
-    clearFavouriteRooms: (state: UserState): void => {
-      state.favouriteRooms = [];
-    },
-    updateCurrency: (
+    setCurrency: (
       state: UserState,
       payload: { type: number; amount: number }
     ): void => {

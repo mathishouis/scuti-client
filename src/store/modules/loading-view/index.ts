@@ -13,7 +13,7 @@ export default {
     isVisible: (state: LoadingState): boolean => {
       return state.visible;
     },
-    getPercentage: (state: LoadingState): number => {
+    percentage: (state: LoadingState): number => {
       return state.percentage;
     },
   },

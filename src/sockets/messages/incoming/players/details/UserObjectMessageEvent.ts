@@ -22,11 +22,11 @@ export class UserObjectMessageEvent extends IncomingMessage {
     const string1: string = this.readString(); // ?
     const bool3: boolean = this.readBool(); // ?
     const bool4: boolean = this.readBool(); // ?
-    store.commit("User/updateId", id);
-    store.commit("User/updateUsername", username);
-    store.commit("User/updateFigure", figure);
-    store.commit("User/updateGender", gender);
-    store.commit("User/updateUsername", username);
+    store.commit("User/setId", id);
+    store.commit("User/setUsername", username);
+    store.commit("User/setFigure", figure);
+    store.commit("User/setGender", gender);
+    store.commit("User/setUsername", username);
     store.getters["Socket/socket"].send(
       new ConfirmUsernameMessageComposer(username)
     );

@@ -28,7 +28,7 @@ export default defineComponent({
       this.setSearching(false);
       this.setSearchCategory("all");
       store.commit(
-        "Navigator/Tabs/updateCurrentTab",
+        "Navigator/Tabs/setCurrentTab",
         store.getters["Navigator/Tabs/tabs"][tab]
       );
       store.getters["Socket/socket"].send(

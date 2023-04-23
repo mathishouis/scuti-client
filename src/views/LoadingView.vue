@@ -53,7 +53,7 @@ export default defineComponent({
     }, 1000);
   },
   computed: {
-    ...mapGetters("Loading", { percentage: "getPercentage" }),
+    ...mapGetters("Loading", ["percentage"]),
     imagePosition(): string {
       return this.imageOffsetX + "px";
     },

@@ -25,7 +25,7 @@ export default defineComponent({
     ...mapGetters("Room/Renderer", ["renderer"]),
   },
   methods: {
-    ...mapMutations("Socket", ["updateSocket"]),
+    ...mapMutations("Socket", ["setSocket"]),
     ...mapMutations("Room/Renderer", ["updateRenderer"]),
   },
   async mounted(): Promise<void> {
@@ -54,7 +54,7 @@ export default defineComponent({
       floorMaterial: new FloorMaterial(this.renderer, 110),
       wallMaterial: new WallMaterial(this.renderer, 1601),
     });*/
-    this.updateSocket(new Socket(false, "127.0.0.1", 30001));
+    this.setSocket(new Socket(false, "127.0.0.1", 30001));
     this.socket.onConnect = () => {
       const authTicket: string | null = new URLSearchParams(
         window.location.search

@@ -11,7 +11,7 @@ export class YouAreControllerMessageEvent extends IncomingMessage {
   public handle(): void {
     const parser: YouAreControllerParser = this
       .parser as YouAreControllerParser;
-    store.commit("Room/updateAccessLevel", parser.rightId);
+    store.commit("Room/setAccessLevel", parser.rightId);
     // TODO: Implement the packet
   }
 }

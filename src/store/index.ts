@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import Loading from "@/store/modules/loading";
+import LoadingView from "@/store/modules/loading-view";
 import ToolBar from "@/store/modules/tool-bar";
 import LandingView from "@/store/modules/landing-view";
 import Room from "@/store/modules/room";
@@ -14,7 +14,7 @@ export default createStore({
   mutations: {},
   actions: {},
   modules: {
-    Loading,
+    LoadingView,
     ToolBar,
     LandingView,
     Room,

@@ -61,7 +61,7 @@ export default defineComponent({
     query: "",
   }),
   methods: {
-    ...mapMutations("Navigator/Tabs", ["updateCurrentTab"]),
+    ...mapMutations("Navigator/Tabs", ["setCurrentTab"]),
     ...mapMutations("Navigator", [
       "setSearchCategory",
       "setSearchQuery",
@@ -77,7 +77,7 @@ export default defineComponent({
     },
     search(): void {
       this.setSearching(true);
-      this.updateCurrentTab("hotel_view");
+      this.setCurrentTab("hotel_view");
       store.getters["Socket/socket"].send(
         new NewNavigatorSearchMessageComposer(
           store.getters["Navigator/Tabs/currentTab"],

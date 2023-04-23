@@ -11,8 +11,8 @@ export class UserRightsMessageEvent extends IncomingMessage {
     const hasClub: number = this.readInt();
     const rank: number = this.readInt();
     const isAmbassador: boolean = this.readBool();
-    store.commit("User/updateClub", hasClub);
-    store.commit("User/updateRank", rank);
-    store.commit("User/updateAmbassador", isAmbassador);
+    store.commit("User/setClub", hasClub);
+    store.commit("User/setRank", rank);
+    store.commit("User/setAmbassador", isAmbassador);
   }
 }

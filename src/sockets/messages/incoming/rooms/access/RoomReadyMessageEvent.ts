@@ -31,7 +31,7 @@ export class RoomReadyMessageEvent extends IncomingMessage {
         ),
       })
     );
-    store.getters["Room/Renderer/room"].tiles.onPointerDown = (event: any) => {
+    store.getters["Room/Renderer/room"].tiles.onPointerUp = (event: any) => {
       console.log(event.position.x, event.position.y);
       store.getters["Socket/socket"].send(
         new WalkMessageComposer(event.position.x, event.position.y)

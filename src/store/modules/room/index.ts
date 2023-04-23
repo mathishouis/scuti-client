@@ -37,13 +37,13 @@ export default {
     setVisible: (state: RoomState, visible: boolean): void => {
       state.visible = visible;
     },
-    updateData: (state: RoomState, data: Room): void => {
+    setData: (state: RoomState, data: Room): void => {
       state.data = data;
     },
-    updateSettings: (state: RoomState, settings: RoomSettings): void => {
+    setSettings: (state: RoomState, settings: RoomSettings): void => {
       state.settings = settings;
     },
-    updateAccessLevel: (state: RoomState, accessLevel: number): void => {
+    setAccessLevel: (state: RoomState, accessLevel: number): void => {
       state.accessLevel = accessLevel;
     },
   },

@@ -13,8 +13,8 @@ export class GetGuestRoomResultMessageEvent extends IncomingMessage {
     const parser: GetGuestRoomResultParser = this
       .parser as GetGuestRoomResultParser;
     // TODO: Implement the packet
-    store.commit("Room/updateData", parser.room);
-    store.commit("Room/updateSettings", parser.settings);
+    store.commit("Room/setData", parser.room);
+    store.commit("Room/setSettings", parser.settings);
     if (!parser.room) return;
     store.getters["Socket/socket"].send(
       new OpenFlatConnectionMessageComposer(parser.room?.roomId, "")
