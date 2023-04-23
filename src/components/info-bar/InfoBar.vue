@@ -1,7 +1,7 @@
 <template>
   <div class="info-bar">
     <grid-purse />
-    <group-card v-if="data && data.groupId !== 0" />
+    <group-card v-if="roomStore.data && roomStore.data.groupId !== 0" />
     <event-card />
   </div>
 </template>
@@ -11,7 +11,8 @@ import { defineComponent } from "vue";
 import GridPurse from "@/components/grid-purse/GridPurse.vue";
 import GroupCard from "@/components/info-bar/GroupCard.vue";
 import EventCard from "@/components/info-bar/EventCard.vue";
-import { mapGetters } from "vuex";
+import { mapStores } from "pinia";
+import { useRoomStore } from "@/stores/Room";
 
 export default defineComponent({
   name: "InfoBar",
@@ -21,7 +22,7 @@ export default defineComponent({
     GroupCard,
   },
   computed: {
-    ...mapGetters("Room", ["data"]),
+    ...mapStores(useRoomStore),
   },
 });
 </script>

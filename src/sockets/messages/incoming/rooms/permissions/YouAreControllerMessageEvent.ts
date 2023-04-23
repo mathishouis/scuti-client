@@ -1,7 +1,7 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
 import { YouAreControllerParser } from "@/sockets/messages/parsers/rooms/permissions/YouAreControllerParser";
+import { useRoomStore } from "@/stores/Room";
 
 export class YouAreControllerMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -11,7 +11,7 @@ export class YouAreControllerMessageEvent extends IncomingMessage {
   public handle(): void {
     const parser: YouAreControllerParser = this
       .parser as YouAreControllerParser;
-    store.commit("Room/setAccessLevel", parser.rightId);
+    useRoomStore().accessLevel = parser.rightId;
     // TODO: Implement the packet
   }
 }

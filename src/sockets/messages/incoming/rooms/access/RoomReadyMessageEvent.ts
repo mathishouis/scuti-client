@@ -5,6 +5,7 @@ import { RoomReadyParser } from "@/sockets/messages/parsers/rooms/access/RoomRea
 import { FloorMaterial, Room, WallMaterial } from "scuti-renderer";
 import { AddUserToRoomMessageComposer } from "@/sockets/messages/outgoing/navigator/AddUserToRoomMessageComposer";
 import { WalkMessageComposer } from "@/sockets/messages/outgoing/rooms/actions/WalkMessageComposer";
+import { useRoomStore } from "@/stores/Room";
 
 export class RoomReadyMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -14,7 +15,7 @@ export class RoomReadyMessageEvent extends IncomingMessage {
   public handle(): void {
     const parser: RoomReadyParser = this.parser as RoomReadyParser;
     // TODO: Implement the packet
-    store.commit("Room/setVisible", true);
+    useRoomStore().visible = true;
     if (store.getters["Room/Renderer/room"] !== undefined)
       store.getters["Room/Renderer/room"].destroy();
     store.commit(

@@ -23,8 +23,7 @@ export default defineComponent({
     GameView,
   },
   computed: {
-    ...mapStores(useLandingViewStore),
-    ...mapStores(useLoadingViewStore),
+    ...mapStores(useLandingViewStore, useLoadingViewStore),
     ...mapGetters("Socket", ["socket"]),
     ...mapGetters("Room/Renderer", ["renderer"]),
   },

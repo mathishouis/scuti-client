@@ -3,7 +3,9 @@
     <border-card
       type="2"
       class="room-tools-widget__arrow-left"
-      :class="toggleState ? 'room-tools-widget__arrow-left--active' : ''"
+      :class="
+        roomStore.toolsVisible ? 'room-tools-widget__arrow-left--active' : ''
+      "
       @click="
         toggle();
         showInfosVisibility();
@@ -12,7 +14,9 @@
     <border-card
       type="1"
       class="room-tools-widget__actions"
-      :class="toggleState ? 'room-tools-widget__actions--active' : ''"
+      :class="
+        roomStore.toolsVisible ? 'room-tools-widget__actions--active' : ''
+      "
     >
       <div class="room-tools-widget__action-list">
         <tool-tip label="Ouvrir les paramètres de l'appart">
@@ -78,15 +82,23 @@
       type="1"
       class="room-tools-widget__infos"
       :class="[
-        toggleState ? 'room-tools-widget__infos--active' : '',
+        roomStore.toolsVisible ? 'room-tools-widget__infos--active' : '',
         !infosVisible ? 'room-tools-widget__infos--hidden' : '',
       ]"
       @click="hideInfosVisibility"
     >
-      <div class="room-tools-widget__infos-name">{{ data.roomName }}</div>
-      <div class="room-tools-widget__infos-owner">de {{ data.ownerName }}</div>
+      <div class="room-tools-widget__infos-name">
+        {{ roomStore.data.roomName }}
+      </div>
+      <div class="room-tools-widget__infos-owner">
+        de {{ roomStore.data.ownerName }}
+      </div>
       <div class="room-tools-widget__infos-tags">
-        <room-tag-widget :label="tag" v-for="tag in data.tags" :key="tag" />
+        <room-tag-widget
+          :label="tag"
+          v-for="tag in roomStore.data.tags"
+          :key="tag"
+        />
       </div>
     </border-card>
   </div>
@@ -94,8 +106,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapMutations } from "vuex";
 import RoomTagWidget from "@/components/room-view/widgets/RoomTagWidget.vue";
+import { mapStores } from "pinia";
+import { useRoomStore } from "@/stores/Room";
 
 export default defineComponent({
   name: "RoomToolsWidget",
@@ -107,9 +120,8 @@ export default defineComponent({
     timeout: 0,
   }),
   methods: {
-    ...mapMutations("Room/RoomTools", ["toggle"]),
     showInfosVisibility(): void {
-      if (!this.toggleState) {
+      if (!this.roomStore.toolsVisible) {
         this.infosVisible = false;
         return;
       }
@@ -121,10 +133,12 @@ export default defineComponent({
       this.infosVisible = false;
       clearTimeout(this.timeout);
     },
+    toggle(): void {
+      this.roomStore.toolsVisible = !this.roomStore.toolsVisible;
+    },
   },
   computed: {
-    ...mapGetters("Room/RoomTools", ["toggleState"]),
-    ...mapGetters("Room", ["data"]),
+    ...mapStores(useRoomStore),
   },
   mounted(): void {
     this.timeout = window.setTimeout(() => (this.infosVisible = true), 100);

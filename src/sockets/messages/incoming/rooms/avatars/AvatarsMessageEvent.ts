@@ -1,9 +1,10 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import store from "@/store";
-import { Avatar, AvatarAction } from "scuti-renderer";
+import { Avatar } from "scuti-renderer";
 import { AvatarsParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarsParser";
 import { AvatarDataParser } from "@/sockets/messages/parsers/rooms/utils/AvatarDataParser";
+import { useRoomStore } from "@/stores/Room";
 
 export class AvatarsMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -33,7 +34,7 @@ export class AvatarsMessageEvent extends IncomingMessage {
         id: avatar.avatarId,
         avatar: scutiAvatar,
       });
-      store.commit("Room/Avatars/addAvatar", avatar.avatar);
+      useRoomStore().players.push(avatar.avatar);
     });
   }
 }

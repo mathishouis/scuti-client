@@ -12,17 +12,17 @@
             'url(' +
             __config('group.badge.url').replace(
               '%imagerdata%',
-              data.groupBadge
+              roomStore.data.groupBadge
             ) +
             ')',
         }"
       ></div>
-      <div class="group-card__group-title">{{ data.groupName }}</div>
+      <div class="group-card__group-title">{{ roomStore.data.groupName }}</div>
       <primary-button
         type="2"
         color="#FFFFFF"
         class="group-card__manage-button"
-        v-if="data.ownerId === userId"
+        v-if="roomStore.data.ownerId === userId"
         >Gérer</primary-button
       >
       <primary-button
@@ -40,6 +40,8 @@
 import { defineComponent } from "vue";
 import PrimaryButton from "@/components/common/PrimaryButton.vue";
 import { mapGetters } from "vuex";
+import { mapStores } from "pinia";
+import { useRoomStore } from "@/stores/Room";
 
 export default defineComponent({
   name: "GroupCard",
@@ -53,7 +55,7 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapGetters("Room", ["data"]),
+    ...mapStores(useRoomStore),
     // TODO: Replace this
     ...mapGetters("User", { userId: "id" }),
   },
