@@ -1,7 +1,6 @@
 import { Buffer } from "buffer";
 import { OutgoingMessage } from "@/sockets/messages/outgoing/OutgoingMessage";
 import { Outgoing } from "@/sockets/messages/headers/Outgoing";
-import store from "@/store";
 
 export class WalkMessageComposer extends OutgoingMessage {
   private readonly _goalX: number;

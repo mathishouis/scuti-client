@@ -42,7 +42,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapGetters, mapMutations } from "vuex";
 import ToolBarIcon from "@/components/tool-bar/ToolBarIcon.vue";
 import { NewNavigatorSearchMessageComposer } from "@/sockets/messages/outgoing/navigator/updated/NewNavigatorSearchMessageComposer";
 import { mapStores } from "pinia";

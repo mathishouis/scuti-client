@@ -1,6 +1,5 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import store from "@/store";
 import { RoomRatingParser } from "@/sockets/messages/parsers/rooms/settings/RoomRatingParser";
 
 export class RoomRatingMessageEvent extends IncomingMessage {

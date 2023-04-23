@@ -1,5 +1,5 @@
 import { Buffer } from "buffer";
-import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";;
+import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { usePlayerStore } from "@/stores/Player";
 
 export class UserRightsMessageEvent extends IncomingMessage {
