@@ -1,7 +1,6 @@
 <template>
   <div class="game">
     <navigator-window v-show="navigatorVisible" />
-    <info-bar />
     <tool-bar />
     <landing-view v-if="landingViewVisible" />
     <room-view v-if="roomVisible" />

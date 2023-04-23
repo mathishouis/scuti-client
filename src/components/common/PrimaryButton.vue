@@ -7,7 +7,7 @@
       ></div>
       <div class="button__color" :style="{ backgroundColor: color }"></div>
     </div>
-    <div class="button__content">
+    <div class="button__content" :class="'button__content--' + type">
       <slot />
     </div>
   </div>
@@ -43,11 +43,24 @@ export default defineComponent({
       border-bottom: 4px solid transparent;
       border-right: 4px solid transparent;
     }
+
+    &--2 {
+      border-image: url(@images/buttons/2.png) 14 14 14 14 fill;
+      border-top: 14px solid transparent;
+      border-left: 14px solid transparent;
+      border-bottom: 14px solid transparent;
+      border-right: 14px solid transparent;
+      height: 29px;
+    }
   }
 
   &:hover &__background {
     &--1 {
       border-image: url(@images/buttons/1_hover.png) 4 4 4 4 fill !important;
+    }
+
+    &--2 {
+      border-image: url(@images/buttons/2_hover.png) 14 14 14 14 fill !important;
     }
   }
 
@@ -55,6 +68,10 @@ export default defineComponent({
     &--1 {
       border-image: url(@images/buttons/1_hover.png) 4 4 4 4 fill !important;
       filter: brightness(60%);
+    }
+
+    &--2 {
+      border-image: url(@images/buttons/2_active.png) 14 14 14 14 fill !important;
     }
   }
 
@@ -65,6 +82,13 @@ export default defineComponent({
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &--2 {
+      font-size: 9.5pt;
+      font-family: "Ubuntu Bold", sans-serif;
+      color: #000000;
+      line-height: 29px;
+    }
   }
 
   &__color {
