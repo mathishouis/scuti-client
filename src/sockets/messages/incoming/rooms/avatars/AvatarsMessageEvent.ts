@@ -26,6 +26,7 @@ export class AvatarsMessageEvent extends IncomingMessage {
         bodyDirection: avatar.bodyRotation,
         headDirection: avatar.bodyRotation,
       });
+      scutiAvatar.zIndex = 1000;
       useRendererStore().room?.objects.add(scutiAvatar);
       useRendererStore().avatars.set(avatar.avatarId, scutiAvatar);
       useRoomStore().players.push(avatar.player);
