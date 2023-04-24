@@ -119,6 +119,7 @@
         <primary-button
           type="1"
           class="navigator-room-creator-window__cancel-button"
+          @click="close"
           >Annuler</primary-button
         >
       </div>
@@ -177,6 +178,7 @@ import { defineComponent } from "vue";
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
 import BorderCard from "@/components/common/BorderCard.vue";
+import { useWindowStore } from "@/stores/WindowView";
 
 export default defineComponent({
   name: "NavigatorRoomCreatorWindow",
@@ -366,9 +368,12 @@ export default defineComponent({
     selectModel(name: string): void {
       this.selectedModel = name;
     },
+    close(): void {
+      this.windowStore.getWindow("roomCreator")!.visible = false;
+    },
   },
   computed: {
-    ...mapStores(useNavigatorStore),
+    ...mapStores(useNavigatorStore, useWindowStore),
   },
 });
 </script>

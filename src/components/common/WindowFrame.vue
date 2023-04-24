@@ -1,7 +1,13 @@
 <template>
   <div
     class="window-frame"
-    :style="{ left: x, top: y, width: width, height: height, zIndex: zIndex }"
+    :style="{
+      left: window.x + 'px',
+      top: window.y + 'px',
+      width: width,
+      height: height,
+      zIndex: window.zIndex,
+    }"
     :class="'window-frame--' + type"
     ref="window"
     @click="setToTop"
@@ -105,14 +111,8 @@ export default defineComponent({
             event.movementY +
             "px";
         }*/
-        (this.$refs["window"] as any).style.left =
-          parseInt((this.$refs["window"] as any).style.left, 10) +
-          event.movementX +
-          "px";
-        (this.$refs["window"] as any).style.top =
-          parseInt((this.$refs["window"] as any).style.top, 10) +
-          event.movementY +
-          "px";
+        this.window.x = this.window.x + event.movementX;
+        this.window.y = this.window.y + event.movementY;
       }
     },
     onResizeStart(event: PointerEvent): void {
@@ -188,8 +188,8 @@ export default defineComponent({
   },
   computed: {
     ...mapStores(useWindowStore),
-    zIndex(): number {
-      return this.windowStore.getWindow(this.name)!.zIndex;
+    window(): any {
+      return this.windowStore.getWindow(this.name)!;
     },
   },
   mounted(): void {

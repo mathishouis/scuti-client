@@ -1,7 +1,10 @@
 <template>
   <div class="navigator-actions-widget">
     <tool-tip :label="__locale('navigator.tooltip.create.room')">
-      <div class="navigator-actions-widget__create-room-button">
+      <div
+        class="navigator-actions-widget__create-room-button"
+        @click="createRoom"
+      >
         {{ __locale("navigator.create.room") }}
       </div>
     </tool-tip>
@@ -25,11 +28,19 @@
 import { defineComponent } from "vue";
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
+import { useWindowStore } from "@/stores/WindowView";
 
 export default defineComponent({
   name: "NavigatorActionsWidget",
   computed: {
-    ...mapStores(useNavigatorStore),
+    ...mapStores(useNavigatorStore, useWindowStore),
+  },
+  methods: {
+    createRoom(): void {
+      console.log("create");
+      this.windowStore.getWindow("roomCreator")!.visible = true;
+      setTimeout(() => this.windowStore.setToTop("roomCreator"), 10);
+    },
   },
 });
 </script>

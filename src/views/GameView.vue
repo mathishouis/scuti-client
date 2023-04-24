@@ -1,6 +1,8 @@
 <template>
   <div class="game">
-    <navigator-room-creator-window />
+    <navigator-room-creator-window
+      v-if="windowStore.getWindow('roomCreator').visible"
+    />
     <navigator-window v-show="windowStore.getWindow('navigator').visible" />
     <tool-bar />
     <landing-view v-if="landingViewStore.visible" />
