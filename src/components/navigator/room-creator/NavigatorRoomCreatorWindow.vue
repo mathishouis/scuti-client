@@ -7,6 +7,7 @@
     class="navigator-room-creator-window"
     title="Création"
     @close="close"
+    name="roomCreator"
   >
     <div class="navigator-room-creator-window__left-panel">
       <div class="navigator-room-creator-window__form">

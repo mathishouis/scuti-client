@@ -14,6 +14,7 @@
     "
     @close="close"
     info-button
+    name="navigator"
   >
     <div class="navigator-window__top">
       <tool-tip :label="__locale('navigator.tooltip.left.show.hide')">
@@ -51,6 +52,7 @@ import NavigatorResultsWidget from "@/components/navigator/widgets/NavigatorResu
 import NavigatorSavedSearchesWidget from "@/components/navigator/widgets/NavigatorSavedSearchesWidget.vue";
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
+import { useWindowStore } from "@/stores/WindowView";
 
 export default defineComponent({
   name: "NavigatorWindow",
@@ -67,11 +69,11 @@ export default defineComponent({
         !this.navigatorStore.savedSearchesVisible;
     },
     close(): void {
-      this.navigatorStore.visible = false;
+      this.windowStore.getWindow("navigator")!.visible = false;
     },
   },
   computed: {
-    ...mapStores(useNavigatorStore),
+    ...mapStores(useNavigatorStore, useWindowStore),
   },
 });
 </script>

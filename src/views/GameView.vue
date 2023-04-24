@@ -1,7 +1,7 @@
 <template>
   <div class="game">
     <navigator-room-creator-window />
-    <navigator-window v-show="navigatorStore.visible" />
+    <navigator-window v-show="windowStore.getWindow('navigator').visible" />
     <tool-bar />
     <landing-view v-if="landingViewStore.visible" />
     <room-view v-if="roomStore.visible" />
@@ -23,6 +23,7 @@ import { useLandingViewStore } from "@/stores/LandingView";
 import { useNavigatorStore } from "@/stores/Navigator";
 import { useRoomStore } from "@/stores/Room";
 import NavigatorRoomCreatorWindow from "@/components/navigator/room-creator/NavigatorRoomCreatorWindow.vue";
+import { useWindowStore } from "@/stores/WindowView";
 
 export default defineComponent({
   name: "GameView",
@@ -36,7 +37,12 @@ export default defineComponent({
     RoomView,
   },
   computed: {
-    ...mapStores(useLandingViewStore, useNavigatorStore, useRoomStore),
+    ...mapStores(
+      useLandingViewStore,
+      useNavigatorStore,
+      useRoomStore,
+      useWindowStore
+    ),
   },
 });
 </script>

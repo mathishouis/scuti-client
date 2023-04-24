@@ -1,9 +1,10 @@
 <template>
   <div
     class="window-frame"
-    :style="{ left: x, top: y, width: width, height: height }"
+    :style="{ left: x, top: y, width: width, height: height, zIndex: zIndex }"
     :class="'window-frame--' + type"
     ref="window"
+    @click="setToTop"
   >
     <div>
       <div class="window-frame__background"></div>
@@ -39,6 +40,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapStores } from "pinia";
+import { useWindowStore } from "@/stores/WindowView";
 
 export default defineComponent({
   name: "WindowFrame",
@@ -69,12 +72,19 @@ export default defineComponent({
       type: String,
     },
     infoButton: Boolean,
+    name: {
+      type: String,
+      required: true,
+    },
   },
   data: () => ({
     dragging: false,
     resizing: false,
   }),
   methods: {
+    setToTop(): void {
+      this.windowStore.setToTop(this.name);
+    },
     onDragStart(event: PointerEvent): void {
       this.dragging = true;
     },
@@ -176,6 +186,12 @@ export default defineComponent({
       this.$emit("info");
     },
   },
+  computed: {
+    ...mapStores(useWindowStore),
+    zIndex(): number {
+      return this.windowStore.getWindow(this.name)!.zIndex;
+    },
+  },
   mounted(): void {
     document.body.addEventListener("pointermove", (event) =>
       this.onDragMove(event)
@@ -196,7 +212,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .window-frame {
   position: fixed;
-  z-index: 2;
   &__background {
     position: absolute;
     width: 100%;

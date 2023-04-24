@@ -350,6 +350,7 @@ export default defineComponent({
       width: 100%;
       background-image: url(@images/scroll-boxes/thumb_top_1.png);
       top: 0;
+      left: 0;
     }
 
     &:after {
@@ -359,6 +360,7 @@ export default defineComponent({
       width: 100%;
       background-image: url(@images/scroll-boxes/thumb_bottom_1.png);
       bottom: 0;
+      left: 0;
     }
   }
 
