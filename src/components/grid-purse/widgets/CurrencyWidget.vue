@@ -2,9 +2,13 @@
   <border-card class="currency-widget" type="5" color="#686661" blend="0.63">
     <div class="currency-widget__button-list">
       <tool-tip label="Aide">
-        <primary-button class="currency-widget__button" type="1" color="#207aB4"
-          >Aide</primary-button
+        <primary-button
+          class="currency-widget__button"
+          type="1"
+          color="#207aB4"
         >
+          <div class="currency-widget__button">Aide</div>
+        </primary-button>
       </tool-tip>
       <tool-tip label="Déconnexion">
         <primary-button
@@ -111,25 +115,25 @@ export default defineComponent({
   }
 
   &__button {
-    height: 19px;
-    color: #ffffff;
-    font-size: 9pt;
-    font-family: "Ubuntu";
-    line-height: 20px;
+    height: 19px !important;
+    color: #ffffff !important;
+    font-size: 9pt !important;
+    font-family: "Ubuntu", sans-serif !important;
+    line-height: 20px !important;
+    max-height: 19px;
 
     &-icon {
       &--settings {
         width: 12px;
         height: 12px;
         background-image: url(@images/purse-grid/icons/settings.png);
-        margin-top: 3px;
+        margin-top: -1px;
       }
 
       &--logout {
         width: 13px;
         height: 11px;
         background-image: url(@images/purse-grid/icons/logout.png);
-        margin-top: 4px;
         margin-left: 4px;
       }
     }

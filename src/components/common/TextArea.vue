@@ -1,5 +1,9 @@
 <template>
-  <div class="text-field" :class="['text-field--' + type]">
+  <div
+    class="text-field"
+    :class="['text-field--' + type]"
+    :style="{ height: height }"
+  >
     <div
       class="text-field__focus-button"
       @click="focus"
@@ -10,7 +14,7 @@
       @click="clear"
       v-if="clearButton && inputLength > 0"
     ></div>
-    <input
+    <textarea
       class="text-field__input"
       :class="[focused ? '' : 'text-field__input--unfocused']"
       :placeholder="placeholder"
@@ -18,6 +22,7 @@
       @input="input"
       type="text"
       ref="input"
+      rows="4"
       :maxlength="maxlength"
     />
   </div>
@@ -37,6 +42,7 @@ export default defineComponent({
     modelValue: String,
     focused: Boolean,
     type: String,
+    height: String,
     maxlength: String,
   },
   data: () => ({
@@ -114,6 +120,7 @@ export default defineComponent({
     background-color: transparent;
     font-family: "Ubuntu Light", sans-serif;
     padding: 5px 0px 7px 9px;
+    resize: none;
 
     &--unfocused {
       color: #a5a5a5;
@@ -158,13 +165,13 @@ export default defineComponent({
     border: none;
     position: absolute;
     width: 100%;
-    height: calc(100% + 3px);
+    height: 100%;
     font-size: 7pt;
     font-family: "Volter", sans-serif;
     padding-left: 1px;
     background-color: transparent;
-    margin-top: -3px;
-    padding-right: 40%;
+    resize: none;
+    margin-top: 1px;
 
     &::placeholder {
       color: #000000;

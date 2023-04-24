@@ -1,5 +1,10 @@
 <template>
-  <scroll-box width="405px" height="295px" class="navigator-results-widget">
+  <scroll-box
+    width="405px"
+    height="295px"
+    class="navigator-results-widget"
+    type="1"
+  >
     <div class="navigator-results-widget__content">
       <navigator-category-widget
         :id="category.id"

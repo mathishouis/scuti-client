@@ -1,5 +1,9 @@
 <template>
-  <div class="scroll-box" :style="{ width: width, height: height }">
+  <div
+    class="scroll-box"
+    :class="'scroll-box--' + type"
+    :style="{ width: width, height: height }"
+  >
     <div
       class="scroll-box__up-button"
       :class="[disabled ? 'scroll-box__up-button--disabled' : '']"
@@ -43,6 +47,7 @@ export default defineComponent({
   props: {
     width: String,
     height: String,
+    type: String,
   },
   data: () => ({
     disabled: false,
@@ -224,7 +229,7 @@ export default defineComponent({
 .scroll-box {
   position: relative;
 
-  &__up-button {
+  &--1 &__up-button {
     width: 17px;
     height: 16px;
     background-image: url(@images/scroll-boxes/button_up_1.png);
@@ -255,7 +260,7 @@ export default defineComponent({
     }
   }
 
-  &__down-button {
+  &--1 &__down-button {
     width: 17px;
     height: 16px;
     background-image: url(@images/scroll-boxes/button_down_1.png);
@@ -286,7 +291,7 @@ export default defineComponent({
     }
   }
 
-  &__rail {
+  &--1 &__rail {
     width: 17px;
     height: calc(100% - 32px);
     top: 16px;
@@ -308,7 +313,7 @@ export default defineComponent({
     }
   }
 
-  &__thumb {
+  &--1 &__thumb {
     position: relative;
     width: 17px;
     background-image: url(@images/scroll-boxes/thumb_1.png);
@@ -354,6 +359,129 @@ export default defineComponent({
       width: 100%;
       background-image: url(@images/scroll-boxes/thumb_bottom_1.png);
       bottom: 0;
+    }
+  }
+
+  &--2 &__up-button {
+    width: 17px;
+    height: 16px;
+    background-image: url(@images/scroll-boxes/button_up_2.png);
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+
+    &:hover {
+      background-position: 0 -32px;
+    }
+
+    &:active {
+      background-position: 0 -48px;
+    }
+
+    &--disabled {
+      background-position: 0 -16px;
+      cursor: default !important;
+
+      &:hover {
+        background-position: 0 -16px !important;
+      }
+
+      &:active {
+        background-position: 0 -16px !important;
+      }
+    }
+  }
+
+  &--2 &__down-button {
+    width: 17px;
+    height: 16px;
+    background-image: url(@images/scroll-boxes/button_down_2.png);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+
+    &:hover {
+      background-position: 0 -32px;
+    }
+
+    &:active {
+      background-position: 0 -48px;
+    }
+
+    &--disabled {
+      background-position: 0 -16px;
+      cursor: default !important;
+
+      &:hover {
+        background-position: 0 -16px !important;
+      }
+
+      &:active {
+        background-position: 0 -16px !important;
+      }
+    }
+  }
+
+  &--2 &__rail {
+    width: 17px;
+    height: calc(100% - 32px);
+    top: 16px;
+    background-image: url(@images/scroll-boxes/rail_2.png);
+    background-position: -17px 0;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    &--disabled {
+      width: 17px;
+      height: calc(100% - 32px);
+      top: 16px;
+      background-image: url(@images/scroll-boxes/rail_2.png);
+      background-position: 0 0;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    }
+  }
+
+  &--2 &__thumb {
+    position: relative;
+    width: 17px;
+    background-image: url(@images/scroll-boxes/thumb_2.png);
+    cursor: pointer;
+
+    &:active {
+      background-position: -17px 0;
+
+      &:before {
+        background-position: -17px 0;
+      }
+
+      &:after {
+        background-position: -17px 0;
+      }
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      height: 7px;
+      width: 100%;
+      background-image: url(@images/scroll-boxes/thumb_top_2.png);
+      top: 0;
+      left: 0;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      height: 8px;
+      width: 100%;
+      background-image: url(@images/scroll-boxes/thumb_bottom_2.png);
+      bottom: 0;
+      left: 0;
     }
   }
 

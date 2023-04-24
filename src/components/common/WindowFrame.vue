@@ -25,7 +25,11 @@
     <div class="window-frame__content">
       <slot />
     </div>
-    <div class="window-frame__resizer" @mousedown="onResizeStart"></div>
+    <div
+      class="window-frame__resizer"
+      v-if="maxWidth && maxHeight"
+      @mousedown="onResizeStart"
+    ></div>
   </div>
 </template>
 
@@ -56,11 +60,9 @@ export default defineComponent({
     },
     maxWidth: {
       type: String,
-      default: "400px",
     },
     maxHeight: {
       type: String,
-      default: "400px",
     },
   },
   data: () => ({
@@ -105,14 +107,14 @@ export default defineComponent({
       this.resizing = false;
     },
     onResizeMove(event: PointerEvent): void {
-      if (this.resizing) {
+      if (this.resizing && (this.maxHeight || this.maxWidth)) {
         if (
           parseInt((this.$refs["window"] as any).style.width, 10) +
             event.movementX >=
             parseInt(this.width, 10) &&
           parseInt((this.$refs["window"] as any).style.width, 10) +
             event.movementX <=
-            parseInt(this.maxWidth, 10)
+            parseInt(this.maxWidth ?? "", 10)
         ) {
           (this.$refs["window"] as any).style.width =
             parseInt((this.$refs["window"] as any).style.width, 10) +
@@ -125,7 +127,7 @@ export default defineComponent({
             parseInt(this.height, 10) &&
           parseInt((this.$refs["window"] as any).style.height, 10) +
             event.movementY <=
-            parseInt(this.maxHeight, 10)
+            parseInt(this.maxHeight ?? "", 10)
         ) {
           (this.$refs["window"] as any).style.height =
             parseInt((this.$refs["window"] as any).style.height, 10) +

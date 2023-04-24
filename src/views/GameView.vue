@@ -1,5 +1,6 @@
 <template>
   <div class="game">
+    <navigator-room-creator-window />
     <navigator-window v-show="navigatorStore.visible" />
     <tool-bar />
     <landing-view v-if="landingViewStore.visible" />
@@ -21,10 +22,12 @@ import { mapStores } from "pinia";
 import { useLandingViewStore } from "@/stores/LandingView";
 import { useNavigatorStore } from "@/stores/Navigator";
 import { useRoomStore } from "@/stores/Room";
+import NavigatorRoomCreatorWindow from "@/components/navigator/room-creator/NavigatorRoomCreatorWindow.vue";
 
 export default defineComponent({
   name: "GameView",
   components: {
+    NavigatorRoomCreatorWindow,
     RendererView,
     NavigatorWindow,
     InfoBar,
