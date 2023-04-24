@@ -13,6 +13,7 @@
         : __locale('navigator.title')
     "
     @close="close"
+    info-button
   >
     <div class="navigator-window__top">
       <tool-tip :label="__locale('navigator.tooltip.left.show.hide')">

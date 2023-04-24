@@ -20,7 +20,11 @@
     ></div>
     <div class="window-frame__button-list">
       <div class="window-frame__close-button" @click="close"></div>
-      <div class="window-frame__info-button" @click="info"></div>
+      <div
+        class="window-frame__info-button"
+        v-if="infoButton"
+        @click="info"
+      ></div>
     </div>
     <div class="window-frame__content">
       <slot />
@@ -64,6 +68,7 @@ export default defineComponent({
     maxHeight: {
       type: String,
     },
+    infoButton: Boolean,
   },
   data: () => ({
     dragging: false,
