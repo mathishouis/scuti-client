@@ -1,7 +1,7 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { Avatar } from "scuti-renderer";
-import { AvatarsParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarsParser";
+import { AvatarsMessageParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarsMessageParser";
 import { AvatarDataParser } from "@/sockets/messages/parsers/rooms/utils/AvatarDataParser";
 import { useRoomStore } from "@/stores/Room";
 import { useRendererStore } from "@/stores/Renderer";
@@ -12,7 +12,7 @@ export class AvatarsMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    const parser: AvatarsParser = this.parser as AvatarsParser;
+    const parser: AvatarsMessageParser = this.parser as AvatarsMessageParser;
     parser.avatars.forEach((avatar: AvatarDataParser) => {
       const scutiAvatar: Avatar = new Avatar({
         actions: [],

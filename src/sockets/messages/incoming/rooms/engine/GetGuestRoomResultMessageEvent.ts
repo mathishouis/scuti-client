@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { GetGuestRoomResultParser } from "@/sockets/messages/parsers/rooms/engine/GetGuestRoomResultParser";
+import { GetGuestRoomResultMessageParser } from "@/sockets/messages/parsers/rooms/engine/GetGuestRoomResultMessageParser";
 import { OpenFlatConnectionMessageComposer } from "@/sockets/messages/outgoing/rooms/engine/OpenFlatConnectionMessageComposer";
 import { useRoomStore } from "@/stores/Room";
 import { useSocketStore } from "@/stores/Socket";
@@ -11,8 +11,8 @@ export class GetGuestRoomResultMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    const parser: GetGuestRoomResultParser = this
-      .parser as GetGuestRoomResultParser;
+    const parser: GetGuestRoomResultMessageParser = this
+      .parser as GetGuestRoomResultMessageParser;
     // TODO: Implement the packet
     // @ts-ignore
     useRoomStore().data = parser.room;

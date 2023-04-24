@@ -2,7 +2,7 @@ import { MessageParser } from "@/types/Socket";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { AvatarDataParser } from "@/sockets/messages/parsers/rooms/utils/AvatarDataParser";
 
-export class AvatarsParser implements MessageParser {
+export class AvatarsMessageParser implements MessageParser {
   private _avatars!: AvatarDataParser[];
 
   constructor(message: IncomingMessage) {

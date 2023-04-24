@@ -61,6 +61,10 @@ export default defineComponent({
     NavigatorSavedSearchesWidget,
   },
   methods: {
+    toggleSavedSearches(): void {
+      this.navigatorStore.savedSearchesVisible =
+        !this.navigatorStore.savedSearchesVisible;
+    },
     close(): void {
       this.navigatorStore.visible = false;
     },

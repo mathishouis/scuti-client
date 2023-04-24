@@ -2,7 +2,7 @@ import { NavigatorCategoryDataParser } from "@/sockets/messages/parsers/navigato
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { MessageParser } from "@/types/Socket";
 
-export class NavigatorSearchResultParser implements MessageParser {
+export class NavigatorSearchResultBlocksMessageParser implements MessageParser {
   private _id!: string | null;
   private _data!: string | null;
   private _categories!: NavigatorCategoryDataParser[];

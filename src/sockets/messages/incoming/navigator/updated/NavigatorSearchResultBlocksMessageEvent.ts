@@ -1,7 +1,7 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { NavigatorCategoryDataParser } from "@/sockets/messages/parsers/navigator/utils/NavigatorCategoryDataParser";
-import { NavigatorSearchResultParser } from "@/sockets/messages/parsers/navigator/NavigatorSearchResultParser";
+import { NavigatorSearchResultBlocksMessageParser } from "@/sockets/messages/parsers/navigator/updated/NavigatorSearchResultBlocksMessageParser";
 import { useNavigatorStore } from "@/stores/Navigator";
 
 export class NavigatorSearchResultBlocksMessageEvent extends IncomingMessage {
@@ -10,8 +10,8 @@ export class NavigatorSearchResultBlocksMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    const parser: NavigatorSearchResultParser = this
-      .parser as NavigatorSearchResultParser;
+    const parser: NavigatorSearchResultBlocksMessageParser = this
+      .parser as NavigatorSearchResultBlocksMessageParser;
     useNavigatorStore().categories = [];
     parser.categories.forEach((category: NavigatorCategoryDataParser) => {
       useNavigatorStore().categories.push(category);

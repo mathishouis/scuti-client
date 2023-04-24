@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { RoomRatingParser } from "@/sockets/messages/parsers/rooms/settings/RoomRatingParser";
+import { RoomRatingMessageParser } from "@/sockets/messages/parsers/rooms/settings/RoomRatingMessageParser";
 
 export class RoomRatingMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -8,7 +8,8 @@ export class RoomRatingMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    const parser: RoomRatingParser = this.parser as RoomRatingParser;
+    const parser: RoomRatingMessageParser = this
+      .parser as RoomRatingMessageParser;
     // TODO: Implement the packet
   }
 }

@@ -1,7 +1,7 @@
 import { MessageParser } from "@/types/Socket";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 
-export class FloorHeightMapParser implements MessageParser {
+export class FloorHeightMapMessageParser implements MessageParser {
   private _bool1!: boolean;
   private _wallHeight!: number;
   private _heightMap!: string | null;

@@ -1,7 +1,7 @@
 import { MessageParser } from "@/types/Socket";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 
-export class HeightMapParser implements MessageParser {
+export class HeightMapMessageParser implements MessageParser {
   private _width!: number;
   private _height!: number;
   private _tilesHeight!: number[];
@@ -42,7 +42,7 @@ export class HeightMapParser implements MessageParser {
   public getTileHeight(x: number, y: number): number {
     if (x < 0 || x >= this._width || y < 0 || y >= this._height) return -1;
 
-    return HeightMapParser.decodeTileHeight(
+    return HeightMapMessageParser.decodeTileHeight(
       this._tilesHeight[y * this._width + x]
     );
   }
@@ -50,7 +50,7 @@ export class HeightMapParser implements MessageParser {
   public getStackingBlocked(x: number, y: number): boolean {
     if (x < 0 || x >= this._width || y < 0 || y >= this._height) return true;
 
-    return HeightMapParser.decodeIsStackingBlocked(
+    return HeightMapMessageParser.decodeIsStackingBlocked(
       this._tilesHeight[y * this._width + x]
     );
   }
@@ -58,7 +58,7 @@ export class HeightMapParser implements MessageParser {
   public isRoomTile(x: number, y: number): boolean {
     if (x < 0 || x >= this._width || y < 0 || y >= this._height) return false;
 
-    return HeightMapParser.decodeIsRoomTile(
+    return HeightMapMessageParser.decodeIsRoomTile(
       this._tilesHeight[y * this._width + x]
     );
   }

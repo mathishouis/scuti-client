@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { RoomPropertyParser } from "@/sockets/messages/parsers/rooms/engine/RoomPropertyParser";
+import { RoomPropertyMessageParser } from "@/sockets/messages/parsers/rooms/engine/RoomPropertyMessageParser";
 import { FloorMaterial, Room, Scuti, WallMaterial } from "scuti-renderer";
 import { useRendererStore } from "@/stores/Renderer";
 
@@ -10,7 +10,8 @@ export class RoomPropertyMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    const parser: RoomPropertyParser = this.parser as RoomPropertyParser;
+    const parser: RoomPropertyMessageParser = this
+      .parser as RoomPropertyMessageParser;
     switch (parser.key) {
       case "wallpaper":
         (<Room>useRendererStore().room).wallMaterial = new WallMaterial(

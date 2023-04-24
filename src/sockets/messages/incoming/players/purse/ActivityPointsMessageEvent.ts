@@ -1,6 +1,7 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { usePlayerStore } from "@/stores/Player";
+import { ActivityPointsMessageParser } from "@/sockets/messages/parsers/players/purse/ActivityPointsMessageParser";
 
 export class ActivityPointsMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -8,11 +9,8 @@ export class ActivityPointsMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    const currenciesSize: number = this.readInt();
-    for (let i = 0; i < currenciesSize; i++) {
-      const type: number = this.readInt();
-      const amount: number = this.readInt();
-      usePlayerStore().data.currencies.set(type, amount);
-    }
+    const parser: ActivityPointsMessageParser = this
+      .parser as ActivityPointsMessageParser;
+    usePlayerStore().data.currencies = parser.currencies;
   }
 }

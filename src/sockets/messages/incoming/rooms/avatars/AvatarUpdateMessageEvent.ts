@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { AvatarUpdateParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarUpdateParser";
+import { AvatarUpdateMessageParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarUpdateMessageParser";
 import { AvatarUpdateDataParser } from "@/sockets/messages/parsers/rooms/utils/AvatarUpdateDataParser";
 import { Avatar, AvatarAction } from "scuti-renderer";
 import { useRendererStore } from "@/stores/Renderer";
@@ -11,7 +11,8 @@ export class AvatarUpdateMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    const parser: AvatarUpdateParser = this.parser as AvatarUpdateParser;
+    const parser: AvatarUpdateMessageParser = this
+      .parser as AvatarUpdateMessageParser;
     parser.avatars.forEach((avatar: AvatarUpdateDataParser) => {
       this._handleAvatar(avatar);
     });

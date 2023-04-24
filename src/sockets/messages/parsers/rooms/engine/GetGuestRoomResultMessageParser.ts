@@ -3,7 +3,7 @@ import { RoomDataParser } from "@/sockets/messages/parsers/rooms/utils/RoomDataP
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { RoomSettings } from "@/types/Room";
 
-export class GetGuestRoomResultParser implements MessageParser {
+export class GetGuestRoomResultMessageParser implements MessageParser {
   private _isLoading!: boolean;
   private _room!: RoomDataParser | null;
   private _checkEntry!: boolean;

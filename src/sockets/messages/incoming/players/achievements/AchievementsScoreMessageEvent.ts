@@ -1,6 +1,7 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 import { usePlayerStore } from "@/stores/Player";
+import { AchievementsScoreMessageParser } from "@/sockets/messages/parsers/players/achievements/AchievementsScoreMessageParser";
 
 export class AchievementsScoreMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -8,7 +9,8 @@ export class AchievementsScoreMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    const points: number = this.readInt();
-    usePlayerStore().data.achievementPoints = points;
+    const parser: AchievementsScoreMessageParser = this
+      .parser as AchievementsScoreMessageParser;
+    usePlayerStore().data.achievementPoints = parser.score;
   }
 }

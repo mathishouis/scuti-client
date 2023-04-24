@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { HeightMapParser } from "@/sockets/messages/parsers/rooms/engine/HeightMapParser";
+import { HeightMapMessageParser } from "@/sockets/messages/parsers/rooms/engine/HeightMapMessageParser";
 
 export class HeightMapMessageEvent extends IncomingMessage {
   constructor(packet: Buffer) {
@@ -8,7 +8,8 @@ export class HeightMapMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    const parser: HeightMapParser = this.parser as HeightMapParser;
+    const parser: HeightMapMessageParser = this
+      .parser as HeightMapMessageParser;
     // TODO: Implement the packet
   }
 }

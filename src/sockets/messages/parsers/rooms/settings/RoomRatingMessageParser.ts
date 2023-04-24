@@ -1,7 +1,7 @@
 import { MessageParser } from "@/types/Socket";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 
-export class RoomRatingParser implements MessageParser {
+export class RoomRatingMessageParser implements MessageParser {
   private _score!: number;
   private _canRate!: boolean;
 

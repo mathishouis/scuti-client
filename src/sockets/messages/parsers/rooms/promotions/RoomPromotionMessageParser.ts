@@ -1,7 +1,7 @@
 import { MessageParser } from "@/types/Socket";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 
-export class RoomPromotionParser implements MessageParser {
+export class RoomPromotionMessageParser implements MessageParser {
   private _roomId!: number;
   private _ownerId!: number;
   private _ownerName!: string | null;

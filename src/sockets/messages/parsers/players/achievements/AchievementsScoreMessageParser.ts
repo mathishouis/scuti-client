@@ -1,8 +1,8 @@
 import { MessageParser } from "@/types/Socket";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
 
-export class YouAreControllerParser implements MessageParser {
-  private _rightId!: number;
+export class AchievementsScoreMessageParser implements MessageParser {
+  private _score!: number;
 
   constructor(message: IncomingMessage) {
     this.flush();
@@ -10,14 +10,14 @@ export class YouAreControllerParser implements MessageParser {
   }
 
   public flush(): void {
-    this._rightId = 0;
+    this._score = 0;
   }
 
   public parse(message: IncomingMessage): void {
-    this._rightId = message.readInt();
+    this._score = message.readInt();
   }
 
-  public get rightId(): number {
-    return this._rightId;
+  public get score(): number {
+    return this._score;
   }
 }

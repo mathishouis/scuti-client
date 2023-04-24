@@ -5,7 +5,7 @@ import { Incoming } from "@/sockets/messages/headers/Incoming";
 import { UniqueIDMessageEvent } from "@/sockets/messages/incoming/handshake/UniqueIDMessageEvent";
 import { AuthenticationOKMessageEvent } from "@/sockets/messages/incoming/handshake/AuthenticationOKMessageEvent";
 import { UserRightsMessageEvent } from "@/sockets/messages/incoming/players/permissions/UserRightsMessageEvent";
-import { FavouritesRoomsMessageEvent } from "@/sockets/messages/incoming/navigator/FavouritesRoomsMessageEvent";
+import { FavouriteRoomsMessageEvent } from "@/sockets/messages/incoming/navigator/FavouriteRoomsMessageEvent";
 import { ActivityPointsMessageEvent } from "@/sockets/messages/incoming/players/purse/ActivityPointsMessageEvent";
 import { CreditBalanceMessageEvent } from "@/sockets/messages/incoming/players/purse/CreditBalanceMessageEvent";
 import { UserObjectMessageEvent } from "@/sockets/messages/incoming/players/details/UserObjectMessageEvent";
@@ -22,27 +22,36 @@ import { UserEventCatsMessageEvent } from "@/sockets/messages/incoming/navigator
 import { NavigatorSearchResultBlocksMessageEvent } from "@/sockets/messages/incoming/navigator/updated/NavigatorSearchResultBlocksMessageEvent";
 import { GetGuestRoomResultMessageEvent } from "@/sockets/messages/incoming/rooms/engine/GetGuestRoomResultMessageEvent";
 import { MessageParser } from "@/types/Socket";
-import { NavigatorSearchResultParser } from "@/sockets/messages/parsers/navigator/NavigatorSearchResultParser";
-import { GetGuestRoomResultParser } from "@/sockets/messages/parsers/rooms/engine/GetGuestRoomResultParser";
+import { NavigatorSearchResultBlocksMessageParser } from "@/sockets/messages/parsers/navigator/updated/NavigatorSearchResultBlocksMessageParser";
+import { GetGuestRoomResultMessageParser } from "@/sockets/messages/parsers/rooms/engine/GetGuestRoomResultMessageParser";
 import { OpenConnectionMessageEvent } from "@/sockets/messages/incoming/rooms/engine/OpenConnectionMessageEvent";
 import { RoomReadyMessageEvent } from "@/sockets/messages/incoming/rooms/access/RoomReadyMessageEvent";
-import { RoomReadyParser } from "@/sockets/messages/parsers/rooms/access/RoomReadyParser";
+import { RoomReadyMessageParser } from "@/sockets/messages/parsers/rooms/access/RoomReadyMessageParser";
 import { RoomPropertyMessageEvent } from "@/sockets/messages/incoming/rooms/engine/RoomPropertyMessageEvent";
-import { RoomPropertyParser } from "@/sockets/messages/parsers/rooms/engine/RoomPropertyParser";
+import { RoomPropertyMessageParser } from "@/sockets/messages/parsers/rooms/engine/RoomPropertyMessageParser";
 import { FloorHeightMapMessageEvent } from "@/sockets/messages/incoming/rooms/engine/FloorHeightMapMessageEvent";
-import { FloorHeightMapParser } from "@/sockets/messages/parsers/rooms/engine/FloorHeightMapParser";
+import { FloorHeightMapMessageParser } from "@/sockets/messages/parsers/rooms/engine/FloorHeightMapMessageParser";
 import { AvatarsMessageEvent } from "@/sockets/messages/incoming/rooms/avatars/AvatarsMessageEvent";
-import { AvatarsParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarsParser";
+import { AvatarsMessageParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarsMessageParser";
 import { AvatarUpdateMessageEvent } from "@/sockets/messages/incoming/rooms/avatars/AvatarUpdateMessageEvent";
-import { AvatarUpdateParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarUpdateParser";
+import { AvatarUpdateMessageParser } from "@/sockets/messages/parsers/rooms/avatars/AvatarUpdateMessageParser";
 import { YouAreControllerMessageEvent } from "@/sockets/messages/incoming/rooms/permissions/YouAreControllerMessageEvent";
-import { YouAreControllerParser } from "@/sockets/messages/parsers/rooms/permissions/YouAreControllerParser";
+import { YouAreControllerMessageParser } from "@/sockets/messages/parsers/rooms/permissions/YouAreControllerMessageParser";
 import { RoomRatingMessageEvent } from "@/sockets/messages/incoming/rooms/settings/RoomRatingMessageEvent";
-import { RoomRatingParser } from "@/sockets/messages/parsers/rooms/settings/RoomRatingParser";
+import { RoomRatingMessageParser } from "@/sockets/messages/parsers/rooms/settings/RoomRatingMessageParser";
 import { HeightMapMessageEvent } from "@/sockets/messages/incoming/rooms/engine/HeightMapMessageEvent";
-import { HeightMapParser } from "@/sockets/messages/parsers/rooms/engine/HeightMapParser";
+import { HeightMapMessageParser } from "@/sockets/messages/parsers/rooms/engine/HeightMapMessageParser";
 import { RoomPromotionMessageEvent } from "@/sockets/messages/incoming/rooms/promotions/RoomPromotionMessageEvent";
-import { RoomPromotionParser } from "@/sockets/messages/parsers/rooms/promotions/RoomPromotionParser";
+import { RoomPromotionMessageParser } from "@/sockets/messages/parsers/rooms/promotions/RoomPromotionMessageParser";
+import { UniqueIDMessageParser } from "@/sockets/messages/parsers/handshake/UniqueIDMessageParser";
+import { UserRightsMessageParser } from "@/sockets/messages/parsers/players/permissions/UserRightsMessageParser";
+import { FavouriteRoomsMessageParser } from "@/sockets/messages/parsers/navigator/FavouriteRoomsMessageParser";
+import { ActivityPointsMessageParser } from "@/sockets/messages/parsers/players/purse/ActivityPointsMessageParser";
+import { CreditBalanceMessageParser } from "@/sockets/messages/parsers/players/purse/CreditBalanceMessageParser";
+import { UserObjectMessageParser } from "@/sockets/messages/parsers/players/details/UserObjectMessageParser";
+import { AchievementsScoreMessageParser } from "@/sockets/messages/parsers/players/achievements/AchievementsScoreMessageParser";
+import { FloorItemsMessageEvent } from "@/sockets/messages/incoming/rooms/items/FloorItemsMessageEvent";
+import { FloorItemsMessageParser } from "@/sockets/messages/parsers/rooms/items/FloorItemsMessageParser";
 
 export class MessageHandler {
   private readonly _incomingMessages: Map<
@@ -58,7 +67,8 @@ export class MessageHandler {
   private _registerMessages(): void {
     this._registerMessage(
       Incoming.UniqueIDMessageEvent,
-      <IncomingMessage>(<unknown>UniqueIDMessageEvent)
+      <IncomingMessage>(<unknown>UniqueIDMessageEvent),
+      <MessageParser>(<unknown>UniqueIDMessageParser)
     );
     this._registerMessage(
       Incoming.AuthentificationOKMessageEvent,
@@ -66,11 +76,13 @@ export class MessageHandler {
     );
     this._registerMessage(
       Incoming.UserRightsMessageEvent,
-      <IncomingMessage>(<unknown>UserRightsMessageEvent)
+      <IncomingMessage>(<unknown>UserRightsMessageEvent),
+      <MessageParser>(<unknown>UserRightsMessageParser)
     );
     this._registerMessage(
       Incoming.FavouriteRoomsMessageEvent,
-      <IncomingMessage>(<unknown>FavouritesRoomsMessageEvent)
+      <IncomingMessage>(<unknown>FavouriteRoomsMessageEvent),
+      <MessageParser>(<unknown>FavouriteRoomsMessageParser)
     );
     // TODO: AvailabilityStatusMessageEvent 1769
     // TODO: PlayerSettingsMessageEvent 1001
@@ -79,21 +91,25 @@ export class MessageHandler {
     // TODO: CfhTopicsInitMessageEvent 2333
     this._registerMessage(
       Incoming.ActivityPointsMessageEvent,
-      <IncomingMessage>(<unknown>ActivityPointsMessageEvent)
+      <IncomingMessage>(<unknown>ActivityPointsMessageEvent),
+      <MessageParser>(<unknown>ActivityPointsMessageParser)
     );
     this._registerMessage(
       Incoming.CreditBalanceMessageEvent,
-      <IncomingMessage>(<unknown>CreditBalanceMessageEvent)
+      <IncomingMessage>(<unknown>CreditBalanceMessageEvent),
+      <MessageParser>(<unknown>CreditBalanceMessageParser)
     );
     this._registerMessage(
       Incoming.UserObjectMessageEvent,
-      <IncomingMessage>(<unknown>UserObjectMessageEvent)
+      <IncomingMessage>(<unknown>UserObjectMessageEvent),
+      <MessageParser>(<unknown>UserObjectMessageParser)
     );
     // TODO: BuildersClubMembershipMessageEvent 2286
     // TODO: AllowancesMessageEvent 3189
     this._registerMessage(
       Incoming.AchievementsScoreMessageEvent,
-      <IncomingMessage>(<unknown>AchievementsScoreMessageEvent)
+      <IncomingMessage>(<unknown>AchievementsScoreMessageEvent),
+      <MessageParser>(<unknown>AchievementsScoreMessageParser)
     );
     // TODO: MessengerConfigMessageEvent 913
     // TODO: BadgeInventoryMessageEvent 2969
@@ -141,14 +157,14 @@ export class MessageHandler {
     this._registerMessage(
       Incoming.NavigatorSearchResultBlocksMessageEvent,
       <IncomingMessage>(<unknown>NavigatorSearchResultBlocksMessageEvent),
-      <MessageParser>(<unknown>NavigatorSearchResultParser)
+      <MessageParser>(<unknown>NavigatorSearchResultBlocksMessageParser)
     );
 
     /** Room loading **/
     this._registerMessage(
       Incoming.GetGuestRoomResultMessageEvent,
       <IncomingMessage>(<unknown>GetGuestRoomResultMessageEvent),
-      <MessageParser>(<unknown>GetGuestRoomResultParser)
+      <MessageParser>(<unknown>GetGuestRoomResultMessageParser)
     );
     this._registerMessage(
       Incoming.OpenConnectionMessageEvent,
@@ -157,49 +173,54 @@ export class MessageHandler {
     this._registerMessage(
       Incoming.RoomReadyMessageEvent,
       <IncomingMessage>(<unknown>RoomReadyMessageEvent),
-      <MessageParser>(<unknown>RoomReadyParser)
+      <MessageParser>(<unknown>RoomReadyMessageParser)
     );
     this._registerMessage(
       Incoming.RoomPropertyMessageEvent,
       <IncomingMessage>(<unknown>RoomPropertyMessageEvent),
-      <MessageParser>(<unknown>RoomPropertyParser)
+      <MessageParser>(<unknown>RoomPropertyMessageParser)
     );
     this._registerMessage(
       Incoming.FloorHeightMapMessageEvent,
       <IncomingMessage>(<unknown>FloorHeightMapMessageEvent),
-      <MessageParser>(<unknown>FloorHeightMapParser)
+      <MessageParser>(<unknown>FloorHeightMapMessageParser)
     );
 
     /** Room avatars **/
     this._registerMessage(
       Incoming.AvatarsMessageEvent,
       <IncomingMessage>(<unknown>AvatarsMessageEvent),
-      <MessageParser>(<unknown>AvatarsParser)
+      <MessageParser>(<unknown>AvatarsMessageParser)
     );
     this._registerMessage(
       Incoming.AvatarUpdateMessageEvent,
       <IncomingMessage>(<unknown>AvatarUpdateMessageEvent),
-      <MessageParser>(<unknown>AvatarUpdateParser)
+      <MessageParser>(<unknown>AvatarUpdateMessageParser)
     );
     this._registerMessage(
       Incoming.YouAreControllerMessageEvent,
       <IncomingMessage>(<unknown>YouAreControllerMessageEvent),
-      <MessageParser>(<unknown>YouAreControllerParser)
+      <MessageParser>(<unknown>YouAreControllerMessageParser)
     );
     this._registerMessage(
       Incoming.RoomRatingMessageEvent,
       <IncomingMessage>(<unknown>RoomRatingMessageEvent),
-      <MessageParser>(<unknown>RoomRatingParser)
+      <MessageParser>(<unknown>RoomRatingMessageParser)
     );
     this._registerMessage(
       Incoming.HeightMapMessageEvent,
       <IncomingMessage>(<unknown>HeightMapMessageEvent),
-      <MessageParser>(<unknown>HeightMapParser)
+      <MessageParser>(<unknown>HeightMapMessageParser)
     );
     this._registerMessage(
       Incoming.RoomPromotionMessageEvent,
       <IncomingMessage>(<unknown>RoomPromotionMessageEvent),
-      <MessageParser>(<unknown>RoomPromotionParser)
+      <MessageParser>(<unknown>RoomPromotionMessageParser)
+    );
+    this._registerMessage(
+      Incoming.FloorItemsMessageEvent,
+      <IncomingMessage>(<unknown>FloorItemsMessageEvent),
+      <MessageParser>(<unknown>FloorItemsMessageParser)
     );
   }
 

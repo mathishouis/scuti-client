@@ -1,6 +1,6 @@
 import { Buffer } from "buffer";
 import { IncomingMessage } from "@/sockets/messages/incoming/IncomingMessage";
-import { RoomReadyParser } from "@/sockets/messages/parsers/rooms/access/RoomReadyParser";
+import { RoomReadyMessageParser } from "@/sockets/messages/parsers/rooms/access/RoomReadyMessageParser";
 import { FloorMaterial, Room, Scuti, WallMaterial } from "scuti-renderer";
 import { AddUserToRoomMessageComposer } from "@/sockets/messages/outgoing/navigator/AddUserToRoomMessageComposer";
 import { WalkMessageComposer } from "@/sockets/messages/outgoing/rooms/actions/WalkMessageComposer";
@@ -14,7 +14,8 @@ export class RoomReadyMessageEvent extends IncomingMessage {
   }
 
   public handle(): void {
-    const parser: RoomReadyParser = this.parser as RoomReadyParser;
+    const parser: RoomReadyMessageParser = this
+      .parser as RoomReadyMessageParser;
     // TODO: Implement the packet
     useRoomStore().visible = true;
     if (useRendererStore().room !== undefined)
