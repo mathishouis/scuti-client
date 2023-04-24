@@ -161,10 +161,12 @@ export default defineComponent({
     height: calc(100% + 3px);
     font-size: 7pt;
     font-family: "Volter", sans-serif;
+    -webkit-font-smoothing: antialiased;
     padding-left: 1px;
     background-color: transparent;
     margin-top: -3px;
     padding-right: 40%;
+    -webkit-font-smoothing: antialiased;
 
     &::placeholder {
       color: #000000;

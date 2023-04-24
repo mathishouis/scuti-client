@@ -115,6 +115,7 @@ export default defineComponent({
     &--1 {
       font-size: 7pt;
       font-family: "Volter", sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
 
     &--2 {
@@ -127,6 +128,7 @@ export default defineComponent({
     &--3 {
       font-size: 7pt;
       font-family: "Volter Bold", sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
   }
 

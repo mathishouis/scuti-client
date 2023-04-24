@@ -399,6 +399,7 @@ export default defineComponent({
 
   &__label {
     font-family: "Volter Bold", sans-serif;
+    -webkit-font-smoothing: antialiased;
     font-size: 7pt;
     color: #000000;
     line-height: 9px;
@@ -478,6 +479,7 @@ export default defineComponent({
   &__tiles-text {
     font-size: 7pt;
     font-family: "Volter", sans-serif;
+    -webkit-font-smoothing: antialiased;
     color: #000000;
     margin-top: 1px;
     line-height: 11px;

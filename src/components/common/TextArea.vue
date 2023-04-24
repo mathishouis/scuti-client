@@ -168,6 +168,7 @@ export default defineComponent({
     height: 100%;
     font-size: 7pt;
     font-family: "Volter", sans-serif;
+    -webkit-font-smoothing: antialiased;
     padding-left: 1px;
     background-color: transparent;
     resize: none;

@@ -102,6 +102,7 @@ export default defineComponent({
 
   &--1 &__selected-item {
     font-family: "Volter", sans-serif;
+    -webkit-font-smoothing: antialiased;
     font-size: 9px;
     color: #000000;
     position: absolute;
@@ -133,6 +134,7 @@ export default defineComponent({
 
   &--1 &__item {
     font-family: "Volter", sans-serif;
+    -webkit-font-smoothing: antialiased;
     font-size: 9px;
     color: #000000;
     padding-left: 7px;
