@@ -3,6 +3,7 @@
     <border-card
       type="7"
       class="navigator-room-info-widget"
+      :class="eventName ? 'navigator-room-info-widget--event' : ''"
       :style="{ left: x + 24 + 'px', top: y + 8 + 'px' }"
     >
       <div class="navigator-room-info-widget__content">
@@ -50,7 +51,7 @@
             <div class="navigator-room-info-widget__room-settings">
               <div class="navigator-room-info-widget__settings-row">
                 <div class="navigator-room-info-widget__row-left-settings">
-                  {{ __locale("navigator.roompopup.property.trading") }}
+                  {{ __locale("navigator.room.popup.property.trading") }}
                 </div>
                 <div class="navigator-room-info-widget__row-right-settings">
                   <span v-if="trade === 0">Pas autorisé</span>
@@ -60,7 +61,7 @@
               </div>
               <div class="navigator-room-info-widget__settings-row">
                 <div class="navigator-room-info-widget__row-left-settings">
-                  {{ __locale("navigator.roompopup.property.max_users") }}
+                  {{ __locale("navigator.room.popup.property.max_users") }}
                 </div>
                 <div class="navigator-room-info-widget__row-right-settings">
                   {{ maxUsers }}
@@ -103,27 +104,28 @@
                   {{ __locale("navigator.room.popup.room.info.favorite") }}
                 </div>
               </div>
-              <div class="navigator-room-info-widget__actions-row">
+              <div
+                class="navigator-room-info-widget__actions-row"
+                @click="setHomeRoom"
+              >
                 <div class="navigator-room-info-widget__row-left-actions">
                   <div
-                    class="navigator-room-info-widget__action-button navigator-room-info-widget__action-button--home"
+                    class="navigator-room-info-widget__action-button"
+                    :class="[
+                      homeRoom
+                        ? 'navigator-room-info-widget__action-button--home--active'
+                        : 'navigator-room-info-widget__action-button--home',
+                    ]"
                   ></div>
                 </div>
                 <div class="navigator-room-info-widget__row-right-actions">
                   {{ __locale("navigator.room.popup.room.info.home") }}
                 </div>
               </div>
-              <div class="navigator-room-info-widget__actions-row">
-                <div class="navigator-room-info-widget__row-left-actions">
-                  <div
-                    class="navigator-room-info-widget__action-button navigator-room-info-widget__action-button--report"
-                  ></div>
-                </div>
-                <div class="navigator-room-info-widget__row-right-actions">
-                  {{ __locale("navigator.room.popup.report.room") }}
-                </div>
-              </div>
-              <div class="navigator-room-info-widget__actions-row">
+              <div
+                class="navigator-room-info-widget__actions-row"
+                v-if="playerStore.data.id === ownerId"
+              >
                 <div class="navigator-room-info-widget__row-left-actions">
                   <div
                     class="navigator-room-info-widget__action-button navigator-room-info-widget__action-button--settings"
@@ -133,9 +135,39 @@
                   {{ __locale("navigator.room.popup.room.info.settings") }}
                 </div>
               </div>
+              <div class="navigator-room-info-widget__actions-row" v-else>
+                <div class="navigator-room-info-widget__row-left-actions">
+                  <div
+                    class="navigator-room-info-widget__action-button navigator-room-info-widget__action-button--report"
+                  ></div>
+                </div>
+                <div class="navigator-room-info-widget__row-right-actions">
+                  {{ __locale("navigator.room.popup.report.room") }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      <div class="navigator-room-info-widget__event-card" v-if="eventName">
+        <div class="navigator-room-info-widget__event-icon"></div>
+        <div class="navigator-room-info-widget__event-title">
+          {{ __locale("navigator.room.popup.event.name") }}:
+          {{ eventName }}
+        </div>
+        <div class="navigator-room-info-widget__event-details">
+          {{ __locale("navigator.room.popup.event.description") }}:
+          {{ eventDescription }}
+        </div>
+        <div class="navigator-room-info-widget__event-time">
+          {{ __locale("navigator.room.popup.event.end") }}:
+          {{ eventExpiresIn }}
+          {{ __locale("navigator.room.popup.event.minutes") }}
+        </div>
+      </div>
+      <div class="navigator-room-info-widget__tag-list">
+        <navigator-room-info-tag-widget label="help" />
+        <navigator-room-info-tag-widget label="skouat" />
       </div>
     </border-card>
   </teleport>
@@ -152,10 +184,14 @@ import { GetHabboGroupDetailsMessageComposer } from "@/sockets/messages/outgoing
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
 import { useSocketStore } from "@/stores/Socket";
+import { usePlayerStore } from "@/stores/Player";
+import { ChangeHomeRoomMessageComposer } from "@/sockets/messages/outgoing/players/details/ChangeHomeRoomMessageComposer";
+import NavigatorRoomInfoTagWidget from "@/components/navigator/widgets/NavigatorRoomInfoTagWidget.vue";
 
 export default defineComponent({
   name: "NavigatorRoomInfoWidget",
   components: {
+    NavigatorRoomInfoTagWidget,
     BorderCard,
     NavigatorRoomThumbnailWidget,
   },
@@ -203,11 +239,17 @@ export default defineComponent({
         new GetHabboGroupDetailsMessageComposer(this.groupId, true)
       );
     },
+    setHomeRoom(): void {
+      this.socketStore.socket?.send(new ChangeHomeRoomMessageComposer(this.id));
+    },
   },
   computed: {
-    ...mapStores(useNavigatorStore, useSocketStore),
+    ...mapStores(useNavigatorStore, useSocketStore, usePlayerStore),
     favourite(): boolean {
       return this.navigatorStore.isFavouriteRoom(this.id);
+    },
+    homeRoom(): boolean {
+      return this.playerStore.data.homeRoom === this.id;
     },
   },
 });
@@ -221,6 +263,10 @@ export default defineComponent({
   height: 261px;
   transform: translateY(-50%);
   /*height: 316px; If event*/
+
+  &--event {
+    height: 316px;
+  }
 
   &__content {
     padding: 8px 8px;
@@ -427,6 +473,77 @@ export default defineComponent({
       background-position: 0 -39px;
       height: 14px;
     }
+  }
+
+  &__event-card {
+    width: 331px;
+    height: 55px;
+    border-radius: 4px;
+    background-color: #edba44;
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+  }
+
+  &__event-icon {
+    width: 38px;
+    height: 38px;
+    background-image: url(@images/navigator/icons/event.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #ffffff;
+    border-radius: 100%;
+    position: absolute;
+    left: 8px;
+    top: 10px;
+  }
+
+  &__event-title {
+    font-family: "Ubuntu Bold", sans-serif;
+    font-size: 9.4pt;
+    color: #ffffff;
+    position: absolute;
+    left: 57px;
+    top: 5px;
+    width: calc(100% - 67px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__event-details {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 9.4pt;
+    color: #ffffff;
+    position: absolute;
+    left: 57px;
+    top: 21px;
+    width: calc(100% - 67px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__event-time {
+    font-family: "Ubuntu", sans-serif;
+    font-size: 9.4pt;
+    color: #ffffff;
+    position: absolute;
+    left: 57px;
+    top: 35px;
+    width: calc(100% - 67px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__tag-list {
+    position: absolute;
+    top: 233px;
+    left: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
   }
 }
 </style>

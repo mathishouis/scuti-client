@@ -91,6 +91,17 @@ export default defineComponent({
   },
   computed: {
     ...mapStores(useNavigatorStore, useSocketStore),
+    searchQuery(): string {
+      return this.navigatorStore.searchQuery;
+    },
+  },
+  watch: {
+    searchQuery: {
+      immediate: true,
+      handler(newVal) {
+        this.query = newVal;
+      },
+    },
   },
 });
 </script>

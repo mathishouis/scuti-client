@@ -7,7 +7,6 @@
     />
     <div
       class="navigator-room-list-layout-widget__info-button"
-      @mouseout="hideInfo"
       @mouseover="showInfo($event)"
     ></div>
     <div

@@ -62,6 +62,14 @@ export default defineComponent({
       return this.text.length;
     },
   },
+  watch: {
+    modelValue: {
+      immediate: true,
+      handler(newVal) {
+        this.text = newVal;
+      },
+    },
+  },
 });
 </script>
 

@@ -19,6 +19,7 @@ export const usePlayerStore = defineStore("player", {
       ambassador: false,
       club: false,
       currencies: new Map(),
+      homeRoom: 0,
     },
     settings: {},
   }),

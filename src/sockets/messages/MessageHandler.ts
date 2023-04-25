@@ -54,6 +54,8 @@ import { FloorItemsMessageEvent } from "@/sockets/messages/incoming/rooms/items/
 import { FloorItemsMessageParser } from "@/sockets/messages/parsers/rooms/items/FloorItemsMessageParser";
 import { CreateRoomMessageEvent } from "@/sockets/messages/incoming/navigator/CreateRoomMessageEvent";
 import { CreateRoomMessageParser } from "@/sockets/messages/parsers/navigator/CreateRoomMessageParser";
+import { HomeRoomMessageEvent } from "@/sockets/messages/incoming/handshake/HomeRoomMessageEvent";
+import { HomeRoomMessageParser } from "@/sockets/messages/parsers/handshake/HomeRoomMessageParser";
 
 export class MessageHandler {
   private readonly _incomingMessages: Map<
@@ -67,6 +69,7 @@ export class MessageHandler {
   }
 
   private _registerMessages(): void {
+    /** HANDSHAKE **/
     this._registerMessage(
       Incoming.UniqueIDMessageEvent,
       <IncomingMessage>(<unknown>UniqueIDMessageEvent),
@@ -75,6 +78,11 @@ export class MessageHandler {
     this._registerMessage(
       Incoming.AuthentificationOKMessageEvent,
       <IncomingMessage>(<unknown>AuthenticationOKMessageEvent)
+    );
+    this._registerMessage(
+      Incoming.HomeRoomMessageEvent,
+      <IncomingMessage>(<unknown>HomeRoomMessageEvent),
+      <MessageParser>(<unknown>HomeRoomMessageParser)
     );
     this._registerMessage(
       Incoming.UserRightsMessageEvent,
@@ -88,7 +96,6 @@ export class MessageHandler {
     );
     // TODO: AvailabilityStatusMessageEvent 1769
     // TODO: PlayerSettingsMessageEvent 1001
-    // TODO: HomeRoomMessageEvent 1776
     // TODO: EffectsInventoryMessageEvent 899
     // TODO: CfhTopicsInitMessageEvent 2333
     this._registerMessage(
