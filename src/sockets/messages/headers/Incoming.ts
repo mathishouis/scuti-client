@@ -29,6 +29,7 @@ export const Incoming = {
   NavigatorCollapsedCategoriesMessageEvent: 1146, // ?
   UserFlatCatsMessageEvent: 2986,
   UserEventCatsMessageEvent: 3851,
+  CreateRoomMessageEvent: 3230,
 
   /* ROOM */
   GetGuestRoomResultMessageEvent: 1826,

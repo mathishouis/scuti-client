@@ -13,7 +13,12 @@
       <div class="navigator-room-creator-window__form">
         <div class="navigator-room-creator-window__input-container">
           <div class="navigator-room-creator-window__label">Nom</div>
-          <text-field type="2" placeholder="Nom" maxlength="25" />
+          <text-field
+            type="2"
+            placeholder="Nom"
+            maxlength="25"
+            v-model="name"
+          />
         </div>
         <div class="navigator-room-creator-window__input-container">
           <div class="navigator-room-creator-window__label">
@@ -24,6 +29,7 @@
             type="2"
             placeholder="Description de l'appart"
             maxlength="128"
+            v-model="description"
           />
         </div>
         <div class="navigator-room-creator-window__input-container">
@@ -33,24 +39,44 @@
             v-model="category"
             :items="[
               {
-                label: 'Jeux de Rôles',
-                value: 'all',
+                label: 'Tchat et discussion',
+                value: 0,
+              },
+              {
+                label: 'Habbo Vie',
+                value: 1,
+              },
+              {
+                label: 'Troc',
+                value: 2,
+              },
+              {
+                label: 'Construire & Décorer',
+                value: 3,
               },
               {
                 label: 'Jeux',
-                value: 'all2',
-              },
-              {
-                label: 'Évènements',
-                value: 'all3',
-              },
-              {
-                label: 'Tchat & Discussions',
-                value: 'all4',
+                value: 4,
               },
               {
                 label: 'Fête',
-                value: 'all5',
+                value: 5,
+              },
+              {
+                label: 'Crew des Sites de Fans',
+                value: 6,
+              },
+              {
+                label: 'Centre d\'aide',
+                value: 7,
+              },
+              {
+                label: 'Jeux de Rôles',
+                value: 8,
+              },
+              {
+                label: 'Chez moi',
+                value: 9,
               },
             ]"
           />
@@ -61,27 +87,43 @@
           </div>
           <selection-list
             type="1"
-            v-model="category"
+            v-model="maxVisitors"
             :items="[
               {
                 label: '10',
-                value: 'all',
+                value: 10,
               },
               {
                 label: '15',
-                value: 'all2',
+                value: 15,
               },
               {
                 label: '20',
-                value: 'all3',
+                value: 20,
               },
               {
                 label: '25',
-                value: 'all4',
+                value: 25,
               },
               {
                 label: '30',
-                value: 'all5',
+                value: 30,
+              },
+              {
+                label: '35',
+                value: 35,
+              },
+              {
+                label: '40',
+                value: 40,
+              },
+              {
+                label: '45',
+                value: 45,
+              },
+              {
+                label: '50',
+                value: 50,
               },
             ]"
           />
@@ -92,19 +134,19 @@
           </div>
           <selection-list
             type="1"
-            v-model="category"
+            v-model="tradeState"
             :items="[
               {
                 label: 'Troc interdit',
-                value: 'all',
+                value: 0,
               },
               {
                 label: 'Le propriétaire et les ayant-droits peuvent troquer',
-                value: 'all2',
+                value: 1,
               },
               {
                 label: 'Tout le monde peut troquer',
-                value: 'all3',
+                value: 2,
               },
             ]"
           />
@@ -114,6 +156,7 @@
         <primary-button
           type="3"
           class="navigator-room-creator-window__cancel-button"
+          @click="create"
           >Crée un appart</primary-button
         >
         <primary-button
@@ -179,13 +222,19 @@ import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
 import BorderCard from "@/components/common/BorderCard.vue";
 import { useWindowStore } from "@/stores/WindowView";
+import { useSocketStore } from "@/stores/Socket";
+import { CreateRoomMessageComposer } from "@/sockets/messages/outgoing/navigator/CreateRoomMessageComposer";
 
 export default defineComponent({
   name: "NavigatorRoomCreatorWindow",
   components: { BorderCard },
   data: () => ({
-    category: "all",
+    name: "",
+    description: "",
     selectedModel: "model_a",
+    category: 0,
+    maxVisitors: 10,
+    tradeState: 0,
     models: [
       {
         name: "model_a",
@@ -371,9 +420,21 @@ export default defineComponent({
     close(): void {
       this.windowStore.getWindow("roomCreator")!.visible = false;
     },
+    create(): void {
+      this.socketStore.socket!.send(
+        new CreateRoomMessageComposer(
+          this.name,
+          this.description,
+          this.selectedModel,
+          this.category,
+          this.maxVisitors,
+          this.tradeState
+        )
+      );
+    },
   },
   computed: {
-    ...mapStores(useNavigatorStore, useWindowStore),
+    ...mapStores(useNavigatorStore, useWindowStore, useSocketStore),
   },
 });
 </script>

@@ -12,7 +12,8 @@ export class FloorHeightMapMessageEvent extends IncomingMessage {
   public handle(): void {
     const parser: FloorHeightMapMessageParser = this
       .parser as FloorHeightMapMessageParser;
-    (<Room>useRendererStore().room).wallHeight = parser.wallHeight;
+    if (parser.wallHeight > 1)
+      (<Room>useRendererStore().room).wallHeight = parser.wallHeight;
     (<Room>useRendererStore().room).tileMap = (<string>(
       parser.heightMap
     )).replaceAll("\r", "\n");
