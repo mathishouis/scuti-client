@@ -8,6 +8,7 @@
     <div
       class="navigator-room-list-layout-widget__info-button"
       @mouseover="showInfo($event)"
+      @mouseout="hideInfo"
     ></div>
     <div
       class="navigator-room-list-layout-widget__group-icon"
@@ -39,7 +40,7 @@
       :event-description="eventDescription"
       :event-expires-in="eventExpiresIn"
       class="navigator-room-list-layout-widget__info"
-      v-if="toggleInfo"
+      v-if="infoVisible"
     />
   </div>
 </template>
@@ -84,7 +85,7 @@ export default defineComponent({
     thumbnail: String,
   },
   data: () => ({
-    toggleInfo: false,
+    infoVisible: false,
     x: 0,
     y: 0,
   }),
@@ -99,10 +100,10 @@ export default defineComponent({
       const offsets: DOMRect = event.target.getBoundingClientRect();
       this.y = offsets.top;
       this.x = offsets.left;
-      this.toggleInfo = true;
+      this.infoVisible = true;
     },
     hideInfo(): void {
-      this.toggleInfo = false;
+      this.infoVisible = false;
     },
   },
   computed: {
