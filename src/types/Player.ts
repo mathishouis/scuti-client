@@ -9,6 +9,7 @@ export interface PlayerData {
   ambassador: boolean;
   club: boolean;
   currencies: Map<number, number>;
+  homeRoom: number;
 }
 
 export interface PlayerSettings {}
