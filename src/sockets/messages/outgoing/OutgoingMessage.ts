@@ -18,7 +18,7 @@ export class OutgoingMessage extends BufferWS {
 
   public prepare(): Buffer {
     this.flip();
-    this.writeInt(32);
+    this.writeInt(this.getByteArray().byteLength - 4);
     return new Buffer(this.getByteArray());
   }
 }
