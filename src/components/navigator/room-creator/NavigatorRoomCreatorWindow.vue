@@ -5,7 +5,7 @@
     width="585px"
     height="367px"
     class="navigator-room-creator-window"
-    title="Création"
+    :title="__locale('navigator.createroom.title')"
     @close="close"
     name="roomCreator"
   >
@@ -17,72 +17,76 @@
             class="navigator-room-creator-window__error-bubble"
             v-if="nameError"
           >
-            Donne un nom à ton appart!
+            {{ __locale("navigator.createroom.name_error") }}
           </bubble-card>
-          <div class="navigator-room-creator-window__label">Nom</div>
+          <div class="navigator-room-creator-window__label">
+            {{ __locale("navigator.createroom.room_name") }}
+          </div>
           <text-field
             type="2"
-            placeholder="Nom"
+            :placeholder="__locale('navigator.createroom.room_name')"
             maxlength="25"
             v-model="name"
           />
         </div>
         <div class="navigator-room-creator-window__input-container">
           <div class="navigator-room-creator-window__label">
-            Description de l'appart
+            {{ __locale("navigator.createroom.room_description") }}
           </div>
           <text-area
             height="58px"
             type="2"
-            placeholder="Description de l'appart"
+            :placeholder="__locale('navigator.createroom.room_description')"
             maxlength="128"
             v-model="description"
           />
         </div>
         <div class="navigator-room-creator-window__input-container">
-          <div class="navigator-room-creator-window__label">Catégorie</div>
+          <div class="navigator-room-creator-window__label">
+            {{ __locale("navigator.createroom.category") }}
+          </div>
           <selection-list
             type="1"
             v-model="category"
             :items="[
               {
-                label: 'Tchat et discussion',
+                label: __locale('navigator.category.chat'),
                 value: 0,
               },
               {
-                label: 'Habbo Vie',
+                label: __locale('navigator.category.life'),
                 value: 1,
               },
               {
-                label: 'Troc',
+                label: __locale('navigator.category.trade'),
                 value: 2,
               },
               {
-                label: 'Construire & Décorer',
+                label: __locale('navigator.category.build'),
                 value: 3,
               },
               {
-                label: 'Jeux',
+                label: __locale('navigator.category.games'),
                 value: 4,
               },
               {
-                label: 'Fête',
+                label: __locale('navigator.category.party'),
                 value: 5,
               },
               {
-                label: 'Crew des Sites de Fans',
+                label: __locale('navigator.category.fansite'),
                 value: 6,
               },
               {
-                label: 'Centre d\'aide',
+                label: __locale('navigator.category.help'),
                 value: 7,
               },
               {
-                label: 'Jeux de Rôles',
+                label: __locale('navigator.category.roleplay'),
                 value: 8,
               },
               {
-                label: 'Chez moi',
+                label: __locale('navigator.category.personal'),
                 value: 9,
               },
             ]"
@@ -90,7 +94,7 @@
         </div>
         <div class="navigator-room-creator-window__input-container">
           <div class="navigator-room-creator-window__label">
-            Nb de visiteurs autorisés
+            {{ __locale("navigator.createroom.max_visitors") }}
           </div>
           <selection-list
             type="1"
@@ -137,7 +141,7 @@
         </div>
         <div class="navigator-room-creator-window__input-container">
           <div class="navigator-room-creator-window__label">
-            Paramètres Troc
+            {{ __locale("navigator.createroom.trade_settings") }}
           </div>
           <selection-list
             type="1"
@@ -164,18 +168,20 @@
           type="3"
           class="navigator-room-creator-window__cancel-button"
           @click="create"
-          >Crée un appart</primary-button
+          >{{ __locale("navigator.createroom.create") }}</primary-button
         >
         <primary-button
           type="1"
           class="navigator-room-creator-window__cancel-button"
           @click="close"
-          >Annuler</primary-button
+          >{{ __locale("navigator.createroom.cancel") }}</primary-button
         >
       </div>
     </div>
     <div class="navigator-room-creator-window__right-panel">
-      <div class="navigator-room-creator-window__label">Choisis la forme</div>
+      <div class="navigator-room-creator-window__label">
+        {{ __locale("navigator.createroom.choose_layout") }}
+      </div>
       <scroll-box width="295px" height="294px" type="2">
         <div class="navigator-room-creator-window__model-list">
           <border-card
@@ -213,7 +219,8 @@
             <div class="navigator-room-creator-window__tiles-count">
               <div class="navigator-room-creator-window__tiles-icon"></div>
               <div class="navigator-room-creator-window__tiles-text">
-                {{ model.tiles }} cases
+                {{ model.tiles }}
+                {{ __locale("navigator.createroom.tile_size") }}
               </div>
             </div>
           </border-card>
@@ -512,6 +519,7 @@ export default defineComponent({
     width: 135px;
     height: 96px;
     position: relative;
+    cursor: pointer;
   }
 
   &__model-image {
