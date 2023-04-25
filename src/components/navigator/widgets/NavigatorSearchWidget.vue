@@ -31,6 +31,7 @@
     </div>
     <div class="navigator-search-widget__input">
       <text-field
+        type="1"
         :placeholder="__locale('navigator.filter.input.placeholder')"
         v-model="query"
         @change="updateQuery"

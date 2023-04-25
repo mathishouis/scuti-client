@@ -1,9 +1,16 @@
 <template>
   <div
     class="window-frame"
-    :style="{ left: x, top: y, width: width, height: height }"
+    :style="{
+      left: window.x + 'px',
+      top: window.y + 'px',
+      width: width,
+      height: height,
+      zIndex: window.zIndex,
+    }"
     :class="'window-frame--' + type"
     ref="window"
+    @click="setToTop"
   >
     <div>
       <div class="window-frame__background"></div>
@@ -20,17 +27,27 @@
     ></div>
     <div class="window-frame__button-list">
       <div class="window-frame__close-button" @click="close"></div>
-      <div class="window-frame__info-button" @click="info"></div>
+      <div
+        class="window-frame__info-button"
+        v-if="infoButton"
+        @click="info"
+      ></div>
     </div>
     <div class="window-frame__content">
       <slot />
     </div>
-    <div class="window-frame__resizer" @mousedown="onResizeStart"></div>
+    <div
+      class="window-frame__resizer"
+      v-if="maxWidth && maxHeight"
+      @mousedown="onResizeStart"
+    ></div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapStores } from "pinia";
+import { useWindowStore } from "@/stores/WindowView";
 
 export default defineComponent({
   name: "WindowFrame",
@@ -56,11 +73,14 @@ export default defineComponent({
     },
     maxWidth: {
       type: String,
-      default: "400px",
     },
     maxHeight: {
       type: String,
-      default: "400px",
+    },
+    infoButton: Boolean,
+    name: {
+      type: String,
+      required: true,
     },
   },
   data: () => ({
@@ -68,6 +88,9 @@ export default defineComponent({
     resizing: false,
   }),
   methods: {
+    setToTop(): void {
+      this.windowStore.setToTop(this.name);
+    },
     onDragStart(event: PointerEvent): void {
       this.dragging = true;
     },
@@ -88,14 +111,8 @@ export default defineComponent({
             event.movementY +
             "px";
         }*/
-        (this.$refs["window"] as any).style.left =
-          parseInt((this.$refs["window"] as any).style.left, 10) +
-          event.movementX +
-          "px";
-        (this.$refs["window"] as any).style.top =
-          parseInt((this.$refs["window"] as any).style.top, 10) +
-          event.movementY +
-          "px";
+        this.window.x = this.window.x + event.movementX;
+        this.window.y = this.window.y + event.movementY;
       }
     },
     onResizeStart(event: PointerEvent): void {
@@ -105,14 +122,14 @@ export default defineComponent({
       this.resizing = false;
     },
     onResizeMove(event: PointerEvent): void {
-      if (this.resizing) {
+      if (this.resizing && (this.maxHeight || this.maxWidth)) {
         if (
           parseInt((this.$refs["window"] as any).style.width, 10) +
             event.movementX >=
             parseInt(this.width, 10) &&
           parseInt((this.$refs["window"] as any).style.width, 10) +
             event.movementX <=
-            parseInt(this.maxWidth, 10)
+            parseInt(this.maxWidth ?? "", 10)
         ) {
           (this.$refs["window"] as any).style.width =
             parseInt((this.$refs["window"] as any).style.width, 10) +
@@ -125,7 +142,7 @@ export default defineComponent({
             parseInt(this.height, 10) &&
           parseInt((this.$refs["window"] as any).style.height, 10) +
             event.movementY <=
-            parseInt(this.maxHeight, 10)
+            parseInt(this.maxHeight ?? "", 10)
         ) {
           (this.$refs["window"] as any).style.height =
             parseInt((this.$refs["window"] as any).style.height, 10) +
@@ -169,6 +186,12 @@ export default defineComponent({
       this.$emit("info");
     },
   },
+  computed: {
+    ...mapStores(useWindowStore),
+    window(): any {
+      return this.windowStore.getWindow(this.name)!;
+    },
+  },
   mounted(): void {
     document.body.addEventListener("pointermove", (event) =>
       this.onDragMove(event)
@@ -189,7 +212,6 @@ export default defineComponent({
 <style lang="scss" scoped>
 .window-frame {
   position: fixed;
-  z-index: 2;
   &__background {
     position: absolute;
     width: 100%;

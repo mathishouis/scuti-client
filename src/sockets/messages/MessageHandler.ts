@@ -52,6 +52,8 @@ import { UserObjectMessageParser } from "@/sockets/messages/parsers/players/deta
 import { AchievementsScoreMessageParser } from "@/sockets/messages/parsers/players/achievements/AchievementsScoreMessageParser";
 import { FloorItemsMessageEvent } from "@/sockets/messages/incoming/rooms/items/FloorItemsMessageEvent";
 import { FloorItemsMessageParser } from "@/sockets/messages/parsers/rooms/items/FloorItemsMessageParser";
+import { CreateRoomMessageEvent } from "@/sockets/messages/incoming/navigator/CreateRoomMessageEvent";
+import { CreateRoomMessageParser } from "@/sockets/messages/parsers/navigator/CreateRoomMessageParser";
 
 export class MessageHandler {
   private readonly _incomingMessages: Map<
@@ -158,6 +160,11 @@ export class MessageHandler {
       Incoming.NavigatorSearchResultBlocksMessageEvent,
       <IncomingMessage>(<unknown>NavigatorSearchResultBlocksMessageEvent),
       <MessageParser>(<unknown>NavigatorSearchResultBlocksMessageParser)
+    );
+    this._registerMessage(
+      Incoming.CreateRoomMessageEvent,
+      <IncomingMessage>(<unknown>CreateRoomMessageEvent),
+      <MessageParser>(<unknown>CreateRoomMessageParser)
     );
 
     /** Room loading **/

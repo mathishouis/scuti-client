@@ -1,5 +1,5 @@
 <template>
-  <div class="button">
+  <div class="button" :class="'button--' + type">
     <div :style="{ opacity: blend }">
       <div
         class="button__background"
@@ -30,6 +30,19 @@ export default defineComponent({
 .button {
   position: relative;
   cursor: pointer;
+
+  &--1 {
+    height: 21px;
+  }
+
+  &--2 {
+    height: 29px;
+  }
+
+  &--3 {
+    height: 21px;
+  }
+
   &__background {
     position: absolute;
     width: 100%;
@@ -50,7 +63,14 @@ export default defineComponent({
       border-left: 14px solid transparent;
       border-bottom: 14px solid transparent;
       border-right: 14px solid transparent;
-      height: 29px;
+    }
+
+    &--3 {
+      border-image: url(@images/buttons/3.png) 4 4 4 4 fill;
+      border-top: 4px solid transparent;
+      border-left: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-right: 4px solid transparent;
     }
   }
 
@@ -61,6 +81,10 @@ export default defineComponent({
 
     &--2 {
       border-image: url(@images/buttons/2_hover.png) 14 14 14 14 fill !important;
+    }
+
+    &--3 {
+      border-image: url(@images/buttons/3_hover.png) 4 4 4 4 fill !important;
     }
   }
 
@@ -73,21 +97,38 @@ export default defineComponent({
     &--2 {
       border-image: url(@images/buttons/2_active.png) 14 14 14 14 fill !important;
     }
+
+    &--3 {
+      border-image: url(@images/buttons/3_active.png) 4 4 4 4 fill !important;
+    }
   }
 
   &__content {
     z-index: 1;
     position: relative;
     width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &--1 {
+      font-size: 7pt;
+      font-family: "Volter", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
 
     &--2 {
       font-size: 9.5pt;
       font-family: "Ubuntu Bold", sans-serif;
       color: #000000;
       line-height: 29px;
+    }
+
+    &--3 {
+      font-size: 7pt;
+      font-family: "Volter Bold", sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
   }
 

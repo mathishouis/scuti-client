@@ -109,11 +109,20 @@ export default defineComponent({
       border-bottom: 6px solid transparent;
       border-right: 6px solid transparent;
     }
+
+    &--9 {
+      border-image: url(@images/borders/9.png) 6 6 6 6 fill;
+      border-top: 6px solid transparent;
+      border-left: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
   }
 
   &__content {
     z-index: 1;
     width: 100%;
+    height: 100%;
     position: relative;
   }
 

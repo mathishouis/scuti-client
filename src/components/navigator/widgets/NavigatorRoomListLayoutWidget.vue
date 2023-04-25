@@ -54,6 +54,7 @@ import { GetGuestRoomMessageComposer } from "@/sockets/messages/outgoing/rooms/e
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
 import { useSocketStore } from "@/stores/Socket";
+import { useWindowStore } from "@/stores/WindowView";
 
 export default defineComponent({
   name: "NavigatorRoomListLayoutWidget",
@@ -90,7 +91,7 @@ export default defineComponent({
   }),
   methods: {
     visit(): void {
-      this.navigatorStore.visible = false;
+      this.windowStore.getWindow("navigator")!.visible = false;
       this.socketStore.socket?.send(
         new GetGuestRoomMessageComposer(this.id, 0, 1)
       );
@@ -106,7 +107,7 @@ export default defineComponent({
     },
   },
   computed: {
-    ...mapStores(useNavigatorStore, useSocketStore),
+    ...mapStores(useNavigatorStore, useSocketStore, useWindowStore),
   },
 });
 </script>

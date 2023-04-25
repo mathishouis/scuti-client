@@ -49,6 +49,7 @@ import { useLandingViewStore } from "@/stores/LandingView";
 import { useNavigatorStore } from "@/stores/Navigator";
 import { useSocketStore } from "@/stores/Socket";
 import { useToolBarStore } from "@/stores/ToolBar";
+import { useWindowStore } from "@/stores/WindowView";
 
 export default defineComponent({
   name: "ToolBar",
@@ -60,8 +61,13 @@ export default defineComponent({
       this.toolBarStore.leftVisible = !this.toolBarStore.leftVisible;
     },
     toggleNavigator(): void {
-      this.navigatorStore.visible = !this.navigatorStore.visible;
-      if (this.navigatorStore.visible && !this.navigatorStore.searching) {
+      this.windowStore.setToTop("navigator");
+      this.windowStore.getWindow("navigator")!.visible =
+        !this.windowStore.getWindow("navigator")!.visible;
+      if (
+        this.windowStore.getWindow("navigator")!.visible &&
+        !this.navigatorStore.searching
+      ) {
         this.socketStore.socket?.send(
           new NewNavigatorSearchMessageComposer(
             this.navigatorStore.selectedTab,
@@ -88,7 +94,8 @@ export default defineComponent({
       useLandingViewStore,
       useNavigatorStore,
       useSocketStore,
-      useToolBarStore
+      useToolBarStore,
+      useWindowStore
     ),
   },
 });
