@@ -25,4 +25,5 @@ export const Outgoing = {
   GetHabboGroupDetailsMessageComposer: 1415,
   CreateRoomMessageComposer: 859,
   ChangeHomeRoomMessageComposer: 3724,
+  RandomFriendingRoomMessageComposer: 1275,
 };

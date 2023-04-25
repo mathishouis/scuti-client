@@ -17,7 +17,10 @@
       </div>
     </tool-tip>
     <tool-tip :label="__locale('navigator.tooltip.random.room')" v-else>
-      <div class="navigator-actions-widget__random-room-button">
+      <div
+        class="navigator-actions-widget__random-room-button"
+        @click="randomFriendingRoom"
+      >
         {{ __locale("navigator.random.room") }}
       </div>
     </tool-tip>
@@ -29,17 +32,22 @@ import { defineComponent } from "vue";
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
 import { useWindowStore } from "@/stores/WindowView";
+import { useSocketStore } from "@/stores/Socket";
+import { RandomFriendingRoomMessageComposer } from "@/sockets/messages/outgoing/navigator/RandomFriendingRoomMessageComposer";
 
 export default defineComponent({
   name: "NavigatorActionsWidget",
   computed: {
-    ...mapStores(useNavigatorStore, useWindowStore),
+    ...mapStores(useNavigatorStore, useWindowStore, useSocketStore),
   },
   methods: {
     createRoom(): void {
       console.log("create");
       this.windowStore.getWindow("roomCreator")!.visible = true;
       setTimeout(() => this.windowStore.setToTop("roomCreator"), 10);
+    },
+    randomFriendingRoom(): void {
+      this.socketStore.socket?.send(new RandomFriendingRoomMessageComposer());
     },
   },
 });
