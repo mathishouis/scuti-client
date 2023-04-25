@@ -13,6 +13,7 @@ import ScrollBox from "@/components/common/ScrollBox.vue";
 import Config from "@/mixins/Config";
 import Locale from "@/mixins/Locale";
 import TextArea from "@/components/common/TextArea.vue";
+import BubbleCard from "@/components/common/BubbleCard.vue";
 
 const pinia: Pinia = createPinia();
 
@@ -28,5 +29,6 @@ createApp(App)
   .component("selection-list", SelectionList)
   .component("text-field", TextField)
   .component("text-area", TextArea)
+  .component("bubble-card", BubbleCard)
   .component("scroll-box", ScrollBox)
   .mount("#app");

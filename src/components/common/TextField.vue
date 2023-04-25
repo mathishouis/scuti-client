@@ -127,13 +127,9 @@ export default defineComponent({
       font-style: italic;
     }
 
-    /*&::selection {
+    &::selection {
       color: #000000;
       background-color: #b5d5ff;
-    }*/
-    &::selection {
-      color: #ffffff;
-      background-color: #000000;
     }
   }
 
@@ -173,8 +169,8 @@ export default defineComponent({
     }
 
     &::selection {
-      color: #ffffff;
-      background-color: #000000;
+      color: #000000;
+      background-color: #b5d5ff;
     }
   }
 }

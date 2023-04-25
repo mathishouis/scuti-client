@@ -12,6 +12,13 @@
     <div class="navigator-room-creator-window__left-panel">
       <div class="navigator-room-creator-window__form">
         <div class="navigator-room-creator-window__input-container">
+          <bubble-card
+            type="1"
+            class="navigator-room-creator-window__error-bubble"
+            v-if="nameError"
+          >
+            Donne un nom à ton appart!
+          </bubble-card>
           <div class="navigator-room-creator-window__label">Nom</div>
           <text-field
             type="2"
@@ -220,14 +227,12 @@
 import { defineComponent } from "vue";
 import { mapStores } from "pinia";
 import { useNavigatorStore } from "@/stores/Navigator";
-import BorderCard from "@/components/common/BorderCard.vue";
 import { useWindowStore } from "@/stores/WindowView";
 import { useSocketStore } from "@/stores/Socket";
 import { CreateRoomMessageComposer } from "@/sockets/messages/outgoing/navigator/CreateRoomMessageComposer";
 
 export default defineComponent({
   name: "NavigatorRoomCreatorWindow",
-  components: { BorderCard },
   data: () => ({
     name: "",
     description: "",
@@ -235,6 +240,7 @@ export default defineComponent({
     category: 0,
     maxVisitors: 10,
     tradeState: 0,
+    nameError: false,
     models: [
       {
         name: "model_a",
@@ -337,7 +343,7 @@ export default defineComponent({
         hc: true,
       },
       {
-        name: "model_u",
+        name: "model_t",
         tiles: 540,
         hc: true,
       },
@@ -421,16 +427,18 @@ export default defineComponent({
       this.windowStore.getWindow("roomCreator")!.visible = false;
     },
     create(): void {
-      this.socketStore.socket!.send(
-        new CreateRoomMessageComposer(
-          this.name,
-          this.description,
-          this.selectedModel,
-          this.category,
-          this.maxVisitors,
-          this.tradeState
-        )
-      );
+      if (this.name.length < 3) this.nameError = true;
+      else
+        this.socketStore.socket!.send(
+          new CreateRoomMessageComposer(
+            this.name,
+            this.description,
+            this.selectedModel,
+            this.category,
+            this.maxVisitors,
+            this.tradeState
+          )
+        );
     },
   },
   computed: {
@@ -563,6 +571,14 @@ export default defineComponent({
     position: absolute;
     top: 5px;
     right: 9px;
+  }
+
+  &__error-bubble {
+    position: absolute !important;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -13px;
   }
 
   &__arrow-icon {
